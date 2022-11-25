@@ -5,7 +5,7 @@ import App from './pages/App'
 import { ChakraProvider } from '@chakra-ui/react'
 import theme from './theme/theme'
 import './theme/style.css'
-
+//using CHakra Ui
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>

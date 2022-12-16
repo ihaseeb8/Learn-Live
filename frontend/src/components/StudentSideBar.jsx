@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     Flex,
     Text,
@@ -22,8 +22,30 @@ import {
 } from 'react-icons/fi'
 import { IoPawOutline } from 'react-icons/io5'
 import NavItem from './NavItem'
-
+import axios from "axios"
 export default function StudentSidebar({navSize, changeNavSize}) {
+
+    const [ userID , setUserID] = useState("");
+    const [name, setName] = useState("");
+
+    const getCuurentUser = () =>
+    {
+      let logintoken = localStorage.getItem("ltoken")
+      console.log("Login Token"+logintoken);
+      axios.defaults.headers.common["Authorization"] = `Bearer ${logintoken}`;
+      axios.get("http://localhost:5000/student/viewprofile")
+        .then(res=> {
+                console.log(res.data)
+                setUserID(res.data._id);
+                setName(res.data.name);
+        }).catch (err=> {
+            console.log(err) })
+    }
+
+    useEffect(()=>
+    {
+        getCuurentUser();
+    })
 
     return (
         <Flex
@@ -76,7 +98,7 @@ export default function StudentSidebar({navSize, changeNavSize}) {
                 <Flex mt={4} align="center">
                     <Avatar size="md" src="/abv.jpg" />
                     <Flex flexDir="column" ml={4} display={navSize == "small" ? "none" : "flex"}>
-                        <Heading as="h3" size="sm">Haseeb Ullah</Heading>
+                        <Heading as="h3" size="sm">{name}</Heading>
                     </Flex>
                 </Flex>
             </Flex>

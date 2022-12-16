@@ -5,25 +5,38 @@ import LoginPage from './LoginPage'
 import StudentDashboard from './StudentDashboard'
 import TeacherDashboard from './TeacherDashboard'
 import useStore from '../store'
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 function App() {
+  return  (
+    <Router>
+    <Routes>
+     
+     <Route index element = {<LoginPage/>}/>
+     <Route path="teacher" element= {<TeacherDashboard/>} />
+     <Route path="student" element={<StudentDashboard/>}/>
 
-  const user = useStore(state => state.user)
-  const loginState = useStore(state => state.loginState)
 
-  if(loginState){
+    </Routes>
+  </Router>
+  );
+  };
+  // const user = useStore(state => state.user)
+  // const loginState = useStore(state => state.loginState)
 
-    if(user=="student"){
-      return (<StudentDashboard></StudentDashboard>)
-    }
-    else if(user=="teacher"){
-      return (<TeacherDashboard></TeacherDashboard>)
-    }
-  }
-  else{
-    return (<LoginPage></LoginPage>)
-  }
+  // if(loginState){
 
-}
+  //   if(user=="student"){
+  //     return (<StudentDashboard></StudentDashboard>)
+  //   }
+  //   else if(user=="teacher"){
+  //     return (<TeacherDashboard></TeacherDashboard>)
+  //   }
+  // }
+  // else{
+  //   return (<LoginPage></LoginPage>)
+  // }
+
+
 
 export default App

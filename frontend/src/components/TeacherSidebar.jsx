@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Flex,
     Text,
@@ -22,8 +22,31 @@ import {
 } from 'react-icons/fi'
 import { IoPawOutline } from 'react-icons/io5'
 import NavItem from './NavItem'
+import axios from "axios"
 
 export default function TeacherSidebar({navSize, changeNavSize}) {
+
+    const [ userID , setUserID] = useState("");
+    const [name, setName] = useState("");
+
+    const getCuurentUser = () =>
+    {
+      let logintoken = localStorage.getItem("logintoken")
+      console.log("Login Token"+logintoken);
+      axios.defaults.headers.common["Authorization"] = `Bearer ${logintoken}`;
+      axios.get("http://localhost:5000/teacher/viewprofile")
+        .then(res=> {
+                console.log(res.data)
+                setUserID(res.data._id);
+                setName(res.data.name);
+        }).catch (err=> {
+            console.log(err) })
+    }
+
+    useEffect(()=>
+    {
+        getCuurentUser();
+    })
 
     return (
         <Flex
@@ -57,7 +80,7 @@ export default function TeacherSidebar({navSize, changeNavSize}) {
                     }}
                 />
                 <NavItem navSize={navSize} icon={FiHome} title="Dashboard" description="This is the description for the dashboard." />
-                <NavItem navSize={navSize} icon={FiUser} title="Account" />
+                <NavItem navSize={navSize} icon={FiUser} title="Account" path="/teacher/account"/>
                 <NavItem navSize={navSize} icon={FiFileText} title="Quizzes" />
                 <NavItem navSize={navSize} icon={FiPaperclip} title="Assignments" />
                 <NavItem navSize={navSize} icon={FiSettings} title="Settings" />
@@ -74,7 +97,7 @@ export default function TeacherSidebar({navSize, changeNavSize}) {
                 <Flex mt={4} align="center">
                     <Avatar size="md" src="/abv.jpg" />
                     <Flex flexDir="column" ml={4} display={navSize == "small" ? "none" : "flex"}>
-                        <Heading as="h3" size="sm">Teacher</Heading>
+                        <Heading as="h3" size="sm">{name}</Heading>
                     </Flex>
                 </Flex>
             </Flex>

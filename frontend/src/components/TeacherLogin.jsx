@@ -1,9 +1,41 @@
 import { Heading, Text, VStack, Flex, Container, SimpleGrid, GridItem, FormControl, FormLabel, Input, Button, Image, color } from '@chakra-ui/react'
-import React from 'react'
+import React, { useContext, useEffect, useState } from "react";
 import LogInNavBar from '../components/LogInNavBar'
 import useStore from '../store'
+import { useNavigate} from "react-router-dom";
+import axios from "axios"
+
 
 const TeacherLogin = () => {
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [msg, setMsg] = useState('');
+
+     const navigate = useNavigate();
+    // const handleSubmit1 = () =>
+    // {
+    //         navigate("/vsignup");
+    // }
+    const LoginTeacher = async(e) =>
+    {
+        e.preventDefault();
+        try {
+           const res=  await axios.post('http://localhost:5000/teacher/verifylogin', {
+                email: email,
+                password: password,
+            });
+
+            localStorage.setItem("logintoken",res.data);
+             console.log("HELLO" +res.data);
+            navigate("/teacher");
+        } catch (error) {
+            if (error.response) {
+                setMsg(error.response.data.msg);
+            }
+        }
+    }
+
   return (
     <Container maxW="full" p={0} bg='orange.100' >
 
@@ -24,14 +56,27 @@ const TeacherLogin = () => {
                     <GridItem colSpan={2} minW={40}>
                         <FormControl>
                             <FormLabel>Username</FormLabel>
-                            <Input variant={'filled'} placeholder='John'/>  
+                            <Input
+                            onChange={e => setEmail(e.target.value)} 
+                            id='email'
+                             name='email'
+                              label='Email'
+                            variant={'filled'}
+                             placeholder='John'
+                             required/>  
                         </FormControl>
                     </GridItem>
 
                     <GridItem colSpan={2} minW={40}>
                         <FormControl>
                             <FormLabel>Password</FormLabel>
-                            <Input variant={'filled'} type={`password`}/>  
+                            <Input
+                            onChange={e=>setPassword(e.target.value)}
+                             id='password' name='password' label='Password'
+                             variant='filled'
+                             type='password'
+                              required
+                             />  
                         </FormControl>
                     </GridItem>
 
@@ -44,7 +89,7 @@ const TeacherLogin = () => {
                     </GridItem>
 
                     <GridItem colSpan={1}>
-                        <Button variant='solid' colorScheme='brand1' onClick={useStore(state => state.setLoginState)}>Log In</Button>
+                        <Button type ='submit' onClick={LoginTeacher}variant='solid' colorScheme='brand1'>Log In</Button>
                     </GridItem>
 
                 </SimpleGrid>

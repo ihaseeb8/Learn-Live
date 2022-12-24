@@ -24,14 +24,17 @@ connection.once('open', () => {
 
 const TeacherRouter = require('./Routes/teacher.route');
 const StudentRouter = require('./Routes/student.route');
+const AdminRouter = require('./Routes/admin.route')
 
 
 const TokenTeacher = require('./Middleware/TeacherToken');
 const TokenStudent = require('./Middleware/StudentToken');
+const TokenAdmin = require('./Middleware/AdminToken')
 //const NewAssignmentRouter = require('./routes/uploadassignment-route')
 
 app.use('/teacher',TeacherRouter);
 app.use('/student',StudentRouter);
+app.use('/admin',AdminRouter)
 
 
 app.get('/teacher/viewprofile',TokenTeacher,(req,res)=>
@@ -45,6 +48,12 @@ app.get('/student/viewprofile', TokenStudent, (req,res) =>
 {
   console.log(req.student);
   res.send(req.student);
+})
+
+app.get('/admin/viewprofile', TokenAdmin, (req,res) =>
+{
+  console.log(req.admin);
+  res.send(req.admin);
 })
 
 app.use((error, req, res, next)=>{

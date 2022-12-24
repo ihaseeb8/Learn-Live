@@ -25,8 +25,7 @@ const AdminLogin = () => {
                 email: email,
                 password: password,
             });
-
-            localStorage.setItem("ltoken",res.data);
+            localStorage.setItem("logtoken",res.data);
             console.log(res.data);
             navigate("/admin");
         } catch (error) {

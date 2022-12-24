@@ -19,9 +19,7 @@ const StudentDashboard = () => {
                 w={ navSize=="small" ? "95%" : "85%"} 
                 mt={4} ml={6} mr={1} borderRadius={30}
                 boxShadow="0px 4px 12px 0 orange "
-
             >
-                
             </Flex>
         </Flex>
     </Box>

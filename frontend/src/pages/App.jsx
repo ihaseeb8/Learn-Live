@@ -4,17 +4,19 @@ import { Box } from '@chakra-ui/react'
 import LoginPage from './LoginPage'
 import StudentDashboard from './StudentDashboard'
 import TeacherDashboard from './TeacherDashboard'
+import ViewProfileTeacher from './ViewProfileTeacher'
 import useStore from '../store'
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 function App() {
   return  (
     <Router>
-    <Routes>
-     
+    <Routes>    
      <Route index element = {<LoginPage/>}/>
      <Route path="teacher" element= {<TeacherDashboard/>} />
      <Route path="student" element={<StudentDashboard/>}/>
+     <Route path="teacher/viewaccount" element={[<TeacherDashboard/>,<ViewProfileTeacher/> ]}/>
+
 
 
     </Routes>

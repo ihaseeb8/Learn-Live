@@ -47,16 +47,6 @@ app.get('/student/viewprofile', TokenStudent, (req,res) =>
   res.send(req.student);
 })
 
-//app.use('/assignments', NewAssignmentRouter);
-
-/*
-app.get('/',(req,res) =>
-{
-  res.send(`Hello `);
-});
-*/
-//error middelware
-//special middleware function for error handling
 app.use((error, req, res, next)=>{
   if(res.headerSent){
       return next(error);

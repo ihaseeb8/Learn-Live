@@ -23,6 +23,8 @@ import {
 import { IoPawOutline } from 'react-icons/io5'
 import NavItem from './NavItem'
 import axios from "axios"
+import LoginPage from '../pages/LoginPage'
+import { Link } from 'react-router-dom'
 
 export default function TeacherSidebar({navSize, changeNavSize}) {
 
@@ -73,14 +75,28 @@ export default function TeacherSidebar({navSize, changeNavSize}) {
                     _hover={{ background: 'none' }}
                     icon={<FiMenu />}
                     onClick={() => {
-                        if (navSize == "small")
-                            changeNavSize("large")
-                        else
+                        if (navSize == "large")
                             changeNavSize("small")
+                        else
+                            changeNavSize("large")
                     }}
                 />
-                <NavItem navSize={navSize} icon={FiHome} title="Dashboard" description="This is the description for the dashboard." />
-                <NavItem navSize={navSize} icon={FiUser} title="Account" path="/teacher/account"/>
+              <Link to ="/teacher/viewaccount"> 
+                < NavItem 
+                to ="/teacher/viewaccount"
+                 navSize={navSize}
+                  icon={FiHome}
+                   title="Dashboard"
+                    description="This is the description for the dashboard." 
+                    />     
+                </Link> 
+               <Link to ="/teacher/viewaccount">
+                <NavItem
+                 navSize={navSize}
+                  icon={FiUser}
+                   title="Account"
+                     />
+                     </Link>
                 <NavItem navSize={navSize} icon={FiFileText} title="Quizzes" />
                 <NavItem navSize={navSize} icon={FiPaperclip} title="Assignments" />
                 <NavItem navSize={navSize} icon={FiSettings} title="Settings" />

@@ -80,10 +80,9 @@ export default function AdminSidebar({navSize, changeNavSize}) {
                             changeNavSize("small")
                     }}
                 />
-                <NavItem navSize={navSize} icon={FiHome} title="Dashboard" description="This is the description for the dashboard." />
-                <NavItem navSize={navSize} icon={FiUser} title="Account" />
-                <NavItem navSize={navSize} icon={FiInfo} title="Reports" />
-                <NavItem navSize={navSize} icon={FiSettings} title="Settings" />
+    
+                <NavItem navSize={navSize} icon={FiUser} title="Account" route="account" description="All About You" />
+                <NavItem navSize={navSize} icon={FiSettings} title="Settings" route="settings"/>
             </Flex>
 
             <Flex

@@ -1,7 +1,10 @@
 import { Box, Container, Flex, Text } from '@chakra-ui/react'
 import React from 'react'
+import { Route, Routes } from 'react-router-dom'
 import { useState } from 'react'
 import AdminSidebar from '../components/AdminSidebar'
+import AdminAccountDetails from '../components/AdminAccountDetails'
+import AdminSettings from '../components/AdminSettings'
 
 const AdminDashboard = () => {
     
@@ -21,7 +24,10 @@ const AdminDashboard = () => {
                 boxShadow="0px 4px 12px 0 orange "
 
             >
-                
+                <Routes>
+                    <Route path="account" element={<AdminAccountDetails />} />
+                    <Route path="settings" element={<AdminSettings />} />
+                </Routes>
             </Flex>
         </Flex>
     </Box>

@@ -10,14 +10,17 @@ import {
     Tooltip
 } from '@chakra-ui/react'
 import NavHoverBox from '../components/NavHoverBox'
+import { useNavigate } from 'react-router-dom';
 
-export default function NavItem({ icon, title, description, active, navSize }) {
+export default function NavItem({ icon, title, description, active, navSize, route}) {
 
     function tool(){
         return(
             <NavHoverBox title={title} icon={icon} description={description} />
         )
     }
+    const navigate = useNavigate();
+
     return (
         <Tooltip label={tool()} hasArrow  aria-label='A tooltip' placement='right' openDelay={500} bg='orange.300' borderRadius={"10px"}>
             <Flex
@@ -35,6 +38,7 @@ export default function NavItem({ icon, title, description, active, navSize }) {
                         borderRadius={navSize=="small" ? "full" : "8"}
                         _hover={{ textDecor: 'none', backgroundColor: "#AEC8CA" , }}
                         w={navSize == "large" && "100%"}
+                        onClick={() => navigate(route)}
                     >
                         <MenuButton w="100%" >
                             <Flex>

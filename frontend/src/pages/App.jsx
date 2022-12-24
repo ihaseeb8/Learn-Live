@@ -7,6 +7,7 @@ import TeacherDashboard from './TeacherDashboard'
 import ViewProfileTeacher from './ViewProfileTeacher'
 import useStore from '../store'
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import AdminDashboard from './AdminDashboard'
 
 function App() {
   return  (
@@ -15,7 +16,7 @@ function App() {
      <Route index element = {<LoginPage/>}/>
      <Route path="teacher" element= {<TeacherDashboard/>} />
      <Route path="student" element={<StudentDashboard/>}/>
-     <Route path="admin" element={<StudentDashboard/>}/>
+     <Route path="admin" element={<AdminDashboard/>}/>
      <Route path="teacher/viewaccount" element={[<TeacherDashboard/>,<ViewProfileTeacher/> ]}/>
 
 

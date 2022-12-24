@@ -63,7 +63,7 @@ const VerifyLogin = async(req,res,next) =>
         // console.log(token);
         // res.send({token});
 
-         token = await  log.generateAuthToken();
+          token = await  log.generateAuthToken();
           console.log(token);
           res.send(token);
       }

@@ -33,6 +33,7 @@ const TokenAdmin = require('./Middleware/AdminToken')
 //const NewAssignmentRouter = require('./routes/uploadassignment-route')
 app.use('/teacher' ,express.static('teacher'));
 app.use('/teacher',TeacherRouter);
+app.use('/student' ,express.static('student'));
 app.use('/student',StudentRouter);
 app.use('/admin' ,express.static('admin'));
 app.use('/admin',AdminRouter)
@@ -43,31 +44,32 @@ app.get('/teacher/viewprofile',TokenTeacher,(req,res)=>
   console.log(req.teacher);
   res.send(req.teacher);
  // res.send("TOKEN VERIFIED");
-})
+});
 
 app.get('/student/viewprofile', TokenStudent, (req,res) =>
 {
   console.log(req.student);
   res.send(req.student);
-})
+});
 
 app.get('/admin/viewprofile', TokenAdmin, (req,res) =>
 {
   console.log(req.admin);
   res.send(req.admin);
-})
+});
 
-app.use((error, req, res, next)=>{
-  if(res.headerSent){
-      return next(error);
-  }
-  //no response has been sent yet 
-  res.status(error.code || 500);
-  res.json({
+app.use((req, res, next) => {
+  const err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
 
-      message: error.message || 'An unknown error occured!'
-  });
-}); 
+app.use((err, req, res, next) => {
+  res.locals.error = err;
+  const status = err.status || 500;
+  res.status(status);
+  res.render('error');
+});
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);

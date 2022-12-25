@@ -27,6 +27,7 @@ export default function StudentSidebar({navSize, changeNavSize}) {
 
     const [ userID , setUserID] = useState("");
     const [name, setName] = useState("");
+    const [ profileimg , setProfileImg] = useState(null);
 
     const getCuurentUser = () =>
     {
@@ -38,6 +39,7 @@ export default function StudentSidebar({navSize, changeNavSize}) {
                 console.log(res.data)
                 setUserID(res.data._id);
                 setName(res.data.name);
+                setProfileImg(res.data.profileimg);
         }).catch (err=> {
             console.log(err) })
     }
@@ -96,7 +98,7 @@ export default function StudentSidebar({navSize, changeNavSize}) {
             >
                 <Divider display={navSize == "small" ? "none" : "flex"} />
                 <Flex mt={4} align="center">
-                    <Avatar size="md" src="/abv.jpg" />
+                    <Avatar size="md" src={profileimg} />
                     <Flex flexDir="column" ml={4} display={navSize == "small" ? "none" : "flex"}>
                         <Heading as="h3" size="sm">{name}</Heading>
                     </Flex>

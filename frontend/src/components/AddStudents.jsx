@@ -2,7 +2,7 @@ import React , {useState, useEffect} from 'react'
 import { Box,Button, Heading, Text, Link ,FormControl,FormLabel, Input,RadioGroup,Radio,Stack, InputGroup} from '@chakra-ui/react'
 import axios from "axios"
 
-const AddTeachers = () => {
+const AddStudents = () => {
 
   const [ userID , setUserID] = useState("");
   const [name, setName] = useState("");
@@ -19,10 +19,10 @@ const AddTeachers = () => {
   const [fileInputState, setFileInputState ] = useState("");
   const [previewSource , setPreviewSource] = useState("");
 
-  const PostTeachers =async (e) =>
+  const PostStudents =async (e) =>
   {
     e.preventDefault();
-    const url='http://localhost:5000/teacher/addteacher'
+    const url='http://localhost:5000/student/addstudent'
            const formData = new FormData()
            formData.append('name',name)
            formData.append('email',email)
@@ -141,8 +141,8 @@ const AddTeachers = () => {
              />
           )}
 
-<Button onClick={PostTeachers} colorScheme='teal' variant='solid'>
-   Add Teacher
+<Button onClick={PostStudents} colorScheme='teal' variant='solid'>
+   Add Student
   </Button>
 
      
@@ -152,4 +152,4 @@ const AddTeachers = () => {
   )
 }
 
-export default AddTeachers
+export default AddStudents

@@ -128,7 +128,7 @@ const UpdateAdmin = async(req,res,next) =>
                 return next(error);
             }
             else {
-                res.send("Admin Deleted Successfully!")
+               // res.send("Admin Deleted Successfully!")
                 res.status(200).json({
                     msg:data
                 })

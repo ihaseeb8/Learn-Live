@@ -31,9 +31,10 @@ const TokenTeacher = require('./Middleware/TeacherToken');
 const TokenStudent = require('./Middleware/StudentToken');
 const TokenAdmin = require('./Middleware/AdminToken')
 //const NewAssignmentRouter = require('./routes/uploadassignment-route')
-
+app.use('/teacher' ,express.static('teacher'));
 app.use('/teacher',TeacherRouter);
 app.use('/student',StudentRouter);
+app.use('/admin' ,express.static('admin'));
 app.use('/admin',AdminRouter)
 
 

@@ -30,6 +30,7 @@ export default function TeacherSidebar({navSize, changeNavSize}) {
 
     const [ userID , setUserID] = useState("");
     const [name, setName] = useState("");
+    const [ profileimg , setProfileImg] = useState(null);
 
     const getCuurentUser = () =>
     {
@@ -41,6 +42,8 @@ export default function TeacherSidebar({navSize, changeNavSize}) {
                 console.log(res.data)
                 setUserID(res.data._id);
                 setName(res.data.name);
+                setProfileImg(res.data.profileimg);
+                console.log(profileimg)
         }).catch (err=> {
             console.log(err) })
     }
@@ -81,25 +84,33 @@ export default function TeacherSidebar({navSize, changeNavSize}) {
                             changeNavSize("large")
                     }}
                 />
-              <Link to ="/teacher/viewaccount"> 
+              
                 < NavItem 
-                to ="/teacher/viewaccount"
+               route ="dashboard"
                  navSize={navSize}
                   icon={FiHome}
                    title="Dashboard"
                     description="This is the description for the dashboard." 
                     />     
-                </Link> 
-               <Link to ="/teacher/viewaccount">
+               
                 <NavItem
                  navSize={navSize}
+                 route="account"
                   icon={FiUser}
                    title="Account"
                      />
-                     </Link>
-                <NavItem navSize={navSize} icon={FiFileText} title="Quizzes" />
-                <NavItem navSize={navSize} icon={FiPaperclip} title="Assignments" />
-                <NavItem navSize={navSize} icon={FiSettings} title="Settings" />
+                   
+                <NavItem
+                 navSize={navSize}
+                 route="quizzes"
+                  icon={FiFileText}
+                   title="Quizzes" />
+                <NavItem
+                route="assignments"
+                 navSize={navSize} icon={FiPaperclip} title="Assignments" />
+                <NavItem 
+                route="settings"
+                navSize={navSize} icon={FiSettings} title="Settings" />
             </Flex>
 
             <Flex
@@ -111,7 +122,7 @@ export default function TeacherSidebar({navSize, changeNavSize}) {
             >
                 <Divider display={navSize == "small" ? "none" : "flex"} />
                 <Flex mt={4} align="center">
-                    <Avatar size="md" src="/abv.jpg" />
+                    <Avatar size="md" src={profileimg} />
                     <Flex flexDir="column" ml={4} display={navSize == "small" ? "none" : "flex"}>
                         <Heading as="h3" size="sm">{name}</Heading>
                     </Flex>

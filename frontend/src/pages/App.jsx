@@ -14,9 +14,10 @@ function App() {
     <Router>
     <Routes>    
      <Route index element = {<LoginPage/>}/>
-     <Route path="teacher" element= {<TeacherDashboard/>} />
-     <Route path="student" element={<StudentDashboard/>}/>
+     <Route path="teacher/*" element= {<TeacherDashboard/>} />
+     <Route path="student/*" element={<StudentDashboard/>}/>
      <Route path="admin/*" element={<AdminDashboard/>}/>
+     {/* <Route path="teacher/*" element={[<TeacherDashboard/>]} */}
 
     </Routes>
   </Router>

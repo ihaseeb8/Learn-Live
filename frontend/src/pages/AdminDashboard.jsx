@@ -5,7 +5,7 @@ import { useState } from 'react'
 import AdminSidebar from '../components/AdminSidebar'
 import AdminAccountDetails from '../components/AdminAccountDetails'
 import AdminSettings from '../components/AdminSettings'
-
+import AddTeachers from '../components/AddTeachers'
 const AdminDashboard = () => {
     
     const [navSize, setNavSize] = useState("large")
@@ -22,11 +22,11 @@ const AdminDashboard = () => {
                 w={ navSize=="small" ? "95%" : "85%"} 
                 mt={4} ml={6} mr={1} borderRadius={30}
                 boxShadow="0px 4px 12px 0 orange "
-
             >
-                <Routes>
+                   <Routes>
                     <Route path="account" element={<AdminAccountDetails />} />
                     <Route path="settings" element={<AdminSettings />} />
+                    <Route path="addteachers" element={<AddTeachers/>}/>
                 </Routes>
             </Flex>
         </Flex>

@@ -4,6 +4,7 @@ import {
     Text,
     IconButton,
     Divider,
+    Img,
     Avatar,
     Heading
 } from '@chakra-ui/react'
@@ -26,29 +27,33 @@ import axios from "axios"
 
 export default function AdminSidebar({navSize, changeNavSize}) {
 
-    /*
+    
     const [ userID , setUserID] = useState("");
     const [name, setName] = useState("");
+    const [ profileimg , setProfileImg] = useState(null);
 
     const getCuurentUser = () =>
     {
-      let logintoken = localStorage.getItem("ltoken")
+      let logintoken = localStorage.getItem("logtoken")
       console.log("Login Token"+logintoken);
       axios.defaults.headers.common["Authorization"] = `Bearer ${logintoken}`;
-      axios.get("http://localhost:5000/student/viewprofile")
+      axios.get("http://localhost:5000/admin/viewprofile")
         .then(res=> {
-                console.log(res.data)
+                //console.log(res.data)
                 setUserID(res.data._id);
                 setName(res.data.name);
+                setProfileImg(res.data.profileimg)
+                console.log(profileimg)
         }).catch (err=> {
             console.log(err) })
     }
 
-    useEffect(()=>
-    {
-        getCuurentUser();
+
+     useEffect(()=>
+     {
+         getCuurentUser();
     })
-    */
+    
     return (
         <Flex
             pos="sticky"
@@ -68,6 +73,7 @@ export default function AdminSidebar({navSize, changeNavSize}) {
                 alignItems={navSize == "small" ? "center" : "flex-start"}
                 as="nav"
             >
+         
                 <IconButton
                     background="none"
                     mt={5}
@@ -83,6 +89,7 @@ export default function AdminSidebar({navSize, changeNavSize}) {
     
                 <NavItem navSize={navSize} icon={FiUser} title="Account" route="account" description="All About You" />
                 <NavItem navSize={navSize} icon={FiSettings} title="Settings" route="settings"/>
+                <NavItem navSize={navSize} icon ={FiUser} title="Add Teachers" route="addteachers"/>
             </Flex>
 
             <Flex
@@ -92,14 +99,23 @@ export default function AdminSidebar({navSize, changeNavSize}) {
                 alignItems={navSize == "small" ? "center" : "flex-start"}
                 mb={4}
             >
+                           
                 <Divider display={navSize == "small" ? "none" : "flex"} />
                 <Flex mt={4} align="center">
-                    <Avatar size="md" src="/abv.jpg" />
+           
+
+                <Avatar
+                size="md"
+              src={profileimg}
+              />
                     <Flex flexDir="column" ml={4} display={navSize == "small" ? "none" : "flex"}>
                         <Heading as="h3" size="sm">{name}</Heading>
                     </Flex>
+        
                 </Flex>
+       
             </Flex>
+            
         </Flex>
     )
 }

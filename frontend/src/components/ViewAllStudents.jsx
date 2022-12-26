@@ -2,6 +2,7 @@ import React , {useState, useEffect} from 'react'
 import { Box,Button, Avatar,Heading, Text, Link ,FormControl,FormLabel, Input,RadioGroup,Radio,Stack, InputGroup} from '@chakra-ui/react'
 import axios from "axios"
 import { Divider } from '@chakra-ui/react'
+import { useNavigate, useParams} from "react-router-dom";
 
   const ViewAllStudents = () => {
     const [name, setName] = useState("");
@@ -11,6 +12,17 @@ import { Divider } from '@chakra-ui/react'
     const [password, setPassword]= useState("");
     const [profileimg , setProfileImg]= useState("");
     const [students , setStudents]= useState([]);
+
+
+    const navigate = useNavigate();
+    const handleSubmit = (studentid) =>
+    
+    {
+
+         localStorage.removeItem('studentid')
+         localStorage.setItem('studentid',studentid)
+            navigate("/admin/editstudent");
+    }
     useEffect(() => {
       axios
         .get("http://localhost:5000/student/getstudents")
@@ -35,6 +47,14 @@ import { Divider } from '@chakra-ui/react'
       <Text mt={4}>    
         Here you can view and edit student details.    
         </Text>
+        <FormControl>
+           <FormLabel>Search Students</FormLabel>
+           <Input>
+           </Input>
+           </FormControl>
+           <Button  colorScheme='teal' variant='solid'>
+   Search Student
+  </Button>
           {students.map((student) => (
             <>
         
@@ -63,7 +83,7 @@ import { Divider } from '@chakra-ui/react'
                 //   borderRadous: "50%"
                 // }}
               />
-              <Button  colorScheme='teal' variant='solid'>
+              <Button  onClick={()=>handleSubmit(student._id)} colorScheme='teal' variant='solid'>
    Edit Student
   </Button>
   <Button  colorScheme='teal' variant='solid'>

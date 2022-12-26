@@ -1,6 +1,7 @@
 import { Grid, Box, FormControl, FormLabel, Input, Text, FormErrorMessage, Button } from "@chakra-ui/react";
 import { useState } from "react";
 import axios from "axios";
+import { PDFViewer, Document, Page } from "@react-pdf/renderer";
 
 function TeacherUploadAssignment() {
 
@@ -12,62 +13,66 @@ function TeacherUploadAssignment() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   
+  const [selectedFiles, setSelectedFiles] = useState([null]);
+  const [selected , setSelected] = useState([null])
+  var imgURLsArray = []
+  const onSelectFile = (e) => {
+    const selectedImages = [...e.target.files];
+    console.log(selectedImages)
+    selectedImages.map(img=> imgURLsArray.push(URL.createObjectURL(img)))
+     setSelected(imgURLsArray)
+     setSelectedFiles(e.target.files)
+  
+  };
 
-
-  const handleSubmit = (e) => {
+  const UploadAssignment = (e) => {
     e.preventDefault();
 
-    const data = new FormData();
-    data.append("title", title);
-    data.append("description", description);
-    data.append("marks", marks);
+    const url = "http://localhost:5000";
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("tmarks", marks);
 
-    const parsedDueDate = new Date(dueDate);
+    // const parsedDueDate = new Date(dueDate);
+    //  // Formatting the parsed date and time in the same format as the uploadDate state variable
+    //  const formattedDueDate = new Intl.DateTimeFormat('en-US', {
+    //   year: 'numeric',
+    //   month: '2-digit',
+    //   day: '2-digit',
+    //   hour: '2-digit',
+    //   minute: '2-digit',
+    //   second: '2-digit'
+    //   }).format(parsedDueDate);
+  
+      formData.append("duedate", dueDate);
 
-    // Formatting the parsed date and time in the same format as the uploadDate state variable
-    const formattedDueDate = new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit'
-    }).format(parsedDueDate);
 
-    data.append("dueDate", formattedDueDate);
-    data.append("pdf", pdf);
+       for (let i = 0; i < selectedFiles.length; i++) {
+        formData.append(`uplassign`,selectedFiles[i]);
+       }
+    console.log(selectedFiles);
+    console.log(formData);
 
-    const uploadDate = new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit'
-    }).format(new Date());
 
-    data.append("uploadDate", uploadDate);
+    fetch('http://localhost:5000/tchassignments/uploadassigns', {
+      method: 'POST',
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.error(err));
+ 
 
-    console.log(...data)
-
-    
-    
-    axios
-      .post("/api/upload-assignment", data)
-      .then((res) => {
-        setSuccess(res.data.message);
-      })
-      .catch((err) => {
-        setError(err.response.data.message);
-      });
-    
+   
   };
+
 
   return (
 
     <Box width="40%" mt={8} mx="auto">
     <Text my={4} align={"center"} fontWeight="bold" fontSize={30}>Upload Assignment</Text>
-        <form onSubmit={handleSubmit}>
+
         {error && <Text color="red.500">{error}</Text>}
         {success && <Text color="green.500">{success}</Text>}
         <FormControl>
@@ -110,6 +115,16 @@ function TeacherUploadAssignment() {
         <FormControl>
             <FormLabel htmlFor="dueDate" fontWeight="bold" color="orange.600">Due Date</FormLabel>
             <Input
+            id="dueDate"
+            label="Date"
+            type="date"
+            onChange = {e=>setDueDate(e.target.value)}
+            defaultValue="7/05/2015"
+            InputLabelProps ={{
+                shrink:true
+            }}
+            />
+            {/* <Input
             type="datetime-local"
             id="dueDate"
             name="dueDate"
@@ -119,25 +134,42 @@ function TeacherUploadAssignment() {
             colorScheme={"orange"}
             borderColor="orange.500"
             focusBorderColor="orange.600"
-            />
+            /> */}
         </FormControl>
         <FormControl>
             <FormLabel htmlFor="pdf"  fontWeight="bold" color="orange.600" >PDF</FormLabel>
+
+
             <Input
-            type="file"
-            id="pdf"
-            name="pdf"
-            onChange={(e) => setPdf(e.target.files[0])}
-            required
+           type="file"
+           multiple
+           accept="application/pdf , image/png "
+           onChange={onSelectFile}
+           name="uplassign"
             borderColor="orange.500"
             focusBorderColor="orange.600"
-            p={1}
+      
             />
         </FormControl>
-        <Button display={"table-column"} type="submit" colorScheme={"orange"} mt={4} p="auto" ml="auto" mr="auto">
+        {
+              selected.map((file, index) => {
+                return (
+                  <iframe
+                    src={file}
+                    style={{
+                      height: "200px",
+                      width: "400px",
+                      class: "center",
+                      borderRadous: "50%",
+                    }}
+                  />
+                );
+              })}
+            ; 
+        <Button onClick={UploadAssignment} display={"table-column"} type="submit" colorScheme={"orange"} mt={4} p="auto" ml="auto" mr="auto">
             Upload
         </Button>
-        </form>
+  
         </Box>
   );
 }

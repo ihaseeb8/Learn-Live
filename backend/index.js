@@ -24,7 +24,8 @@ app.use(express.json({limit: '50mb'}));
 
 const TeacherRouter = require('./Routes/teacher.route');
 const StudentRouter = require('./Routes/student.route');
-const AdminRouter = require('./Routes/admin.route')
+const AdminRouter = require('./Routes/admin.route');
+const TeacherAssignmentsRouter = require('./Routes/teacher-assignments.route');
 
 
 const TokenTeacher = require('./Middleware/TeacherToken');
@@ -33,10 +34,13 @@ const TokenAdmin = require('./Middleware/AdminToken')
 //const NewAssignmentRouter = require('./routes/uploadassignment-route')
 app.use('/teacher' ,express.static('teacher'));
 app.use('/teacher',TeacherRouter);
+app.use('/assignments',express.static('assignments'));
+app.use('/tchassignments',TeacherAssignmentsRouter)
 app.use('/student' ,express.static('student'));
 app.use('/student',StudentRouter);
 app.use('/admin' ,express.static('admin'));
 app.use('/admin',AdminRouter)
+
 
 
 app.get('/teacher/viewprofile',TokenTeacher,(req,res)=>

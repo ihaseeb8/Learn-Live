@@ -95,7 +95,9 @@ const GetStudents = async(req,res,next) =>
 
 const GetSingleStudent = async(req,res,next) => 
 {
-    Student.findById(req.params.id , (error,data) =>
+  var x = req.query.id; // for getting single id for editing
+  console.log(x);
+    Student.findById(x , (error,data) =>
     {
         if(error){
             res.send("Not Found!");
@@ -108,17 +110,17 @@ const GetSingleStudent = async(req,res,next) =>
 
 const UpdateStudent = async(req,res,next) =>
 {
-    Student.findByIdAndUpdate(req.params.id, {
-        $set: req.body
-          }, (error, data) => {
-            if (error) {
-              res.send("Error")
-              console.log(error)
-            } else {
-              res.json(data)
-              console.log('Student updated successfully !')
-            }
-          })
+  Student.findByIdAndUpdate(req.params.id, {
+    $set: req.body
+      }, (error, data) => {
+        if (error) {
+          res.send("Error")
+          console.log(error)
+        } else {
+          res.json(data)
+          console.log('Student updated successfully !')
+        }
+      })
     }
     
     const DeleteStudent = async(req,res,next) =>

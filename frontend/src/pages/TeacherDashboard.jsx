@@ -6,6 +6,7 @@ import TeacherUploadAssignment from '../components/TeacherUploadAssignment'
 import TeacherSidebar from '../components/TeacherSidebar'
 import TeacherViewAssignments from '../components/TeacherViewAssignments'
 import TeacherAccountDetails from '../components/TeacherAccountDetails'
+import QuizInfo from '../components/TeacherQuiz/QuizInfo'
 
 const TeacherDashboard = () => {
     
@@ -32,6 +33,8 @@ const TeacherDashboard = () => {
                     <Route path="viewassignments" element={<TeacherViewAssignments />} />
 
                     <Route path="account" element={<TeacherAccountDetails />} />
+
+                    <Route path="uploadquiz" element={<QuizInfo />} />
 
                 </Routes>       
             </Flex>

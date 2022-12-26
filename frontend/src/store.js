@@ -5,6 +5,7 @@ const store = (set) => ({
     loginState: false,
     setLoginState: () =>
         set((state) => ({loginState: true})),
+        
     user: "student",
     setUser: (role) =>
         set((state) => ({user: role}))

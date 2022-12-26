@@ -27,7 +27,7 @@ const AdminDashboard = () => {
                 mt={4} ml={6} mr={1} borderRadius={30}
                 boxShadow="0px 4px 12px 0 orange "
             >
-                   <Routes>
+                <Routes>
                     <Route path="account" element={<AdminAccountDetails />} />
                     <Route path="settings" element={<AdminSettings />} />
                     <Route path="addteachers" element={<AddTeachers/>}/>

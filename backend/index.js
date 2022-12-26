@@ -14,12 +14,12 @@ app.use(express.json({limit: '50mb'}));
 //console.log(db);
 //const uri = process.env.DATABASE;
 //mongoose.connect(uri);
-mongoose.connect("mongodb+srv://aliahmadjan:12345@cluster0.j5u9lxj.mongodb.net/LearnLive?retryWrites=true&w=majority");
-const connection = mongoose.connection;
-connection.once('open', () => {
-  
-  console.log("MongoDB connection established successfully");
-})
+ mongoose.connect("mongodb+srv://aliahmadjan:12345@cluster0.j5u9lxj.mongodb.net/LearnLive?retryWrites=true&w=majority&ssl=true");
+ //mongoose.connect("mongodb://aliahmadjan:12345@ac-kj5loht-shard-00-00.j5u9lxj.mongodb.net:27017,ac-kj5loht-shard-00-01.j5u9lxj.mongodb.net:27017,ac-kj5loht-shard-00-02.j5u9lxj.mongodb.net:27017/LearnLive?ssl=true&replicaSet=atlas-tw2rr5-shard-0&authSource=admin&retryWrites=true&w=majority")
+ const connection = mongoose.connection;
+ connection.once('open', () => { 
+   console.log("MongoDB connection established successfully");
+ })
 
 
 const TeacherRouter = require('./Routes/teacher.route');
@@ -73,14 +73,5 @@ app.use((err, req, res, next) => {
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
-});
+  });
 
-/*
-mongoose.connect("mongodb+srv://aliahmadjan:12345@cluster0.j5u9lxj.mongodb.net/me?retryWrites=true&w=majority", {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false
-}). then( () => {
-  console.log("MongoDB connection established successfully");
-}).catch((error) => console.log(`No connection`)); */

@@ -126,7 +126,7 @@ const AddTeachers = () => {
         required
         />  
          </FormControl>
-         <FormLabel>Profile Picture</FormLabel>
+         
          <input 
         type="file"
          name="file"

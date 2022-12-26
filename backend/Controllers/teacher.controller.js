@@ -93,7 +93,9 @@ const GetTeachers = async(req,res,next) =>
 
 const GetSingleTeacher = async(req,res,next) => 
 {
-    Teacher.findById(req.params.id , (error,data) =>
+    var x = req.query.id; // for getting single id for editing
+    console.log(x);
+    Teacher.findById(x, (error,data) =>
     {
         if(error){
             res.send("Not Found!");
@@ -106,17 +108,17 @@ const GetSingleTeacher = async(req,res,next) =>
 
 const UpdateTeacher = async(req,res,next) =>
 {
-    Teacher.findByIdAndUpdate(req.params.id, {
-        $set: req.body
-          }, (error, data) => {
-            if (error) {
-              res.send("Error")
-              console.log(error)
-            } else {
-              res.json(data)
-              console.log('Teacher updated successfully !')
-            }
-          })
+  Teacher.findByIdAndUpdate(req.params.id, {
+    $set: req.body
+      }, (error, data) => {
+        if (error) {
+          res.send("Error")
+          console.log(error)
+        } else {
+          res.json(data)
+          console.log('Teacher updated successfully !')
+        }
+      })
     }
     
     const DeleteTeacher = async(req,res,next) =>

@@ -1,7 +1,11 @@
 import { Box, Container, Flex, Text } from '@chakra-ui/react'
 import React from 'react'
+import { Route, Routes } from 'react-router-dom'
 import { useState } from 'react'
+import TeacherUploadAssignment from '../components/TeacherUploadAssignment'
 import TeacherSidebar from '../components/TeacherSidebar'
+import TeacherViewAssignments from '../components/TeacherViewAssignments'
+import TeacherAccountDetails from '../components/TeacherAccountDetails'
 
 const TeacherDashboard = () => {
     
@@ -21,6 +25,15 @@ const TeacherDashboard = () => {
                 boxShadow="0px 4px 12px 0 orange "
 
             >
+                <Routes>
+
+                    <Route path="uploadassignment" element={<TeacherUploadAssignment />} />
+
+                    <Route path="viewassignments" element={<TeacherViewAssignments />} />
+
+                    <Route path="account" element={<TeacherAccountDetails />} />
+
+                </Routes>       
             </Flex>
         </Flex>
     </Box>

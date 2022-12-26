@@ -18,7 +18,13 @@ import {
     FiSquare,
     FiInfo,
     FiPaperclip,
-    FiFileText
+    FiFileText,
+    FiUpload,
+    FiUploadCloud,
+    FiActivity,
+    FiBookmark,
+    FiAtSign,
+    FiArchive
 } from 'react-icons/fi'
 import { IoPawOutline } from 'react-icons/io5'
 import NavItem from './NavItem'
@@ -85,32 +91,15 @@ export default function TeacherSidebar({navSize, changeNavSize}) {
                     }}
                 />
               
-                < NavItem 
-               route ="dashboard"
-                 navSize={navSize}
-                  icon={FiHome}
-                   title="Dashboard"
-                    description="This is the description for the dashboard." 
-                    />     
-               
-                <NavItem
-                 navSize={navSize}
-                 route="account"
-                  icon={FiUser}
-                   title="Account"
-                     />
-                   
-                <NavItem
-                 navSize={navSize}
-                 route="quizzes"
-                  icon={FiFileText}
-                   title="Quizzes" />
-                <NavItem
-                route="assignments"
-                 navSize={navSize} icon={FiPaperclip} title="Assignments" />
-                <NavItem 
-                route="settings"
-                navSize={navSize} icon={FiSettings} title="Settings" />
+                <NavItem navSize={navSize} icon={FiUser} title="Account" route="account" description={"All About"}/>
+
+                <NavItem navSize={navSize} icon={FiUpload} title="Upload Assignment" route="uploadassignment"/>
+                <NavItem navSize={navSize} icon={FiPaperclip} title="View Assignments" route="viewassignments"/>
+                <NavItem navSize={navSize} icon={FiUpload} title="Upload Quiz" route="uploadquiz"/>
+                <NavItem navSize={navSize} icon={FiArchive} title="View Quizzes" route="viewquizzes"/>
+
+                <NavItem navSize={navSize} icon={FiSettings} title="Settings" route="settings" />
+
             </Flex>
 
             <Flex

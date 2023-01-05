@@ -21,23 +21,25 @@ const EditStudentDetails = () =>
     const [previewSource , setPreviewSource] = useState("");
    
       const [msg, setMsg] = useState('');
-
+  const navigate = useNavigate();
+    const getSingleUser = ()=>
+    {
+      axios.get('http://localhost:5000/student/getstudent/:', {params : {id: localStorage.getItem('studentid')}})
+      .then(res=> {
+        console.log(res.data)
+        setName(res.data.name);
+        setEmail(res.data.email);
+        setGender(res.data.gender);
+        setPhoneNo(res.data.phoneno);
+        setPassword(res.data.password);
+      
+        }).catch (err=> {
+    console.log(err) })
+    }
 
   const EditStudents = async(e) =>
   {
-    axios.get('http://localhost:5000/student/getstudent', {params : {id: localStorage.getItem('studentid')}})
-    .then(res=> {
-      console.log(res.data)
-      setName(res.data.name);
-      setEmail(res.data.email);
-      setGender(res.data.gender);
-      setPhoneNo(res.data.phoneno);
-      setPassword(res.data.password);
-      setFileInputState(res.data.fileInputState);
-    
-      }).catch (err=> {
-  console.log(err) })
-
+   
     e.preventDefault();
     console.log(`id: ${localStorage.getItem('studentid')}`)
     //setName(name);
@@ -60,6 +62,13 @@ const EditStudentDetails = () =>
       })
            
   }
+
+  const Back = ()=>
+  {
+    navigate("/admin/viewstudents");
+  }
+
+ 
 
   const handleFileInputChange =(e)=>
   {
@@ -161,8 +170,14 @@ const EditStudentDetails = () =>
              style={{height:"200px", width: "400px", class:"center", borderRadous:"50%"}}
              />
           )} */}
+          <Button  onClick={getSingleUser} colorScheme='teal' variant='solid'>
+   View Details 
+  </Button>
 <Button  onClick={EditStudents} colorScheme='teal' variant='solid'>
    Update Teacher
+  </Button>
+  <Button  onClick={Back} colorScheme='teal' variant='solid'>
+   Back
   </Button>
 
     </Box>

@@ -97,7 +97,7 @@ export default function TeacherSidebar({navSize, changeNavSize}) {
                 <NavItem navSize={navSize} icon={FiPaperclip} title="View Assignments" route="viewassignments"/>
                 <NavItem navSize={navSize} icon={FiUpload} title="Upload Quiz" route="uploadquiz"/>
                 <NavItem navSize={navSize} icon={FiArchive} title="View Quizzes" route="viewquizzes"/>
-
+                <NavItem navSize={navSize} icon={FiSettings} title="Calender" route="calender" />
                 <NavItem navSize={navSize} icon={FiSettings} title="Settings" route="settings" />
 
             </Flex>

@@ -1,9 +1,11 @@
 import { Box, Input, Text, FormControl, FormLabel, Button, Flex} from "@chakra-ui/react"
+import { useEffect } from "react";
 import { useState } from "react"
+import axios from "axios"
 import QuizQuesionsInfo from "./QuizQuestionsInfo"
 
 const QuizInfo = () => {
-
+    const [name, setName] = useState("");
     const[details,setDetails] = useState({
         noOfQuestions: 1,
         isMade: false
@@ -19,6 +21,19 @@ const QuizInfo = () => {
         })
     }
 
+    useEffect(()=>
+    {
+      let logintoken = localStorage.getItem("logintoken")
+      console.log("Login Token"+logintoken);
+      axios.defaults.headers.common["Authorization"] = `Bearer ${logintoken}`;
+      axios.get("http://localhost:5000/teacher/viewprofile")
+        .then(res=> {
+                console.log(res.data)
+                setName(res.data.name);
+        }).catch (err=> {
+            console.log(err) })
+    })
+
     function makeQuiz(){
         setDetails( oldDetails => {
             return {
@@ -26,6 +41,20 @@ const QuizInfo = () => {
                 isMade: !oldDetails.isMade
             }
         })
+        axios.post("http://localhost:5000/quizzes/addquiz", {
+            teacher:name,
+            nofquestions:details.noOfQuestions
+        }).then ((res)=>
+        {
+          //setSubmitStatus(1);
+          //console.log(res.data)
+        }).catch((err)=>
+        {
+          //setSubmitStatus(-1)
+        })
+
+
+
     }
 
 

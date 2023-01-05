@@ -3,6 +3,15 @@ import { Box,Button, Avatar,Heading, Text, Link ,FormControl,FormLabel, Input,Ra
 import axios from "axios"
 import { Divider } from '@chakra-ui/react'
 import { useNavigate, useParams} from "react-router-dom";
+import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
+} from '@chakra-ui/react'
+import { useDisclosure } from '@chakra-ui/react'
 
   const ViewAllStudents = () => {
     const [name, setName] = useState("");
@@ -13,6 +22,8 @@ import { useNavigate, useParams} from "react-router-dom";
     const [profileimg , setProfileImg]= useState("");
     const [students , setStudents]= useState([]);
 
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const cancelRef = React.useRef()
 
     const navigate = useNavigate();
     const handleSubmit = (studentid) =>
@@ -34,6 +45,18 @@ import { useNavigate, useParams} from "react-router-dom";
           console.log(err);
         });
     }, [students]);
+
+    const DeleteStudent=(student_id)=>
+    {
+    
+      localStorage.setItem('student_id',student_id)
+      axios.delete(`http://localhost:5000/student/deletestudent/${localStorage.getItem('student_id')}`)
+      .then((res) => {
+        //window.alert("Delete Successfull!")
+    }).catch((error) => {
+      //window.alert("Not Deleted! ")
+    })
+    }
   
     const paperStyle = {padding : 20, height: '400vh', width: 900,
       margin: '80px 0px 50px 240px'}
@@ -83,10 +106,41 @@ import { useNavigate, useParams} from "react-router-dom";
                 //   borderRadous: "50%"
                 // }}
               />
+          <>
+    
+    <AlertDialog
+      isOpen={isOpen}
+      leastDestructiveRef={cancelRef}
+      onClose={onClose}
+    >
+      <AlertDialogOverlay>
+        <AlertDialogContent>
+          <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+            Delete 
+          </AlertDialogHeader>
+
+          <AlertDialogBody>
+            Are you sure? You can't undo this action afterwards.
+          </AlertDialogBody>
+
+          <AlertDialogFooter>
+            <Button ref={cancelRef} onClick={onClose}>
+              Cancel
+            </Button>
+            <Button colorScheme='red' onClick={()=>DeleteStudent(student._id)} ml={3}>
+              Delete
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialogOverlay>
+    </AlertDialog>
+  </> 
+
+
               <Button  onClick={()=>handleSubmit(student._id)} colorScheme='teal' variant='solid'>
    Edit Student
   </Button>
-  <Button  colorScheme='teal' variant='solid'>
+  <Button  onClick={onOpen} colorScheme='teal' variant='solid'>
    Delete Student
   </Button>
               <Divider orientation='horizontal' />

@@ -11,6 +11,8 @@ import ViewAllTeachers from '../components/ViewAllTeachers'
 import ViewAllStudents from '../components/ViewAllStudents'
 import EditTeacherDetails from '../components/EditTeacher'
 import EditStudentDetails from '../components/EditStudent'
+import AssignTeachers from '../components/AssignTeachers'
+import ViewCamps from '../components/ViewCamps'
 const AdminDashboard = () => {
     
     const [navSize, setNavSize] = useState("large")
@@ -35,8 +37,12 @@ const AdminDashboard = () => {
                     <Route path="addstudents" element={<AddStudents/>}/>
                     <Route path="viewteachers" element={<ViewAllTeachers/>}/>
                     <Route path="viewstudents" element={<ViewAllStudents/>}/>
-                    <Route path="editteacher" element={<EditTeacherDetails/>}/>
+                  
+                    <Route path="editteacher"  element={<EditTeacherDetails/>}/>
                     <Route path="editstudent" element={<EditStudentDetails/>}/>
+                    <Route path="assignteacher" element={<AssignTeachers/>}/>
+                    <Route path="viewcamps" element={<ViewCamps/>}/>
+
                 </Routes>
             </Flex>
         </Flex>

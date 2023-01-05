@@ -1,9 +1,16 @@
 import React , {useState, useEffect} from 'react'
-import { Box,Button, Heading, Text, Link ,FormControl,FormLabel, Input,RadioGroup,Radio,Stack, InputGroup} from '@chakra-ui/react'
+import { Box,Button, Select,Heading, Text, Link ,FormControl,FormLabel, Input,RadioGroup,Radio,Stack, InputGroup} from '@chakra-ui/react'
 import axios from "axios"
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from '@chakra-ui/react'
+import { useDisclosure } from '@chakra-ui/react'
 
 const AddTeachers = () => {
-
+  const [submitStatus, setSubmitStatus] = useState(0);
   const [ userID , setUserID] = useState("");
   const [name, setName] = useState("");
   const [email , setEmail] = useState("");
@@ -12,12 +19,19 @@ const AddTeachers = () => {
   const [password,setPassword]= useState("");
   const[cpassword, setConPassword]= useState("");
   const[profileimg, setProfileImg] = useState("");
+  const [campname , setCampName]= useState("");
+  const [teachers , setTeachers] = useState([]);
 
   const [msg,setMsg]=useState('');
 
   const [selectedFile, setSelectedFile] =useState(null);
   const [fileInputState, setFileInputState ] = useState("");
   const [previewSource , setPreviewSource] = useState("");
+  const {
+    isOpen: isVisible,
+    onClose,
+    onOpen,
+  } = useDisclosure({ defaultIsOpen: true })
 
   const PostTeachers =async (e) =>
   {
@@ -31,13 +45,17 @@ const AddTeachers = () => {
            formData.append('password',password)
            formData.append('cpassword',cpassword)
            formData.append('profileimg',selectedFile)
+           
            console.log(formData);
            axios.post(url,formData).then ((res)=>
            {
-            console.log(res.data)
+            setSubmitStatus(1);
+            //console.log(res.data)
            })
+
+    
           
-         }
+   }
   
 
 
@@ -59,6 +77,22 @@ const AddTeachers = () => {
       }
   }
 
+  const StatusAlert = () => {
+    if (submitStatus === -1)
+      return (
+        <Alert status='error'>
+        <AlertIcon />
+       Teacher was not added!
+      </Alert>
+      );
+    if (submitStatus === 1)
+      return (
+        <Alert status='success'>
+        <AlertIcon />
+        Teacher was added!
+      </Alert>
+      );
+  };
   return (
     <Box p={5}>
       <Heading as="h2" size="lg">
@@ -141,14 +175,18 @@ const AddTeachers = () => {
              />
           )}
 
-<Button onClick={PostTeachers} colorScheme='teal' variant='solid'>
+<Button 
+onClick={PostTeachers} colorScheme='teal' variant='solid'>
    Add Teacher
   </Button>
 
-     
+
+
+  <StatusAlert />
 
       {/* <Link  mt={5} to="/edit-account">Edit Account</Link> */}
     </Box>
+    
   )
 }
 

@@ -3,6 +3,15 @@ import { Box,Button, Avatar,Heading, Text, Link ,FormControl,FormLabel, Input,Ra
 import axios from "axios"
 import { Divider } from '@chakra-ui/react'
 import { useNavigate, useParams} from "react-router-dom";
+import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
+} from '@chakra-ui/react'
+import { useDisclosure } from '@chakra-ui/react'
 
   const ViewAllTeachers = () => {
     const [name, setName] = useState("");
@@ -11,16 +20,28 @@ import { useNavigate, useParams} from "react-router-dom";
     const [phoneno , setPhoneNo] = useState("");
     const [password, setPassword]= useState("");
     const [profileimg , setProfileImg]= useState("");
+
     const [teachers , setTeachers]= useState([]);
     const navigate = useNavigate();
-    const handleSubmit = (teacherid) =>
-    
-    {
 
-         localStorage.removeItem('teacherid')
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const cancelRef = React.useRef()
+
+    const handleSubmitEdit = (teacherid) =>
+    {
          localStorage.setItem('teacherid',teacherid)
             navigate("/admin/editteacher");
     }
+
+    const handleSubmitAssign = (teacher_assignid) =>
+    
+    {
+         //localStorage.removeItem('teacher_assignid')
+         localStorage.setItem('teacher_assignid',teacher_assignid)
+            navigate("/admin/assignteacher");
+    }
+
+
 
     useEffect(() => {
       axios
@@ -33,6 +54,18 @@ import { useNavigate, useParams} from "react-router-dom";
           console.log(err);
         });
     }, [teachers]);
+
+    const DeleteTeacher=(teacher_id)=>
+    {
+    
+      localStorage.setItem('teacher_id',teacher_id)
+      axios.delete(`http://localhost:5000/teacher/deleteteacher/${localStorage.getItem('teacher_id')}`)
+      .then((res) => {
+        //window.alert("Delete Successfull!")
+    }).catch((error) => {
+      //window.alert("Not Deleted! ")
+    })
+    }
   
     const paperStyle = {padding : 20, height: '400vh', width: 900,
       margin: '80px 0px 50px 240px'}
@@ -74,12 +107,46 @@ import { useNavigate, useParams} from "react-router-dom";
                 //   borderRadous: "50%"
                 // }}
               />
-   <Button  onClick={()=>handleSubmit(teacher._id)} colorScheme='teal' variant='solid'>
+     <>
+    
+      <AlertDialog
+        isOpen={isOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={onClose}
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+              Delete 
+            </AlertDialogHeader>
+
+            <AlertDialogBody>
+              Are you sure? You can't undo this action afterwards.
+            </AlertDialogBody>
+
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={onClose}>
+                Cancel
+              </Button>
+              <Button colorScheme='red' onClick={()=>DeleteTeacher(teacher._id)} ml={3}>
+                Delete
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
+    </>       
+
+
+   <Button  onClick={()=>handleSubmitEdit(teacher._id)} colorScheme='teal' variant='solid'>
    Edit Teacher
   </Button>
-  <Button  colorScheme='teal' variant='solid'>
+  <Button  onClick={onOpen} colorScheme='teal' variant='solid'>
    Delete Teacher
   </Button>
+  <Button onClick={()=>handleSubmitAssign(teacher._id)} colorScheme='teal' variant='solid'>
+       Assign Teachers
+      </Button>
               <Divider orientation='horizontal' />
 
             </>

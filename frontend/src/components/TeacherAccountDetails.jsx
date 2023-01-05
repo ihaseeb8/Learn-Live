@@ -10,10 +10,13 @@ const TeacherAccountDetails = () => {
   const [gender, setGender]= useState("");
   const [phoneno , setPhoneNo]=useState("");
 
-  /*
+  const [campname , setCampName] = useState("")
+  const [teachers, setTeachers] = useState("");
+
+  
   const getCurentUser = () =>
   {
-    let logintoken = localStorage.getItem("logtoken")
+    let logintoken = localStorage.getItem("logintoken")
     console.log("Login Token"+logintoken);
     axios.defaults.headers.common["Authorization"] = `Bearer ${logintoken}`;
     axios.get("http://localhost:5000/teacher/viewprofile")
@@ -28,12 +31,15 @@ const TeacherAccountDetails = () => {
           console.log(err) })
   }
 
+ 
+
   useEffect(()=>
   {
       getCurentUser();
+     
   })
 
- */
+ 
   return (
     <Box p={5}>
       <Heading as="h2" size="lg">
@@ -41,6 +47,9 @@ const TeacherAccountDetails = () => {
       </Heading>
       <Text mt={4}>    
         Here you can view and edit your account details.    
+      </Text>
+      <Text mt={5}>
+      User ID: {userID}
       </Text>
       <Text mt={5}>
       Name: {name}
@@ -54,6 +63,8 @@ const TeacherAccountDetails = () => {
       <Text mt={5}>
       Phone Number: {phoneno}
       </Text>
+    
+
 
       {/* <Link  mt={5} to="/edit-account">Edit Account</Link> */}
     </Box>

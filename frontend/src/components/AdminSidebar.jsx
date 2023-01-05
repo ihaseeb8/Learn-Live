@@ -24,6 +24,7 @@ import {
 import { IoPawOutline } from 'react-icons/io5'
 import NavItem from './NavItem'
 import axios from "axios"
+import { useNavigate, useParams} from "react-router-dom";
 
 export default function AdminSidebar({navSize, changeNavSize}) {
 
@@ -31,9 +32,15 @@ export default function AdminSidebar({navSize, changeNavSize}) {
     const [ userID , setUserID] = useState("");
     const [name, setName] = useState("");
     const [ profileimg , setProfileImg] = useState(null);
+    
+    const naviagte = useNavigate();
 
     const getCuurentUser = () =>
     {
+        if(!localStorage.getItem("logintoken"))
+        {
+                naviagte('/');
+        }
       let logintoken = localStorage.getItem("logtoken")
       console.log("Login Token"+logintoken);
       axios.defaults.headers.common["Authorization"] = `Bearer ${logintoken}`;
@@ -43,7 +50,6 @@ export default function AdminSidebar({navSize, changeNavSize}) {
                 setUserID(res.data._id);
                 setName(res.data.name);
                 setProfileImg(res.data.profileimg)
-                console.log(profileimg)
         }).catch (err=> {
             console.log(err) })
     }
@@ -52,7 +58,7 @@ export default function AdminSidebar({navSize, changeNavSize}) {
      useEffect(()=>
      {
          getCuurentUser();
-    })
+    },[])
     
     return (
         <Flex
@@ -88,11 +94,14 @@ export default function AdminSidebar({navSize, changeNavSize}) {
                 />
     
                 <NavItem navSize={navSize} icon={FiUser} title="Account" route="account" description="All About You" />
-                <NavItem navSize={navSize} icon={FiSettings} title="Settings" route="settings"/>
+                
                 <NavItem navSize={navSize} icon ={FiUser} title="Add Teachers" route="addteachers"/>
                 <NavItem navSize={navSize} icon ={FiUser} title="View Teachers" route="viewteachers"/>
+                
                 <NavItem navSize={navSize} icon ={FiUser} title="Add Students" route="addstudents"/>
                 <NavItem navSize={navSize} icon ={FiUser} title="View Students" route="viewstudents"/>
+                <NavItem navSize={navSize} icon={FiSettings} title="View Camps" route="viewcamps"/>
+                <NavItem navSize={navSize} icon={FiSettings} title="Settings" route="settings"/>
             </Flex>
 
             <Flex

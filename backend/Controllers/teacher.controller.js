@@ -94,7 +94,7 @@ const GetTeachers = async(req,res,next) =>
 const GetSingleTeacher = async(req,res,next) => 
 {
     var x = req.query.id; // for getting single id for editing
-    console.log(x);
+    //console.log(x);
     Teacher.findById(x, (error,data) =>
     {
         if(error){
@@ -121,14 +121,14 @@ const UpdateTeacher = async(req,res,next) =>
       })
     }
     
-    const DeleteTeacher = async(req,res,next) =>
+    const DeleteTeacher = (req,res,next) =>
     {
         Teacher.findByIdAndDelete(req.params.id,(error,data)=> {
             if(error){
                 return next(error);
             }
             else {
-                res.send("Teacher Deleted Successfully!")
+                //res.send("Teacher Deleted Successfully!")
                 res.status(200).json({
                     msg:data
                 })

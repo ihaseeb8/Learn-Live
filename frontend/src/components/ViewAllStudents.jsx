@@ -34,6 +34,14 @@ import { useDisclosure } from '@chakra-ui/react'
          localStorage.setItem('studentid',studentid)
             navigate("/admin/editstudent");
     }
+
+    const handleSubmitAssign = (student_assignid) =>
+    
+    {
+         localStorage.removeItem('student_assignid')
+         localStorage.setItem('student_assignid',student_assignid)
+            navigate("/admin/assignstudent");
+    }
     useEffect(() => {
       axios
         .get("http://localhost:5000/student/getstudents")
@@ -143,6 +151,9 @@ import { useDisclosure } from '@chakra-ui/react'
   <Button  onClick={onOpen} colorScheme='teal' variant='solid'>
    Delete Student
   </Button>
+  <Button onClick={()=>handleSubmitAssign(student._id)} colorScheme='teal' variant='solid'>
+       Assign Students
+      </Button>
               <Divider orientation='horizontal' />
             </>
           ))}

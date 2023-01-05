@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import QuizQuestionComponent from "./QuizQuestionComponent"
-import { Input,Box, Button, Heading,Flex, Text } from "@chakra-ui/react"
+import { Input,Box, FormControl,FormLabel,Button, Heading,Flex, Text } from "@chakra-ui/react"
 import axios from "axios"
 import { useNavigate, useParams} from "react-router-dom";
 import {
@@ -18,6 +18,8 @@ function QuizQuesionsInfo(props){
     const [options, setOptions] = useState([]);
     const [answers, setAnswers]= useState([]);
     const [submitStatus , setSubmitStatus] = useState(0);
+
+    const [quizno , setQuizNo] = useState("");
 
     const[questions, setQuestions] = useState(allNewQuestions())
     const navigate = useNavigate();
@@ -108,7 +110,8 @@ function QuizQuesionsInfo(props){
        axios.post("http://localhost:5000/quizzes/addquiz",
        {
         teacher:name,
-            nofquestions:details.noOfQuestions,
+        quizno: quizno,
+        nofquestions:details.noOfQuestions,
         questions:questions
        }).then(res =>
         {
@@ -162,8 +165,15 @@ function QuizQuesionsInfo(props){
             <Box width="40%" mt={8} mx="auto" textAlign={"center"}>
                 <Text as="h1" my={4} align={"center"} fontWeight="bold" fontSize={30}>Upload Quiz</Text>
                 <Text as="h2" mt={2} fontSize={18}> Please Fill Out Details</Text>
-    
-                <Flex flexDirection={"column"} my={16} gap={1}>
+                <Text as="h4" mt={4}> Quiz No</Text>
+              <Input
+             onChange={e=>setQuizNo(e.target.value)}
+              id='quizno' name='quizno' label='quizno'
+         variant='filled'
+             placeholder= "e.g Quiz 1"
+                 required
+        />  
+                <Flex flexDirection={"column"} my={6} gap={1}>
                     <Text as="h4" mt={4}> Enter the number of Questions</Text>
                     <Input type="number" name="noOfQuestions" value={details.noOfQuestions} 
                      onChange={handleChange2}

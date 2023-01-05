@@ -36,7 +36,7 @@ import { useDisclosure } from '@chakra-ui/react'
     const handleSubmitAssign = (teacher_assignid) =>
     
     {
-         //localStorage.removeItem('teacher_assignid')
+         localStorage.removeItem('teacher_assignid')
          localStorage.setItem('teacher_assignid',teacher_assignid)
             navigate("/admin/assignteacher");
     }
@@ -59,7 +59,7 @@ import { useDisclosure } from '@chakra-ui/react'
     {
     
       localStorage.setItem('teacher_id',teacher_id)
-      axios.delete(`http://localhost:5000/teacher/deleteteacher/${localStorage.getItem('teacher_id')}`)
+      axios.delete('http://localhost:5000/teacher/deleteteacher/:',{params : {id: localStorage.getItem('teacher_id')}})
       .then((res) => {
         //window.alert("Delete Successfull!")
     }).catch((error) => {

@@ -10,4 +10,6 @@ router.get('/getcamps',CampController.GetCamps);
 
 router.get('/getcamp/:id',CampController.GetSingleCamp);
 
+router.get('/getcampname/:id',CampController.GetCampName)
+
 module.exports = router;

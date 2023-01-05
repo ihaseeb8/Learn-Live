@@ -14,7 +14,7 @@ const AssignTeachers =() =>
 {
 
     const [campname , setCampName]= useState("");
-    const [teachers , setTeachers]= useState();
+    const [teachers , setTeachers]= useState([]);
     
     const [searches, setSearches] = useState([])
 
@@ -27,34 +27,31 @@ const AssignTeachers =() =>
   } = useDisclosure({ defaultIsOpen: true })
     const navigate = useNavigate();
 
-    const AssignTeachers=(e)=>
+    const AssignTeachersToCamp=async(e)=>
     {
       e.preventDefault();
         const url = 'http://localhost:5000/camp/addcamp';
-        setSearches(searches => [...searches, `${localStorage.getItem('teacher_assignid')}`]);
+        setTeachers(teachers=> [...teachers, `${localStorage.getItem('teacher_assignid')}`])
+       // setSearches(searches => [...searches, `${localStorage.getItem('teacher_assignid')}`]);
 
    // setSearches(searches =>
      //  searches.concat(`${localStorage.getItem('teacher_assignid')}`))
-
     axios.post(url,{
       campname:campname,
-   
-       teachers:searches
+       teachers:teachers
     }).then ((res)=>
     {
-      setSubmitStatus(1);
+      //setSubmitStatus(1);
       //console.log(res.data)
     }).catch((err)=>
     {
-      setSubmitStatus(-1)
+     // setSubmitStatus(-1)
     })
-
     }
 
      useEffect(() => {
-     
-       console.log(searches);
-    }, [searches])
+       console.log(teachers);
+    }, [teachers])
 
     const StatusAlert = () => {
       if (submitStatus === -1)
@@ -98,7 +95,7 @@ const AssignTeachers =() =>
        
        
     
-    <Button onClick={AssignTeachers} colorScheme='teal' variant='solid'>
+    <Button onClick={AssignTeachersToCamp} colorScheme='teal' variant='solid'>
        Assign Teachers
       </Button>
       <Button  onClick={Back}

@@ -8,11 +8,12 @@ const router = express.Router()
 
 const AddQuiz= (req,res,next)=>
 {
-        const { campname, teacher, nofquestions, questions} = req.body;
+        const { campname, teacher, quizno,nofquestions, questions} = req.body;
     
         const quizObj = {
             campname: campname,
             teacher: teacher,
+            quizno: quizno,
             nofquestions: nofquestions,
             questions: questions,
         }
@@ -39,5 +40,67 @@ const GetQuizzes = (req,res,next)=>
     })
 }
 
+const GetSingleQuiz = (req,res,next)=>
+{
+    var x = req.query.id; // for getting single id 
+    //console.log(x);
+     Quizzes.findById(x , (error,data) =>
+    {
+        if(error){
+            res.send("Not Found!");
+        }
+        else {
+            res.json(data)
+        }
+    })
+}
+
+const DeleteQuiz = (req,res,next) =>
+{
+    
+    Quizzes.findByIdAndDelete(req.params.id,(error,data)=> {
+        if(error){
+            return next(error);
+        }
+        else {
+            //res.send("Teacher Deleted Successfully!")
+            res.status(200).json({
+                msg:data
+            })
+        }
+    })
+}
+
+// const GetQuizzes = (req, res) => {
+// 	const teacherId = req.params.id;
+// 	Quizzes.find({teachers: teacherId}).exec((err, quizzes) => {
+// 		if(err) res.status(500).send({message: err.message});
+// 		else res.status(200).send({data: quizzes});
+// 	})
+// }
+
+// const GetAllQuizzes = (req,res,next) =>
+// {
+//     var x = (req.query.id) // quiz id
+ 
+//     const quizzes =  Quizzes.findbyId(x)
+//    // const quizzes =  Quizzes.findById(x)
+//     console.log(quizzes);
+   
+//     for(i=0; i<quizzes.questions.length; i++)
+//     {  
+     
+//        console.log(quizzes.questions[i])
+//          res.json(quizzes.questions[i]); 
+
+
+//     }
+// }
+
+
+
 exports. AddQuiz = AddQuiz;
 exports.GetQuizzes = GetQuizzes;
+exports.GetSingleQuiz= GetSingleQuiz;
+exports.DeleteQuiz = DeleteQuiz;
+//exports.GetAllQuizzes = GetAllQuizzes;

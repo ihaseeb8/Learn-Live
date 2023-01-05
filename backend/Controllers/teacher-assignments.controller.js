@@ -19,7 +19,8 @@ const GetAssignments = async(req,res,next)=>
 
 const GetSingleAssignment = async(req,res,next)=>
 {
-    TeacherAssignments.findById(req.params.id , (error,data) =>
+    var x = req.query.id;
+    TeacherAssignments.findById(x , (error,data) =>
     {
         if(error)
         {

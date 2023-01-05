@@ -1,5 +1,5 @@
 import React , {useState, useEffect} from 'react'
-import { Box, Heading, Text, Link } from '@chakra-ui/react'
+import { Box, Button,Heading, Text, Link } from '@chakra-ui/react'
 import axios from "axios"
 
 const TeacherAccountDetails = () => {
@@ -10,8 +10,11 @@ const TeacherAccountDetails = () => {
   const [gender, setGender]= useState("");
   const [phoneno , setPhoneNo]=useState("");
 
-  const [campname , setCampName] = useState("")
-  const [teachers, setTeachers] = useState("");
+  const [campname , setCampName]= useState("");
+  const [teachers, setTeachers] = useState([]);
+  const [camps , setCamps] = useState([]);
+  
+
 
   
   const getCurentUser = () =>
@@ -31,11 +34,26 @@ const TeacherAccountDetails = () => {
           console.log(err) })
   }
 
+  const getCurrentCamp = () =>
+  {
+   
+    axios.get('http://localhost:5000/camp/getcamps')
+    .then(res =>{
+      console.log(res.data)
+      setCamps(res.data)
+
+      //setCampName(res.data)
+      // setTeachers(res.data.teachers);
+     // console.log(teachers)
+    })
+  }
+
  
 
   useEffect(()=>
   {
       getCurentUser();
+      getCurrentCamp();
      
   })
 
@@ -63,7 +81,14 @@ const TeacherAccountDetails = () => {
       <Text mt={5}>
       Phone Number: {phoneno}
       </Text>
-    
+
+      {/* {camps.map((camp,index) => (  
+         
+            <> 
+      <Text>Camp Name: {camp.campname}</Text>
+      </>
+                 ))}  
+             */}
 
 
       {/* <Link  mt={5} to="/edit-account">Edit Account</Link> */}

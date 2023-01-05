@@ -1,9 +1,9 @@
-import { Grid, Box, FormControl, FormLabel, Input, Text, FormErrorMessage, Button } from "@chakra-ui/react";
+import { Grid,Select, Box, FormControl, FormLabel, Input, Text, FormErrorMessage, Button } from "@chakra-ui/react";
 import { useState } from "react";
 import axios from "axios";
 
 function TeacherUploadAssignment() {
-
+  const [campname , setCampName] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [marks, setMarks] = useState("");
@@ -23,6 +23,13 @@ function TeacherUploadAssignment() {
      setSelectedFiles(e.target.files)
   
   };
+
+
+  const GetCurrentCamps = () =>
+  {
+
+    // axios.get('http://localhost:5000/camp/')
+  }
 
   const UploadAssignment = (e) => {
     e.preventDefault();
@@ -74,6 +81,16 @@ function TeacherUploadAssignment() {
 
         {error && <Text color="red.500">{error}</Text>}
         {success && <Text color="green.500">{success}</Text>}
+
+        <FormLabel htmlFor="title" fontWeight="bold" color="orange.600" >Camp</FormLabel>
+        <Select placeholder='Camp Names'
+          borderColor="orange.500"
+          focusBorderColor="orange.600"
+        onChange={e => setCampName(e.target.value)}>
+      <option value={'PF'}>PF</option>
+      <option value={'OOP'}>OOP</option>
+      <option value={'DS'}>DS</option>
+    </Select>
         <FormControl>
             <FormLabel htmlFor="title" fontWeight="bold" color="orange.600">Title</FormLabel>
             <Input
@@ -164,7 +181,6 @@ function TeacherUploadAssignment() {
                   />
                 );
               })}
-            ; 
         <Button onClick={UploadAssignment} display={"table-column"} type="submit" colorScheme={"orange"} mt={4} p="auto" ml="auto" mr="auto">
             Upload
         </Button>

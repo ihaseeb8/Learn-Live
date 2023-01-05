@@ -8,4 +8,8 @@ router.post('/addquiz',QuizzesController.AddQuiz);
 
 router.get('/getquizzes', QuizzesController.GetQuizzes);
 
+router.get('/getquiz/:id',QuizzesController.GetSingleQuiz);
+
+router.delete('/deletequiz/:id',QuizzesController.DeleteQuiz);
+
 module.exports = router;

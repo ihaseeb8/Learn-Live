@@ -28,9 +28,12 @@ const AdminAccountDetails = () => {
           console.log(err) })
   }
 
+
+
   useEffect(()=>
   {
       getCurentUser();
+      
   })
 
 

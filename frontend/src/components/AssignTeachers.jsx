@@ -13,8 +13,10 @@ import { useDisclosure } from '@chakra-ui/react'
 const AssignTeachers =() =>
 {
 
-    const [campname , setCampName]= useState("");
-    const [teachers , setTeachers]= useState([]);
+    const [camps , setCamps] = useState([])
+    const [campname , setCampName]= useState([]);
+    const [teachers , setTeachers]= useState("");
+    const [selectedCampus, setSelectedCampus] = useState("");
     
     const [searches, setSearches] = useState([])
 
@@ -27,29 +29,49 @@ const AssignTeachers =() =>
   } = useDisclosure({ defaultIsOpen: true })
     const navigate = useNavigate();
 
+    const GetCampNames = () =>
+    {
+      axios.get('http://localhost:5000/camp/getcampname')
+      .then(res =>
+        {
+          console.log(res.data);
+          setCampName(res.data);
+          console.log(res.data);
+          //setCamps(res.data);
+          //console.log(camps)
+          
+        }).catch(err =>
+          {
+            console.log(err)
+          })
+    };
+
     const AssignTeachersToCamp=async(e)=>
     {
       e.preventDefault();
         const url = 'http://localhost:5000/camp/addcamp';
-        setTeachers(teachers=> [...teachers, `${localStorage.getItem('teacher_assignid')}`])
+        setTeachers(`${localStorage.getItem('teacher_assignid')}`)
+        console.log(`${localStorage.getItem('teacher_assignid')}`)
+        //setTeachers(teachers=> [...teachers, `${localStorage.getItem('teacher_assignid')}`])
        // setSearches(searches => [...searches, `${localStorage.getItem('teacher_assignid')}`]);
 
    // setSearches(searches =>
      //  searches.concat(`${localStorage.getItem('teacher_assignid')}`))
     axios.post(url,{
-      campname:campname,
-       teachers:teachers
+      campname:selectedCampus,
+       teachers:`${localStorage.getItem('teacher_assignid')}`
     }).then ((res)=>
     {
-      //setSubmitStatus(1);
+      setSubmitStatus(1);
       //console.log(res.data)
     }).catch((err)=>
     {
-     // setSubmitStatus(-1)
+      setSubmitStatus(-1)
     })
     }
 
      useEffect(() => {
+      GetCampNames();
        console.log(teachers);
     }, [teachers])
 
@@ -84,15 +106,19 @@ const AssignTeachers =() =>
           <Text mt={4}>    
             Here you can view and edit your account details.    
           </Text>
-
-        <FormLabel>Camp</FormLabel>
-        <Select placeholder='Camp Names'
-        onChange={e => setCampName(e.target.value)}>
-      <option value={'PF'}>PF</option>
-      <option value={'OOP'}>OOP</option>
-      <option value={'DS'}>DS</option>
-    </Select>
+          <FormLabel>Camp</FormLabel>
+        <Select placeholder='Camp Names' value={selectedCampus}
+        onChange={e => setSelectedCampus(e.target.value)}>
+            {Array.isArray(campname) && campname.map((campname) => (  
+            
+            <> 
+        
+      <option value={campname}>{campname}</option>
+    
        
+    </>
+                 ))} 
+                 </Select>
        
     
     <Button onClick={AssignTeachersToCamp} colorScheme='teal' variant='solid'>

@@ -10,12 +10,27 @@ const TeacherAccountDetails = () => {
   const [gender, setGender]= useState("");
   const [phoneno , setPhoneNo]=useState("");
 
-  const [campname , setCampName]= useState("");
+  const [campname , setCampName]= useState([]);
   const [teachers, setTeachers] = useState([]);
   const [camps , setCamps] = useState([]);
   
 
+  const getCurrentCampName = (userID) =>
+  {
+    console.log(userID)
+    localStorage.setItem('userID',userID)
+    //axios.get('http://localhost:5000/camp/getcampteacher/:',{params : {id:localStorage.getItem('userID')}}).then(res =>
+    axios.get(`http://localhost:5000/camp/getcampteacher/${localStorage.getItem('userID')}`).then(res =>
+    {
+      console.log(res.data)
+      setCampName(res.data);
+      console.log(res.data);
 
+    }).catch(err =>
+      {
+        console.log(err);
+      })
+  }
   
   const getCurentUser = () =>
   {
@@ -34,26 +49,12 @@ const TeacherAccountDetails = () => {
           console.log(err) })
   }
 
-  const getCurrentCamp = () =>
-  {
-   
-    axios.get('http://localhost:5000/camp/getcamps')
-    .then(res =>{
-      console.log(res.data)
-      setCamps(res.data)
-
-      //setCampName(res.data)
-      // setTeachers(res.data.teachers);
-     // console.log(teachers)
-    })
-  }
-
- 
+  
 
   useEffect(()=>
   {
       getCurentUser();
-      getCurrentCamp();
+      getCurrentCampName(userID);
      
   })
 
@@ -81,14 +82,11 @@ const TeacherAccountDetails = () => {
       <Text mt={5}>
       Phone Number: {phoneno}
       </Text>
-
-      {/* {camps.map((camp,index) => (  
-         
+      {Array.isArray(campname) && campname.map((campname) => (             
             <> 
-      <Text>Camp Name: {camp.campname}</Text>
-      </>
-                 ))}  
-             */}
+      <Text>Camp Name: {campname} </Text>
+    </>
+                 ))}    
 
 
       {/* <Link  mt={5} to="/edit-account">Edit Account</Link> */}

@@ -100,6 +100,7 @@ export default function AdminSidebar({navSize, changeNavSize}) {
                 
                 <NavItem navSize={navSize} icon ={FiUser} title="Add Students" route="addstudents"/>
                 <NavItem navSize={navSize} icon ={FiUser} title="View Students" route="viewstudents"/>
+                <NavItem navSize={navSize} icon ={FiUser} title="Add Camp" route="addcamp"/>
                 <NavItem navSize={navSize} icon={FiSettings} title="View Camps" route="viewcamps"/>
                 <NavItem navSize={navSize} icon={FiSettings} title="Settings" route="settings"/>
             </Flex>

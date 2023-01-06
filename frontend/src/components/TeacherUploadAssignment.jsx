@@ -1,9 +1,12 @@
 import { Grid,Select, Box, FormControl, FormLabel, Input, Text, FormErrorMessage, Button } from "@chakra-ui/react";
 import { useState } from "react";
 import axios from "axios";
+import { useEffect } from "react";
 
 function TeacherUploadAssignment() {
-  const [campname , setCampName] = useState("");
+  const [userID, setUserID] = useState("");
+  const [campname , setCampName] = useState([]);
+  const [selectedCamp , setSelectedCamp] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [marks, setMarks] = useState("");
@@ -23,12 +26,35 @@ function TeacherUploadAssignment() {
      setSelectedFiles(e.target.files)
   
   };
-
-
-  const GetCurrentCamps = () =>
+  const getCurentUser = () =>
   {
+    let logintoken = localStorage.getItem("logintoken")
+    console.log("Login Token"+logintoken);
+    axios.defaults.headers.common["Authorization"] = `Bearer ${logintoken}`;
+    axios.get("http://localhost:5000/teacher/viewprofile")
+      .then(res=> {
+              console.log(res.data)
+              setUserID(res.data._id);
+      }).catch (err=> {
+          console.log(err) })
+  }
 
-    // axios.get('http://localhost:5000/camp/')
+
+  const getCurrentCampName = (userID) =>
+  {
+    console.log(userID)
+    localStorage.setItem('userID',userID)
+    //axios.get('http://localhost:5000/camp/getcampteacher/:',{params : {id:localStorage.getItem('userID')}}).then(res =>
+    axios.get(`http://localhost:5000/camp/getcampteacher/${localStorage.getItem('userID')}`).then(res =>
+    {
+      console.log(res.data)
+      setCampName(res.data);
+      console.log(res.data);
+
+    }).catch(err =>
+      {
+        console.log(err);
+      })
   }
 
   const UploadAssignment = (e) => {
@@ -36,6 +62,7 @@ function TeacherUploadAssignment() {
 
     const url = "http://localhost:5000";
     const formData = new FormData();
+    formData.append("campname" , selectedCamp)
     formData.append("title", title);
     formData.append("description", description);
     formData.append("tmarks", marks);
@@ -73,6 +100,12 @@ function TeacherUploadAssignment() {
    
   };
 
+  useEffect(()=>
+  {
+    getCurentUser();
+    getCurrentCampName(userID);
+  })
+
 
   return (
 
@@ -83,14 +116,17 @@ function TeacherUploadAssignment() {
         {success && <Text color="green.500">{success}</Text>}
 
         <FormLabel htmlFor="title" fontWeight="bold" color="orange.600" >Camp</FormLabel>
-        <Select placeholder='Camp Names'
-          borderColor="orange.500"
-          focusBorderColor="orange.600"
-        onChange={e => setCampName(e.target.value)}>
-      <option value={'PF'}>PF</option>
-      <option value={'OOP'}>OOP</option>
-      <option value={'DS'}>DS</option>
-    </Select>
+        <Select
+        color="orange.600"
+        placeholder='Camp Names' value={selectedCamp}
+        onChange={e => setSelectedCamp(e.target.value)}>
+            {Array.isArray(campname) && campname.map((campname) => (  
+            <> 
+      <option value={campname}>{campname}</option>
+  
+    </>
+     ))} 
+                 </Select>
         <FormControl>
             <FormLabel htmlFor="title" fontWeight="bold" color="orange.600">Title</FormLabel>
             <Input

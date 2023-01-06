@@ -10,6 +10,13 @@ const campSchema = new moongose.Schema({
         type: String
     },
 
+    startdate :{
+        type: Date
+    },
+
+    enddate : {
+        type: Date
+    },
 
         teachers: [
             {

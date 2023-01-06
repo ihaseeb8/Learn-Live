@@ -6,7 +6,10 @@ const {ObjectId} = mongoose.Schema.Types
 require("dotenv").config();
 
 const teacherAssignmentsSchema = new moongose.Schema({
-
+    campname :{
+        type: String
+    },
+    
     title: {
         type: String
     },

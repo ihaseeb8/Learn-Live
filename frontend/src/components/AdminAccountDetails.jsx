@@ -27,9 +27,12 @@ const AdminAccountDetails = () => {
           console.log(err) })
   }
 
+
+
   useEffect(()=>
   {
       getCurentUser();
+      
   })
 
 
@@ -53,6 +56,8 @@ const AdminAccountDetails = () => {
       <Text mt={5}>
       Phone Number: {phoneno}
       </Text>
+      
+      
 
       {/* <Link  mt={5} to="/edit-account">Edit Account</Link> */}
     </Box>

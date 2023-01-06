@@ -6,6 +6,7 @@ import { useNavigate, useParams} from "react-router-dom";
 
 const TeacherSingleViewAssignment=()=>
  {
+    const [campname , setCampName] = useState("");
     const [title , setTitle] = useState("");
     const [description , setDescription]= useState("");
     const [tmarks , setTMarks] = useState("");
@@ -20,6 +21,7 @@ const TeacherSingleViewAssignment=()=>
         .get('http://localhost:5000/tchassignments/singletchassign/:',{params : {id: localStorage.getItem('assignment_viewid')}})
         .then((res) => {
           console.log(res.data);
+          setCampName(res.data.campname);
           setTitle(res.data.title);
           
           setDescription(res.data.description);
@@ -50,6 +52,9 @@ const TeacherSingleViewAssignment=()=>
         <Box width="80%" mt={8}  mx={"auto"}>
         <Text my={4} align={"center"} fontWeight="bold" fontSize={30}>Assignment</Text>
             {/* <Grid templateColumns="repeat(3, 1fr)" gap={10} overflow="scroll" height="80%" > */}
+            <Text >
+                   Campname: {campname}
+                </Text>
             <Text >
                    Title: {title}
                 </Text>

@@ -53,6 +53,7 @@ router.post('/uploadassigns',  upload.array('uplassign',4),async (req,res,next) 
     }
 
         const tchAss = new TeacherAssignments({   
+            campname: req.body.campname,
           title: req.body.title,
           description: req.body.description,
           tmarks:req.body.tmarks,

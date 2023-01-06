@@ -5,7 +5,7 @@ import { Divider } from '@chakra-ui/react'
 import { useNavigate, useParams} from "react-router-dom";
 
 
-const EditTeacherDetails = () =>
+const EditTeacherDetails = (props) =>
 {
     const [userID , setUserID] = useState();
     const [name, setName] = useState("");
@@ -21,25 +21,34 @@ const EditTeacherDetails = () =>
     const [previewSource , setPreviewSource] = useState("");
    
       const [msg, setMsg] = useState('');
+  const navigate = useNavigate();
+  //{params : {id: localStorage.getItem('teacherid')}})
 
+    const getSingleUser = () =>
+    {
+      axios
+        .get('http://localhost:5000/teacher/getteacher/:',{params : {id: localStorage.getItem('teacherid')}})
+        .then((res) => {
+          console.log(res.data);
+          setName(res.data.name);
+          setEmail(res.data.email);
+          setGender(res.data.gender);
+          setPhoneNo(res.data.phoneno);
+          setPassword(res.data.password);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+   
+
+     
 
   const EditTeachers = async(e) =>
   {
-    axios.get('http://localhost:5000/teacher/getteacher', {params : {id: localStorage.getItem('teacherid')}})
-    .then(res=> {
-      console.log(res.data)
-      setName(res.data.name);
-      setEmail(res.data.email);
-      setGender(res.data.gender);
-      setPhoneNo(res.data.phoneno);
-      setPassword(res.data.password);
-      setFileInputState(res.data.fileInputState);
-    
-      }).catch (err=> {
-  console.log(err) })
-
     e.preventDefault();
     console.log(`id: ${localStorage.getItem('teacherid')}`)
+   // ${localStorage.getItem('teacherid')}
     //setName(name);
     axios.put(`http://localhost:5000/teacher/updateteacher/${localStorage.getItem('teacherid')}`,
     {
@@ -48,7 +57,6 @@ const EditTeacherDetails = () =>
       gender:gender,
       phoneno:phoneno,
       password:password,
-      fileInputState:fileInputState,
     
     }).then((res)=>
     {
@@ -61,22 +69,9 @@ const EditTeacherDetails = () =>
            
   }
 
-  const handleFileInputChange =(e)=>
+  const Back = ()=>
   {
-      const file = e.target.files[0];
-      previewFile(file);
-      setSelectedFile(file);
-      setFileInputState(e.target.value);
-  };
-  
-  const previewFile = (file) =>
-  {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onloadend=()=>
-      {
-          setPreviewSource(reader.result);
-      }
+    navigate("/admin/viewteachers");
   }
 
          return (
@@ -94,20 +89,19 @@ const EditTeacherDetails = () =>
      <Input
       onChange={e=>setName(e.target.value)}
        id='name' name='name' label='Name'
+       value={name}
        defaultValue={name}
        variant='filled'
-      inputProps = {
-        { readOnly: false,}
-        }
-        required
+    
         />  
          </FormControl>
-         <FormControl>
+          <FormControl>
            <FormLabel>Email</FormLabel>
-     <Input
+     <Input 
       onChange={e=>setEmail(e.target.value)}
        id='email' name='email' label='Email'
       variant='filled'
+      value={email}
       defaultValue={email}
       inputProps = {
         { readOnly: false,}
@@ -129,6 +123,7 @@ const EditTeacherDetails = () =>
            <FormLabel>Phone Number</FormLabel>
      <Input
       onChange={e=>setPhoneNo(e.target.value)}
+      value={phoneno}
       defaultValue={phoneno}
        id='phoneno' name='phoneno' label='phoneno'
       variant='filled'
@@ -139,31 +134,33 @@ const EditTeacherDetails = () =>
            <FormLabel>Password</FormLabel>
      <Input
       onChange={e=>setPassword(e.target.value)}
+      value={password}
       defaultValue={password}
        id='password' name='password' label='password'
       variant='filled'
       type="password"
         required
         />  
-         </FormControl>    
-         {/* <input 
-        type="file"
-         name="file"
-         defaultValue={fileInputState}
-         onChange={handleFileInputChange} 
-        value={fileInputState}
-         />
-         {previewSource && (
-       <img
-          src={previewSource}
-          alt="chosen"
-             style={{height:"200px", width: "400px", class:"center", borderRadous:"50%"}}
-             />
-          )} */}
+         </FormControl>     
+         
+
+<Button  onClick={getSingleUser} colorScheme='teal' variant='solid'>
+   View Details 
+  </Button>
+
 <Button  onClick={EditTeachers} colorScheme='teal' variant='solid'>
    Update Teacher
   </Button>
 
+<Button  onClick={Back} 
+style={{
+  position: 'absolute',
+  right: 30,
+  bottom:10,
+}}
+colorScheme='teal' variant='solid'>
+  Back
+  </Button>
     </Box>
         </div>
 

@@ -1,12 +1,16 @@
 import { useState } from "react"
 import { Box, FormControl, FormLabel, Input, Select, Textarea, Heading} from "@chakra-ui/react";
+import axios from "axios"
 
 
 function QuizQuestionComponent(props){
+
+    
+
     return (
         <Box width="100%" p={4} className="question-container" textAlign={"center"} >
-            <Heading as="h4" margin={2} fontSize={20}>Enter Question {props.id}</Heading>
-            <Textarea required ml={2} marginBottom={4}  placeholder="Enter the question" className="question-line" name="questionLine" value={props.questionLine} onChange={props.onChange} />
+            <Heading as="h4" margin={2} fontSize={24}>Enter Question {props.id}</Heading>
+            <Textarea required ml={4} marginBottom={4}  placeholder="Enter the question" className="question-line" name="questionLine" value={props.questionLine} onChange={props.onChange} />
             <Box display="grid" gridTemplateColumns="1fr 1fr" gap={3}  className="options-container">
                 <Box display={"flex"} p={1}>
                     <FormLabel margin={"auto"} pr={2} htmlFor="option-a">a: </FormLabel>
@@ -25,10 +29,10 @@ function QuizQuestionComponent(props){
                     <Input placeholder="Option D" type="text" className="question-options" id="optionD" name="optionD" value={props.optionD} onChange={props.onChange} />
                 </Box>
             </Box>
-            <Box display={"flex"} p={2}>
+            <Box display={"flex"} p={4}>
                 <FormLabel margin={"auto"} htmlFor="correctOption">Select the correct answer for the above question</FormLabel>
                     <Select
-                        width="20%"
+                        width="50%"
                         id="correctOption"
                         name="correctOption"
                         value={props.correctOption}

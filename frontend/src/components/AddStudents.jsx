@@ -1,6 +1,13 @@
 import React , {useState, useEffect} from 'react'
 import { Box,Button, Heading, Text, Link ,FormControl,FormLabel, Input,RadioGroup,Radio,Stack, InputGroup} from '@chakra-ui/react'
 import axios from "axios"
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from '@chakra-ui/react'
+import { useDisclosure } from '@chakra-ui/react'
 
 const AddStudents = () => {
 
@@ -12,12 +19,17 @@ const AddStudents = () => {
   const [password,setPassword]= useState("");
   const[cpassword, setConPassword]= useState("");
   const[profileimg, setProfileImg] = useState("");
-
+  const [submitStatus, setSubmitStatus] = useState(0);
   const [msg,setMsg]=useState('');
 
   const [selectedFile, setSelectedFile] =useState(null);
   const [fileInputState, setFileInputState ] = useState("");
   const [previewSource , setPreviewSource] = useState("");
+  const {
+    isOpen: isVisible,
+    onClose,
+    onOpen,
+  } = useDisclosure({ defaultIsOpen: true })
 
   const PostStudents =async (e) =>
   {
@@ -34,10 +46,28 @@ const AddStudents = () => {
            console.log(formData);
            axios.post(url,formData).then ((res)=>
            {
-            console.log(res.data)
+            setSubmitStatus(1);
+            //console.log(res.data)
            })
           
          }
+
+         const StatusAlert = () => {
+          if (submitStatus === -1)
+            return (
+              <Alert status='error'>
+              <AlertIcon />
+             Student was not added!
+            </Alert>
+            );
+          if (submitStatus === 1)
+            return (
+              <Alert status='success'>
+              <AlertIcon />
+              Student was added!
+            </Alert>
+            );
+        };
   
 
 
@@ -145,9 +175,9 @@ const AddStudents = () => {
    Add Student
   </Button>
 
-     
+  <StatusAlert />
 
-      {/* <Link  mt={5} to="/edit-account">Edit Account</Link> */}
+     
     </Box>
   )
 }

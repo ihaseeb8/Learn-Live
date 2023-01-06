@@ -5,8 +5,12 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 
+
+
+
 const app = express();
 const port = process.env.PORT || 5000;
+
 
 app.use(cors());
 
@@ -26,6 +30,8 @@ const TeacherRouter = require('./Routes/teacher.route');
 const StudentRouter = require('./Routes/student.route');
 const AdminRouter = require('./Routes/admin.route');
 const TeacherAssignmentsRouter = require('./Routes/teacher-assignments.route');
+const CampRouter = require('./Routes/camp.route');
+const QuizzesRouter = require('./Routes/quizzes.route');
 
 
 const TokenTeacher = require('./Middleware/TeacherToken');
@@ -39,8 +45,9 @@ app.use('/tchassignments',TeacherAssignmentsRouter)
 app.use('/student' ,express.static('student'));
 app.use('/student',StudentRouter);
 app.use('/admin' ,express.static('admin'));
-app.use('/admin',AdminRouter)
-
+app.use('/admin',AdminRouter);
+app.use('/camp',CampRouter);
+app.use('/quizzes',QuizzesRouter);
 
 
 app.get('/teacher/viewprofile',TokenTeacher,(req,res)=>
@@ -68,12 +75,12 @@ app.use((req, res, next) => {
   next(err);
 });
 
-app.use((err, req, res, next) => {
-  res.locals.error = err;
-  const status = err.status || 500;
-  res.status(status);
-  res.render('error');
-});
+// app.use((err, req, res, next) => {
+//   res.locals.error = err;
+//   const status = err.status || 500;
+//   res.status(status);
+//   res.render('error');
+// });
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);

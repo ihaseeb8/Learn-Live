@@ -10,6 +10,8 @@ const AdminSettings = () => {
       <Text mt={4}>
         Here you can view and edit your account settings.
       </Text>
+    
+
       <Link to="/edit-account">Edit Account</Link>
     </Box>
   )

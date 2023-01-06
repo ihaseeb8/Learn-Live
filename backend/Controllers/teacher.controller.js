@@ -54,8 +54,8 @@ const VerifyLogin = async(req,res,next) =>
     let token;
     const email=req.body.email;
     const password = req.body.password;
-    const log= await Teacher.findOne({email:email , password:password})
-   
+    const log=  await Teacher.findOne({email:email , password:password})
+    
       if(log)
       {
        // res.status(201).json(log)
@@ -63,7 +63,7 @@ const VerifyLogin = async(req,res,next) =>
         // console.log(token);
         // res.send({token});
 
-          token = await  log.generateAuthToken();
+          token = await log.generateAuthToken();
           console.log(token);
           res.send(token);
       }
@@ -71,10 +71,12 @@ const VerifyLogin = async(req,res,next) =>
       {
         res.status(401).json("Username or Password not found!")
       }
-   }
+  
+  }
    catch (err){
     console.log(err);
-}   
+} 
+
 }
 
 const GetTeachers = async(req,res,next) =>
@@ -94,7 +96,7 @@ const GetTeachers = async(req,res,next) =>
 const GetSingleTeacher = async(req,res,next) => 
 {
     var x = req.query.id; // for getting single id for editing
-    console.log(x);
+    //console.log(x);
     Teacher.findById(x, (error,data) =>
     {
         if(error){
@@ -121,14 +123,15 @@ const UpdateTeacher = async(req,res,next) =>
       })
     }
     
-    const DeleteTeacher = async(req,res,next) =>
+    const DeleteTeacher = (req,res,next) =>
     {
-        Teacher.findByIdAndDelete(req.params.id,(error,data)=> {
+    var x= req.query.id;
+        Teacher.findByIdAndDelete(x,(error,data)=> {
             if(error){
                 return next(error);
             }
             else {
-                res.send("Teacher Deleted Successfully!")
+                //res.send("Teacher Deleted Successfully!")
                 res.status(200).json({
                     msg:data
                 })

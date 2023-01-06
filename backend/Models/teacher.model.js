@@ -28,7 +28,9 @@ const teacherSchema = new moongose.Schema({
     cpassword :{
         type: String
     },
-
+    campname: {
+        type: String
+    },
     profileimg: {
         type: String
     },

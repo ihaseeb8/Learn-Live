@@ -20,8 +20,10 @@ const teacherAssignmentsSchema = new moongose.Schema({
     },
 
     duedate: {
-        type: Date
+        type: Date,
+        timestamps: false
     },
+   
 
     uplassign: {
         type: Array
@@ -30,7 +32,8 @@ const teacherAssignmentsSchema = new moongose.Schema({
     teacher:{
         type: Schema.Types.ObjectId,
         ref: 'Teacher'
-    }
+    },
+  
 });
 
 const TeacherAssignments = mongoose.model('TeacherAssignments', teacherAssignmentsSchema );

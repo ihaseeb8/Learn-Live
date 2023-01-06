@@ -6,7 +6,10 @@ import TeacherUploadAssignment from '../components/TeacherUploadAssignment'
 import TeacherSidebar from '../components/TeacherSidebar'
 import TeacherViewAssignments from '../components/TeacherViewAssignments'
 import TeacherAccountDetails from '../components/TeacherAccountDetails'
-import QuizInfo from '../components/TeacherQuiz/QuizInfo'
+import QuizQuesionsInfo from '../components/TeacherQuiz/QuizQuestionsInfo'
+import ViewQuizzes from '../components/TeacherQuiz/ViewQuizzes'
+import ViewSingleQuiz from '../components/TeacherQuiz/ViewSingleQuiz'
+import TeacherSingleViewAssignment from '../components/ViewSingleTeacherAssignment'
 
 const TeacherDashboard = () => {
     
@@ -34,8 +37,15 @@ const TeacherDashboard = () => {
 
                     <Route path="account" element={<TeacherAccountDetails />} />
 
-                    <Route path="uploadquiz" element={<QuizInfo />} />
+                    <Route path="uploadquiz" element={<QuizQuesionsInfo />} />
 
+                      <Route path="viewquizzes" element={<ViewQuizzes/>}/> 
+
+                      <Route path="viewquiz" element={<ViewSingleQuiz/>}/>
+
+                      <Route path="viewassignment" element={<TeacherSingleViewAssignment/>}/>
+
+                      
                 </Routes>       
             </Flex>
         </Flex>

@@ -1,7 +1,6 @@
 import { Grid, Box, FormControl, FormLabel, Input, Text, FormErrorMessage, Button } from "@chakra-ui/react";
 import { useState } from "react";
 import axios from "axios";
-import { PDFViewer, Document, Page } from "@react-pdf/renderer";
 
 function TeacherUploadAssignment() {
 

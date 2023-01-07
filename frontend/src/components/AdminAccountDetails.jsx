@@ -119,30 +119,6 @@ const AdminAccountDetails = () => {
       </Box>
     </Box>
 
-    // <Box p={5}
-    //   >
-
-    //   <Heading as="h2" size="lg">
-    //     Account Details
-    //   </Heading>
-    //   <Text mt={4}>    
-    //     Here you can view and edit your account details.    
-    //   </Text>
-    //   <Text mt={5}>
-    //   Name: {name}
-    //   </Text>
-    //   <Text mt={5}>
-    //   Email: {email}
-    //   </Text>
-    //   <Text mt={5}>
-    //   Gender: {gender}
-    //   </Text>
-    //   <Text mt={5}>
-    //   Phone Number: {phoneno}
-    //   </Text>
-
-    //   {/* <Link  mt={5} to="/edit-account">Edit Account</Link> */}
-    // </Box>
   )
 }
 

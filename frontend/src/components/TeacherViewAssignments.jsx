@@ -1,6 +1,6 @@
 import React from "react"
 import { useState, useEffect } from "react"
-import { Box,Grid,Button, Text,FormControl, FormLabel, Input, Select, Textarea, Heading} from "@chakra-ui/react";
+import { Box,Grid,Button, Text,FormControl, FormLabel, Input, Select, Textarea, Heading, Flex} from "@chakra-ui/react";
 import axios from "axios"
 import { useNavigate, useParams} from "react-router-dom";
 import {
@@ -83,49 +83,80 @@ import {
   
     getAllAssignments();
     getCurentUser();
+
    },[])
 
 
 
     return (
-        <Box width="80%" mt={8}  mx={"auto"}>
-             
-        <Text my={4} align={"center"} fontWeight="bold" fontSize={30}>All Assignments</Text>
-       {assignments.map((assignment) => (  
-            
-            <> 
-           
-            
-                <Box p={5} shadow="md" borderWidth="1px" margin={2} marginBottom={10}>
-                <Text fontSize="xl" fontWeight="bold">
-                 Teacher Name: {assignment.teacher}
-                </Text>
-                <Text fontSize="xl" fontWeight="bold">
-                  Camp Name: {assignment.campname}
-                </Text>  
-                <Text fontSize="xl" fontWeight="bold">
-                  Title: {assignment.title}
-                </Text>
-                <Button display={"table-column"} type="submit"  
-               onClick={()=>handleSubmitView(assignment._id)}
-                colorScheme={"orange"} size="lg" mt={28} p="auto" ml="auto" mr="auto">
-                     View
-             </Button> 
-            <Button display={"table-column"} type="submit" 
-                onClick={onOpen}
-                colorScheme={"orange"} size="lg" mt={28} p="4" ml="28" mr={"auto"}>
-             Delete
-             </Button> 
-             
-                </Box>
 
+      <Box pt={0} px={0} mx='auto' textAlign={'center'} width={'100%'} backgroundColor='gray.100' borderRadius={30}>
+      <Box pt={4} pb={2}  >
+        <Heading mb={4} >
+          View Assigments
+        </Heading>
+      </Box>
+
+      <Flex maxW='2xl' mx="auto" flexDirection={'column'}>
+        <Flex p={4} pt={0}>
+          <Input placeholder="Assigment's Name" variant={'outlined'} borderColor='orange'></Input>
+          <Button colorScheme={'orange'}>Search</Button>
+        </Flex>
+
+        <Flex border={'1px solid orange'} 
+              gap={2} 
+              justifyContent='space-around' 
+              height='50vh' borderRadius='20px' 
+              p={4} flexWrap='wrap' 
+              overflowY='scroll'
+              sx={{
+                '&::-webkit-scrollbar': {
+                  width: '16px',
+                  borderRadius: '8px',
+                  backgroundColor: 'white',
+                },
+                '&::-webkit-scrollbar-thumb': {
+                  backgroundColor: `orange.500`,
+                  borderRadius: '8px',
+                },
+              }}>
+
+        {assignments.map((assignment) => (  
+
+            <Flex border={'1px solid orange'} width={'250px'} borderRadius={30} p={2} alignItems='center' justifyContent={'space-around'}>
+
+            <Box ml={0} >
+              {/* Jaan Implement this ( displays teacher Id instead of name)*/}
+              {/* <Text>
+              Teacher Name: {assignment.teacher}
+              </Text>  */}
+              <Text>
+              Camp: {assignment.campname}
+              </Text> 
+              <Text>
+              Title: {assignment.title}
+              </Text>
+            </Box>
             
-            </>
-                 ))} 
-      
+            <Flex flexDir={'column'} justifyContent='center'>
+                <Button  onClick={()=>handleSubmitView(assignment._id)} colorScheme='orange' variant='ghost'>
+                  <i class="fa-solid fa-eye"></i>
+                </Button>
+
+                <Button  onClick={onOpen} colorScheme='orange' variant='ghost'>
+                  <i class="fa-solid fa-trash"></i>
+                </Button>
+
+            </Flex>
         
-  
-        </Box>
+            
+            </Flex>  ))} 
+
+        </Flex>
+      </Flex>
+
+    </Box>
+
        
     )
   }

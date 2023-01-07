@@ -61,61 +61,68 @@ export default function TeacherSidebar({navSize, changeNavSize}) {
 
     return (
         <Flex
-            pos="sticky"
-            left="5"
-            h="95vh"
-            marginTop="2.5vh"
-            boxShadow="0px 4px 12px 0 orange "
-            borderRadius={navSize == "small" ? "15px" : "30px"}
-            w={navSize == "small" ? "75px" : "20%"}
-            flexDir="column"
-            justifyContent="space-between"
-        >
+        pos="sticky"
+        left="5"
+        m={0}
+        w={navSize == "small" ? "75px" : "20%"}
+        flexDir="column"     
+        justifyContent={'center'}
+        position='relative'>
+
+            <IconButton
+                background="none"
+                mt={4}        
+                alignSelf='center'
+                position={'absolute'}
+                top={4}
+                color='white'
+                _hover={{background: 'gray.100',  color:'orange' }}
+                icon={<FiMenu />}
+                onClick={() => {
+                    if (navSize == "small")
+                        changeNavSize("large")
+                    else
+                        changeNavSize("small")
+                }} />
+
             <Flex
-                p="5%"
                 flexDir="column"
                 w="100%"
                 alignItems={navSize == "small" ? "center" : "flex-start"}
-                as="nav"
-            >
-                <IconButton
-                    background="none"
-                    mt={5}
-                    _hover={{ background: 'none' }}
-                    icon={<FiMenu />}
-                    onClick={() => {
-                        if (navSize == "large")
-                            changeNavSize("small")
-                        else
-                            changeNavSize("large")
-                    }}
-                />
+                as="nav">
+                
               
-                <NavItem navSize={navSize} icon={FiUser} title="Account" route="account" description={"All About"}/>
-
-                <NavItem navSize={navSize} icon={FiUpload} title="Upload Assignment" route="uploadassignment"/>
-                <NavItem navSize={navSize} icon={FiPaperclip} title="View Assignments" route="viewassignments"/>
-                <NavItem navSize={navSize} icon={FiUpload} title="Upload Quiz" route="uploadquiz"/>
-                <NavItem navSize={navSize} icon={FiArchive} title="View Quizzes" route="viewquizzes"/>
-                <NavItem navSize={navSize} icon={FiSettings} title="Calender" route="calender" />
-                <NavItem navSize={navSize} icon={FiSettings} title="Settings" route="settings" />
+                <NavItem navSize={navSize} icon={'fa-solid fa-user'} title="Account" route="account" description={"All About"}/>
+                <NavItem navSize={navSize} icon={'fa-sharp fa-solid fa-file-arrow-up'} title="Upload Assignment" route="uploadassignment"/>
+                <NavItem navSize={navSize} icon={'fa-solid fa-folder'} title="View Assignments" route="viewassignments"/>
+                <NavItem navSize={navSize} icon={'fa-solid fa-list-check'} title="Upload Quiz" route="uploadquiz"/>
+                <NavItem navSize={navSize} icon={'fa-solid fa-solid fa-boxes-stacked'} title="View Quizzes" route="viewquizzes"/>
+                <NavItem navSize={navSize} icon={'fa-solid fa-calendar'} title="Calender" route="calender" />
+                <NavItem navSize={navSize} icon={'fa-solid fa-gear'} title="Settings" route="settings" />
 
             </Flex>
 
+            <Divider display={navSize == "small" ? "none" : "flex"} variant='dashed' borderColor={'orange.900'} />
+
             <Flex
-                p="5%"
-                flexDir="column"
-                w="100%"
-                alignItems={navSize == "small" ? "center" : "flex-start"}
-                mb={4}
-            >
-                <Divider display={navSize == "small" ? "none" : "flex"} />
-                <Flex mt={4} align="center">
-                    <Avatar size="md" src={profileimg} />
-                    <Flex flexDir="column" ml={4} display={navSize == "small" ? "none" : "flex"}>
-                        <Heading as="h3" size="sm">{name}</Heading>
-                    </Flex>
+                mt={4}
+                p={2} 
+                align="center" 
+                border='1px solid' 
+                borderColor={'white'} 
+                width={'100%'} 
+                alignItems='center' justifyContent={'center'}
+                borderRadius={30}>
+                
+                <Avatar
+                    size="sm"
+                    src={`https://avatars.dicebear.com/v2/bottts/${name}.svg?`}
+                    />
+                    
+                <Flex flexDir="column" ml={4} display={navSize == "small" ? "none" : "flex"}>
+                        <Heading as="h3" size="sm" color={'white'}>{name}</Heading>
                 </Flex>
+
             </Flex>
         </Flex>
     )

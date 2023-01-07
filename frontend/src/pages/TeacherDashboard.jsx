@@ -12,6 +12,7 @@ import ViewSingleQuiz from '../components/TeacherQuiz/ViewSingleQuiz'
 import ViewSubmittedAssignments from '../components/ViewSubmittedAssignment'
 import TeacherSingleViewAssignment from '../components/ViewSingleTeacherAssignment'
 import TeacherSingleViewSubmitAssignment from '../components/ViewSingleSubmittedAssignment'
+import TeacherSettings from '../components/TeacherSettings'
 
 const TeacherDashboard = () => {
     
@@ -22,34 +23,27 @@ const TeacherDashboard = () => {
     }
 
   return (
-    <Box w="full" h="full">
-        <Flex>
+    <Box  w="100%" h="100vh" backgroundColor='#101010' pt={0} pb={4} pr={4}>
+        <Flex width={'100%'} height='100%'>
             <TeacherSidebar navSize={navSize} changeNavSize={ (size) => changeNavSize(size) }></TeacherSidebar>
             <Flex 
                 w={ navSize=="small" ? "95%" : "85%"} 
                 mt={4} ml={6} mr={1} borderRadius={30}
-                boxShadow="0px 4px 12px 0 orange "
+                backgroundColor={'#FFFFFF'}>
 
-            >
                 <Routes>
 
                     <Route path="uploadassignment" element={<TeacherUploadAssignment />} />
-
                     <Route path="viewassignments" element={<TeacherViewAssignments />} />
-
                     <Route path="account" element={<TeacherAccountDetails />} />
-
                     <Route path="uploadquiz" element={<QuizQuesionsInfo />} />
-
-                      <Route path="viewquizzes" element={<ViewQuizzes/>}/> 
-
-                      <Route path="viewquiz" element={<ViewSingleQuiz/>}/>
-
-                      <Route path="viewassignment" element={<TeacherSingleViewAssignment/>}/>
-                      <Route path="viewsubmittedassignment" element={<ViewSubmittedAssignments/>}/>
-                      <Route path="viewssubmitassignment" element={<TeacherSingleViewSubmitAssignment/>}/>
-
-                      
+                    <Route path="viewquizzes" element={<ViewQuizzes/>}/> 
+                    <Route path="viewquiz" element={<ViewSingleQuiz/>}/>
+                    <Route path="viewassignment" element={<TeacherSingleViewAssignment/>}/>
+                    <Route path="viewsubmittedassignment" element={<ViewSubmittedAssignments/>}/>
+                    <Route path="viewssubmitassignment" element={<TeacherSingleViewSubmitAssignment/>}/>
+                    <Route path="settings" element={<TeacherSettings />}/>
+                                     
                 </Routes>       
             </Flex>
         </Flex>

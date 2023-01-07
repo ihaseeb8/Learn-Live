@@ -1,4 +1,4 @@
-import { Grid,Select, Box, FormControl, FormLabel, Input, Text, FormErrorMessage, Button } from "@chakra-ui/react";
+import { Grid,Select, Box, FormControl, FormLabel, Input, Text, FormErrorMessage, Button, Heading, Flex } from "@chakra-ui/react";
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
@@ -16,8 +16,8 @@ function TeacherUploadAssignment() {
   const [success, setSuccess] = useState("");
   const [teacher , setTeacher] = useState("");
   
-  const [selectedFiles, setSelectedFiles] = useState([null]);
-  const [selected , setSelected] = useState([null])
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [selected , setSelected] = useState([])
   var imgURLsArray = []
   const onSelectFile = (e) => {
     const selectedImages = [...e.target.files];
@@ -105,8 +105,6 @@ function TeacherUploadAssignment() {
       .then((data) => console.log(data))
       .catch((err) => console.error(err));
  
-
-   
   };
 
   useEffect(()=>
@@ -115,122 +113,202 @@ function TeacherUploadAssignment() {
     getCurrentCampName(userID);
   })
 
+  console.log(selectedFiles.length)
 
   return (
 
-    <Box width="40%" mt={8} mx="auto">
-    <Text my={4} align={"center"} fontWeight="bold" fontSize={30}>Upload Assignment</Text>
+    <Box pt={0} px={0} mx='auto' textAlign={'center'} width={'100%'} backgroundColor='gray.100' borderRadius={30} flexDirection='row'>
 
-        {error && <Text color="red.500">{error}</Text>}
-        {success && <Text color="green.500">{success}</Text>}
+     
 
-        <FormLabel htmlFor="title" fontWeight="bold" color="orange.600" >Camp</FormLabel>
-        <Select
-        color="orange.600"
-        placeholder='Camp Names' value={selectedCamp}
-        onChange={e => setSelectedCamp(e.target.value)}>
-            {Array.isArray(campname) && campname.map((campname) => (  
-            <> 
-      <option value={campname}>{campname}</option>
-  
-    </>
-     ))} 
-                 </Select>
-        <FormControl>
-            <FormLabel htmlFor="title" fontWeight="bold" color="orange.600">Title</FormLabel>
+    <Box pt={4} pb={2}  >
+      <Heading mb={4} >
+        Upload Assignment
+      </Heading>
+    </Box>
+
+     {error && <Text color="red.500">{error}</Text>}
+     {success && <Text color="green.500">{success}</Text>}
+
+    <form onSubmit={UploadAssignment}>
+    <Box p={5} maxW={selectedFiles.length ? "4xl" : 'lg'} mx="auto" gap={4} textAlign={'start'}  position={'relative'} display={'flex'} flexDirection='row'>
+      <Box border={'1px solid orange'} borderRadius='20px' p={4} >
+        
+          <FormControl mb={2} display={'flex'} alignItems='center'>
+            <FormLabel htmlFor="camp" fontWeight="bold" color="orange.500" mr={2}>Full Name</FormLabel>
+
+            <Select
+              textAlign={'center'}
+              focusBorderColor='orange.700' 
+              variant={'flushed'} 
+              borderBottomColor='orange'
+              isRequired
+              width={'60%'} 
+              mr={0} ml='auto'
+              id='camp' name='camp'
+              value={selectedCamp}
+              onChange={e => setSelectedCamp(e.target.value)}>
+
+              <option value="" disabled>
+                  Select
+              </option>
+
+                {Array.isArray(campname) && campname.map((campname) => (  
+                
+                <option value={campname}>{campname}</option>
+
+                ))} 
+
+            </Select> 
+          </FormControl>
+
+          <FormControl mb={2} display={'flex'} alignItems='center'>
+            <FormLabel htmlFor="title" fontWeight="bold" color="orange.500" mr={2}>Title</FormLabel>
             <Input
-            id="title"
-            name="title"
-            onChange={(e) => setTitle(e.target.value)}
-            value={title}
-            required
-            borderColor="orange.500"
-            focusBorderColor="orange.600"
-            />
-        </FormControl>
-        <FormControl>
-            <FormLabel htmlFor="description" fontWeight="bold" color="orange.600">Description</FormLabel>
+              id="title"
+              name="title"
+              textAlign={'center'}
+              focusBorderColor='orange.700' 
+              variant={'flushed'} 
+              borderBottomColor='orange'
+              onChange={(e) => setTitle(e.target.value)}
+              value={title}
+              isRequired
+              width={'60%'} 
+              mr={0} ml='auto'
+              />
+          </FormControl>
+          
+          <FormControl mb={2} display={'flex'} alignItems='center'>
+            <FormLabel htmlFor="description" fontWeight="bold" color="orange.500" mr={2}>Description</FormLabel>
             <Input
             id="description"
             name="description"
+            textAlign={'center'}
+            focusBorderColor='orange.700' 
+            variant={'flushed'} 
+            borderBottomColor='orange'
             onChange={(e) => setDescription(e.target.value)}
             value={description}
-            required
-            borderColor="orange.500"
-            focusBorderColor="orange.600"
+            isRequired
+            width={'60%'} 
+            mr={0} ml='auto'
             />
-        </FormControl>
-        <FormControl>
-            <FormLabel htmlFor="marks" fontWeight="bold" color="orange.600">Marks</FormLabel>
+          </FormControl>
+
+          <FormControl mb={2} display={'flex'} alignItems='center'>
+            <FormLabel htmlFor="marks" fontWeight="bold" color="orange.500" mr={2}>Marks</FormLabel>
             <Input
             id="marks"
             name="marks"
             type="number"
+            textAlign={'center'}
+            focusBorderColor='orange.700' 
+            variant={'flushed'} 
+            borderBottomColor='orange'
             onChange={(e) => setTMarks(e.target.value)}
             value={tmarks}
-            required
-            borderColor="orange.500"
-            focusBorderColor="orange.600"
+            isRequired
+            width={'60%'} 
+            mr={0} ml='auto'
             />
         </FormControl>
-        <FormControl>
-            <FormLabel htmlFor="dueDate" fontWeight="bold" color="orange.600">Due Date</FormLabel>
-            <Input
-            id="dueDate"
-            label="Date"
-            type="date"
-            onChange = {e=>setDueDate(e.target.value)}
-            defaultValue="7/05/2015"
-            InputLabelProps ={{
-                shrink:true
-            }}
-            />
-            {/* <Input
-            type="datetime-local"
-            id="dueDate"
-            name="dueDate"
-            onChange={(e) => setDueDate(e.target.value)}
-            value={dueDate}
-            required
-            colorScheme={"orange"}
-            borderColor="orange.500"
-            focusBorderColor="orange.600"
-            /> */}
+
+        <FormControl mb={2} display={'flex'} alignItems='center'>
+          <FormLabel htmlFor="dueDate" fontWeight="bold" color="orange.500" mr={2}>Due Date</FormLabel>
+          <Input
+          id="dueDate"
+          name='dueDate'
+          label="Date"
+          type="date"
+          textAlign={'center'}
+          focusBorderColor='orange.700' 
+          variant={'flushed'} 
+          borderBottomColor='orange'
+          onChange = {e=>setDueDate(e.target.value)}
+          isRequired
+          width={'60%'} 
+          mr={0} ml='auto'
+          />
         </FormControl>
-        <FormControl>
-            <FormLabel htmlFor="pdf"  fontWeight="bold" color="orange.600" >PDF</FormLabel>
 
-
-            <Input
-           type="file"
-           multiple
-           accept="application/pdf , image/png "
-           onChange={onSelectFile}
-           name="uplassign"
-            borderColor="orange.500"
-            focusBorderColor="orange.600"
+        <FormControl mb={2} display={'flex'} alignItems='center'>
+          <FormLabel htmlFor="pdf" fontWeight="bold" color="orange.500" mr={2} >PDF</FormLabel>
+          <Input
+          id='pdf'
+          type="file"
+          multiple
+          textAlign={'center'}
+          focusBorderColor='orange.700' 
+          variant={'flushed'} 
+          borderBottomColor='orange'
+          accept="application/pdf , image/png "
+          onChange={onSelectFile}
+          name="uplassign"
+          isRequired
+          width={'60%'} 
+          mr={0} ml='auto'
+          />
+        </FormControl>
       
-            />
-        </FormControl>
-        {
+    </Box>
+
+        <Box width={'40%'} pt={4} pb={2} textAlign='center' display={selectedFiles.length ? '' : 'none'}>
+          
+        <Heading mb={4} size='md' >
+          Files Preview
+        </Heading>
+        
+        <Flex wrap="wrap" 
+                overflowY="scroll" 
+                height="200px" 
+                border='1px solid orange'
+                borderRadius='10px'
+                gap={4} 
+                justifyContent={'space-around'} 
+                p={2}
+                sx={{
+                  '&::-webkit-scrollbar': {
+                    width: '16px',
+                    borderRadius: '8px',
+                    backgroundColor: 'white',
+                  },
+                  '&::-webkit-scrollbar-thumb': {
+                    backgroundColor: `orange.500`,
+                    borderRadius: '8px',
+                  },
+                }}>
+            {
               selected.map((file, index) => {
                 return (
                   <iframe
                     src={file}
                     style={{
-                      height: "200px",
-                      width: "400px",
+                      height: "80%",
+                      width: "100%",
+                      border: '1px solid orange',
                       class: "center",
-                      borderRadous: "50%",
+                      mx: 'auto',
+                      borderRadius: "10px",
                     }}
                   />
                 );
               })}
-        <Button onClick={UploadAssignment} display={"table-column"} type="submit" colorScheme={"orange"} mt={4} p="auto" ml="auto" mr="auto">
-            Upload
-        </Button>
-  
+            
+          </Flex>
         </Box>
+      </Box>
+            
+      <Button type='submit' colorScheme='orange' variant='solid'>
+            Upload
+      </Button>
+
+      </form>
+       
+    
+
+  </Box>
+
   );
 }
 

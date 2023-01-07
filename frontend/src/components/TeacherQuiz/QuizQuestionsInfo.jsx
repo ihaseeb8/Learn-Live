@@ -135,11 +135,6 @@ const QuizQuesionsInfo =(props) =>
             console.log(res.data);
             setQuizID(res.data._id);
             console.log(res.data._id);
-
-           // console.log(quizID)
-            //console.log(quizID)
-            //console.log(res.data._id);
-
             setSubmitStatus(1);
         }).catch(err=>
             {
@@ -153,11 +148,7 @@ const QuizQuesionsInfo =(props) =>
         event.preventDefault();
        console.log(questions)
 
-      
-    //localStorage.setItem('quizID',quizID)
-    //console.log( `${localStorage.getItem('quizID')}`);
-   // const [state, setState] = useState({ message: 'Hello World' });
-    localStorage.setItem('quizID',quizID)
+        localStorage.setItem('quizID',quizID)
         axios.post(`http://localhost:5000/quizzes/addquizques/${localStorage.getItem('quizID')}`,
         {
         questions:questions

@@ -1,5 +1,5 @@
 import React , {useState, useEffect} from 'react'
-import { Box,Button, Select,Heading, Text, Link ,FormControl,FormLabel, Input,RadioGroup,Radio,Stack, InputGroup} from '@chakra-ui/react'
+import { Box,Button, Select,Heading, Text, Link ,FormControl,FormLabel, Input,RadioGroup,Radio,Stack, Flex} from '@chakra-ui/react'
 import axios from "axios"
 import { useNavigate, useParams} from "react-router-dom";
 import {
@@ -96,7 +96,7 @@ const AssignStudents =() =>
 
 
     return (
-        <Box p={5}>
+       <Box p={5}>
           <Heading as="h2" size="lg">
             Account Details
           </Heading>

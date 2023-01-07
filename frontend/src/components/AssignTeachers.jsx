@@ -1,5 +1,5 @@
 import React , {useState, useEffect} from 'react'
-import { Box,Button, Select,Heading, Text, Link ,FormControl,FormLabel, Input,RadioGroup,Radio,Stack, InputGroup} from '@chakra-ui/react'
+import { Box,Button, Select,Heading, Text, Link ,FormControl,FormLabel, Input,RadioGroup,Radio,Stack, InputGroup, Flex} from '@chakra-ui/react'
 import axios from "axios"
 import { useNavigate, useParams} from "react-router-dom";
 import {
@@ -99,43 +99,59 @@ const AssignTeachers =() =>
 
 
     return (
-        <Box p={5}>
-          <Heading as="h2" size="lg">
-            Account Details
-          </Heading>
-          <Text mt={4}>    
-            Here you can view and edit your account details.    
-          </Text>
-          <FormLabel>Camp</FormLabel>
-        <Select placeholder='Camp Names' value={selectedCampus}
-        onChange={e => setSelectedCampus(e.target.value)}>
-            {Array.isArray(campname) && campname.map((campname) => (  
-            
-            <> 
-        
-      <option value={campname}>{campname}</option>
-    
-       
-    </>
-                 ))} 
+
+      <Box pt={0} px={0} mx='auto' textAlign={'center'} width={'100%'} backgroundColor='gray.100' borderRadius={30}>
+
+      <Box pt={4} pb={2}  >
+        <Heading mb={4} >
+          Assign Camp
+        </Heading>
+        <Text mb={6}>
+          Here you can Add teachers to a Camp.
+        </Text>
+      </Box>
+
+      <form onSubmit={AssignTeachersToCamp}>
+        <Box p={5} maxW="lg" mx="auto" textAlign={'start'} position={'relative'}>
+            <Box border={'1px solid orange'} borderRadius='20px' p={4} >
+
+            <FormControl mb={2} display={'flex'} alignItems='center' >
+                <FormLabel fontWeight="bold" color="orange.500" mr={2}>Camp</FormLabel>
+
+                <Select textAlign={'center'}
+                        focusBorderColor='orange.700' 
+                        variant={'flushed'} 
+                        borderBottomColor='orange'
+                        width={'60%'} 
+                        mr={0} ml='auto'
+                        value={selectedCampus}
+                        onChange={e => setSelectedCampus(e.target.value)}
+                        isRequired>
+                        <option value="" disabled>Camp Names</option>
+                        {Array.isArray(campname) && campname.map((campname) => ( <option value={campname}>{campname}</option> ))} 
                  </Select>
-       
-    
-    <Button onClick={AssignTeachersToCamp} colorScheme='teal' variant='solid'>
-       Assign Teachers
-      </Button>
-      <Button  onClick={Back}
-      style={{
-        position: 'absolute',
-        right: 30,
-        bottom:10,
-      }}
-      colorScheme='teal' variant='solid'>
-  Back
-  </Button>
-  <StatusAlert />
-        
-        </Box>
+            </FormControl>
+
+
+            </Box>
+
+            <Flex mb={2} mt={2} alignItems='center' justifyContent={'center'} gap={4}>
+              <Button type='submit' colorScheme='orange' variant='solid'>
+                      Assign Teacher
+              </Button>
+
+              <Button type='button' onClick={Back} colorScheme='orange' variant='solid' >
+                  Back 
+              </Button>
+            </Flex>
+
+          </Box>
+
+      </form>
+
+      <StatusAlert />
+    </Box>
+
       )
 }
 

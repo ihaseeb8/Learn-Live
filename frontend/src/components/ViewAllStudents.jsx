@@ -1,5 +1,5 @@
 import React , {useState, useEffect} from 'react'
-import { Box,Button, Avatar,Heading, Text, Link ,FormControl,FormLabel, Input,RadioGroup,Radio,Stack, InputGroup} from '@chakra-ui/react'
+import { Box,Button, Avatar,Heading, Text, Link ,FormControl,FormLabel, Input,RadioGroup,Radio,Stack, Flex} from '@chakra-ui/react'
 import axios from "axios"
 import { Divider } from '@chakra-ui/react'
 import { useNavigate, useParams} from "react-router-dom";
@@ -52,7 +52,7 @@ import { useDisclosure } from '@chakra-ui/react'
         .catch((err) => {
           console.log(err);
         });
-    }, [students]);
+    }, []);
 
     const DeleteStudent=(student_id)=>
     {
@@ -71,93 +71,100 @@ import { useDisclosure } from '@chakra-ui/react'
     const btStyle = { margin: "30px 0px 12px" };
     const textStyle = { margin: "3px 0" };
     return (
-        <Box p={5}>
-      <Heading as="h2" size="lg">
-        Student Details
-      </Heading>
-      <Text mt={4}>    
-        Here you can view and edit student details.    
+
+      <Box pt={0} px={0} mx='auto' textAlign={'center'} width={'100%'} backgroundColor='gray.100' borderRadius={30}>
+      <Box pt={4} pb={2}  >
+        <Heading mb={4} >
+          View Students
+        </Heading>
+        <Text mb={6}>
+          This page account details od all students and allows you to edit them.
         </Text>
-        <FormControl>
-           <FormLabel>Search Students</FormLabel>
-           <Input>
-           </Input>
-           </FormControl>
-           <Button  colorScheme='teal' variant='solid'>
-   Search Student
-  </Button>
+      </Box>
+
+      <Box maxW='4xl' mx="auto" >
+        <Flex p={4} pt={0}>
+          <Input placeholder="Student's Name" variant={'outlined'} borderColor='orange'></Input>
+          <Button colorScheme={'orange'}>Search</Button>
+        </Flex>
+
+        <Flex border={'1px solid orange'} gap={2} justifyContent='space-around' height='50vh' borderRadius='20px' p={4} flexWrap='wrap' overflow='scroll'>
+
           {students.map((student) => (
-            <>
-        
-        <Text mt={5}>
-        Name: {student.name}
-        </Text>   
-        <Text mt={5}>
-        Email: {student.email}
-        </Text>  
-        <Text mt={5}>
-        Gender: {student.gender}
-        </Text>  
-        <Text mt={5}>
-        Phone No: {student.phoneno}
-        </Text>  
-        <Text mt={5}>
-        Password: {student.password}
-        </Text>            
+            <Flex border={'1px solid orange'} width={'250px'} borderRadius={30} p={2} alignItems='center' justifyContent={'space-around'}>
+
               <Avatar
                 src={student.profileimg}
                 size="lg"
-                // style={{
-                //   height: "200px",
-                //   width: "400px",
-                //   class: "center",
-                //   borderRadous: "50%"
-                // }}
-              />
-          <>
-    
-    <AlertDialog
-      isOpen={isOpen}
-      leastDestructiveRef={cancelRef}
-      onClose={onClose}
-    >
-      <AlertDialogOverlay>
-        <AlertDialogContent>
-          <AlertDialogHeader fontSize='lg' fontWeight='bold'>
-            Delete 
-          </AlertDialogHeader>
+                ml={0}/>
 
-          <AlertDialogBody>
-            Are you sure? You can't undo this action afterwards.
-          </AlertDialogBody>
+              <Box ml={0} >
+                <Text>
+                  {student.name}
+                </Text> 
+                <Text>
+                  {student.email}
+                </Text> 
+                <Text>
+                  {student.gender}
+                </Text> 
+                <Text>
+                  {student.password}
+                </Text>
+              </Box>
 
-          <AlertDialogFooter>
-            <Button ref={cancelRef} onClick={onClose}>
-              Cancel
-            </Button>
-            <Button colorScheme='red' onClick={()=>DeleteStudent(student._id)} ml={3}>
-              Delete
-            </Button>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialogOverlay>
-    </AlertDialog>
-  </> 
+              <Flex flexDir={'column'} justifyContent='center'>
+                <Button  onClick={()=>handleSubmit(student._id)} colorScheme='orange' variant='ghost'>
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </Button>
 
+                <Button  onClick={onOpen} colorScheme='orange' variant='ghost'>
+                  <i class="fa-solid fa-trash"></i>
+                </Button>
 
-              <Button  onClick={()=>handleSubmit(student._id)} colorScheme='teal' variant='solid'>
-   Edit Student
-  </Button>
-  <Button  onClick={onOpen} colorScheme='teal' variant='solid'>
-   Delete Student
-  </Button>
-  <Button onClick={()=>handleSubmitAssign(student._id)} colorScheme='teal' variant='solid'>
-       Assign Students
-      </Button>
-              <Divider orientation='horizontal' />
-            </>
+                <Button onClick={()=>handleSubmitAssign(student._id)} colorScheme='orange' variant='ghost'>
+                  <i class="fa-sharp fa-solid fa-person-circle-plus"></i>
+                </Button>
+              </Flex>
+              
+            </Flex>
           ))}
-         </Box>
+
+
+            {/* Lookk thisss uPPP //Jaaan */}
+            
+          <AlertDialog
+                  isOpen={isOpen}
+                  leastDestructiveRef={cancelRef}
+                  onClose={onClose}
+                >
+                  <AlertDialogOverlay>
+                    <AlertDialogContent>
+                      <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+                        Delete 
+                      </AlertDialogHeader>
+
+                      <AlertDialogBody>
+                        Are you sure? You can't undo this action afterwards.
+                      </AlertDialogBody>
+
+                      <AlertDialogFooter>
+                        <Button ref={cancelRef} onClick={onClose}>
+                          Cancel
+                        </Button>
+                        <Button colorScheme='red' onClick={()=>DeleteStudent(student._id)} ml={3}>
+                          Delete
+                        </Button>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialogOverlay>
+        </AlertDialog>
+
+        </Flex>
+      </Box>
+
+    </Box>
+
     );
   };
   

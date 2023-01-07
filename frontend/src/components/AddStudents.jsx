@@ -1,5 +1,5 @@
 import React , {useState, useEffect} from 'react'
-import { Box,Button, Heading, Text, Link ,FormControl,FormLabel, Input,RadioGroup,Radio,Stack, InputGroup} from '@chakra-ui/react'
+import { Box,Button, Heading, Text, Link ,FormControl,FormLabel, Input,RadioGroup,Radio,Stack, InputGroup, Image} from '@chakra-ui/react'
 import axios from "axios"
 import {
   Alert,
@@ -89,96 +89,153 @@ const AddStudents = () => {
       }
   }
 
+
+
   return (
-    <Box p={5}>
-      <Heading as="h2" size="lg">
-        Account Details
-      </Heading>
-      <Text mt={4}>    
-        Here you can view and edit your account details.    
-      </Text>
-      <FormControl>
-           <FormLabel>Full Name</FormLabel>
-     <Input
-      onChange={e=>setName(e.target.value)}
-       id='name' name='name' label='Name'
-      variant='filled'
-      placeholder= "Ali Ahmad"
-        required
-        />  
-         </FormControl>
-         <FormControl>
-           <FormLabel>Email</FormLabel>
-     <Input
-      onChange={e=>setEmail(e.target.value)}
-       id='email' name='email' label='Email'
-      variant='filled'
-      placeholder= "aliahmad@gmail.com"
-        required
-        />  
-         </FormControl>
-         <FormLabel>Gender</FormLabel>
-         <RadioGroup onChange={setGender} value={gender}
-         id='gender' aria-label="gender" name="gender">
-      <Stack direction='row'>
-        <Radio value="male">Male</Radio>
-        <Radio  value="femlae">Female</Radio>
-        <Radio  value="other">Other</Radio>
-      </Stack>
-    </RadioGroup>
-    <FormControl>
-           <FormLabel>Phone Number</FormLabel>
-     <Input
-      onChange={e=>setPhoneNo(e.target.value)}
-       id='phoneno' name='phoneno' label='phoneno'
-      variant='filled'
-      placeholder= "031-xxxx"
-        required
-        />  
-         </FormControl>
-         <FormControl>
-           <FormLabel>Password</FormLabel>
-     <Input
-      onChange={e=>setPassword(e.target.value)}
-       id='password' name='password' label='password'
-      variant='filled'
-      type="password"
-        required
-        />  
-         </FormControl>
-         <FormControl>
-           <FormLabel>Confirm Password</FormLabel>
-     <Input
-      onChange={e=>setConPassword(e.target.value)}
-       id='cpassword' name='cpassword' label='cpassword'
-      variant='filled'
-     type="password"
-        required
-        />  
-         </FormControl>
-         <FormLabel>Profile Picture</FormLabel>
-         <input 
-        type="file"
-         name="file"
-         onChange={handleFileInputChange} 
-        value={fileInputState}
-         />
-         {previewSource && (
-       <img
-          src={previewSource}
-          alt="chosen"
-             style={{height:"200px", width: "400px", class:"center", borderRadous:"50%"}}
-             />
-          )}
 
-<Button onClick={PostStudents} colorScheme='teal' variant='solid'>
-   Add Student
-  </Button>
+    <Box pt={0} px={0} mx='auto' textAlign={'center'} width={'100%'} backgroundColor='gray.100' borderRadius={30}>
 
-  <StatusAlert />
+      <Box pt={4} pb={2}  >
+        <Heading mb={4} >
+          Add Student
+        </Heading>
+        <Text mb={6}>
+          Here you can Add a Student.
+        </Text>
+      </Box>
 
-     
-    </Box>
+      <form onSubmit={PostStudents}>
+      <Box p={5} maxW="lg" mx="auto" textAlign={'start'} position={'relative'}>
+        <Box border={'1px solid orange'} borderRadius='20px' p={4} >
+          
+            <FormControl mb={2} display={'flex'} alignItems='center'>
+              <FormLabel fontWeight="bold" color="orange.500" mr={2}>Full Name</FormLabel>
+                <Input
+                  textAlign={'center'}
+                  focusBorderColor='orange.700' 
+                  variant={'flushed'} 
+                  borderBottomColor='orange' 
+                  onChange={e=>setName(e.target.value)}
+                  id='name' name='name' label='Name'
+                  placeholder= "Student's Name"
+                  isRequired
+                  width={'60%'} 
+                  mr={0} ml='auto'/>  
+            </FormControl>
+
+            <FormControl mb={2} display={'flex'} alignItems='center'>
+              <FormLabel fontWeight="bold" color="orange.500" mr={2}>Email</FormLabel>
+              <Input
+                textAlign={'center'}
+                focusBorderColor='orange.700' 
+                variant={'flushed'} 
+                borderBottomColor='orange' 
+                onChange={e=>setEmail(e.target.value)}
+                id='email' name='email' label='Email'
+                placeholder= "student@mail.com"
+                type='email'
+                isRequired
+                width={'60%'} 
+                mr={0} ml='auto'/> 
+            </FormControl>
+
+            <FormControl mb={2} display={'flex'} alignItems='center'>
+              <FormLabel fontWeight="bold" color="orange.500" mr={2}>Gender</FormLabel>
+              <RadioGroup onChange={setGender} value={gender}
+                id='gender' aria-label="gender" name="gender" mr={2} ml='auto'>
+                <Stack direction='row'>
+                  <Radio isRequired value="male">Male</Radio>
+                  <Radio value="female">Female</Radio>
+                  <Radio  value="other">Other</Radio>
+                </Stack>
+              </RadioGroup>
+
+            </FormControl>
+
+            <FormControl mb={2} display={'flex'} alignItems='center'>
+              <FormLabel fontWeight="bold" color="orange.500" mr={2}>Phone Number</FormLabel>
+              <Input
+                textAlign={'center'}
+                focusBorderColor='orange.700' 
+                variant={'flushed'} 
+                borderBottomColor='orange' 
+                onChange={e=>setPhoneNo(e.target.value)}
+                id='phoneno' name='phoneno' label='phoneno'
+                placeholder= "03XX-XXXXXXXX"
+                isRequired
+                width={'60%'} 
+                mr={0} ml='auto'/>  
+            </FormControl>
+
+            <FormControl mb={2} display={'flex'} alignItems='center'>
+              <FormLabel fontWeight="bold" color="orange.500" mr={2}>Password</FormLabel>
+              <Input
+                textAlign={'center'}
+                focusBorderColor='orange.700' 
+                variant={'flushed'} 
+                borderBottomColor='orange' 
+                onChange={e=>setPassword(e.target.value)}
+                id='password' name='password' label='password'
+                type="password"
+                isRequired
+                width={'60%'} 
+                mr={0} ml='auto'/>  
+            </FormControl>
+
+            <FormControl mb={2} display={'flex'} alignItems='center'>
+              <FormLabel fontWeight="bold" color="orange.500" mr={2}>Confirm Password</FormLabel>
+              <Input
+                textAlign={'center'}
+                focusBorderColor='orange.700' 
+                variant={'flushed'} 
+                borderBottomColor='orange' 
+                onChange={e=>setConPassword(e.target.value)}
+                id='cpassword' name='cpassword' label='cpassword'
+                type="password"
+                isRequired
+                width={'60%'} 
+                mr={0} ml='auto'/>  
+            </FormControl>
+
+            <FormControl mb={2} display={'flex'} alignItems='center'>
+              <FormLabel fontWeight="bold" color="orange.500" mr={2}>Picture</FormLabel>
+              <Input 
+                width={'60%'} 
+                mr={0} ml='auto'
+                textAlign={'center'}
+                focusBorderColor='orange.700' 
+                variant={'flushed'} 
+                borderBottomColor='orange' 
+                type="file"
+                name="file"
+                onChange={handleFileInputChange} 
+                value={fileInputState}
+                />
+                {previewSource && (
+                  <Image
+                    src={previewSource}
+                    alt="chosen"
+                    height={100}
+                    width={100}
+                    mx="auto"
+                    border='1px solid orange'
+                    fit='contain'
+                      />
+                  )} 
+            </FormControl>
+                
+          </Box>
+        </Box>
+              
+        <Button type='submit' colorScheme='orange' variant='solid'>
+              Add Student
+        </Button>
+
+        </form>
+    
+        <StatusAlert />
+
+  </Box>
   )
 }
 

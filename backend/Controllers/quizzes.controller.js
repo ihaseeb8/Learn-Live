@@ -4,6 +4,7 @@ const Quizzes = require('../Models/quizzes.model')
 
 
 const jwt = require('jsonwebtoken');
+const { error } = require('console');
 const router = express.Router()
 
 const AddQuiz= (req,res,next)=>
@@ -20,10 +21,25 @@ const AddQuiz= (req,res,next)=>
     
         Quizzes.create(quizObj, (err, quiz) => {
             if(err) res.status(500).send({message: err.message});
-            else res.status(200).send({quiz: quiz, message: "QUIZ IS SUCCESSFULLY ADDED!"});
+            else res.status(200).send( quiz );
         })
     
 
+}
+
+const AddQuizQuestions = (req,res,next)=>
+{
+    const {questions} = req.body;
+        console.log(questions);
+        var x = req.query.id;
+        Quizzes.findByIdAndUpdate(req.params.id, {$push: {questions:questions}}).exec((err, result) => {
+       // Quizzes.findOneAndUpdate(req.params.id, {$push: {questions:questions}}).exec((err, result) => {
+            if(err) res.status(500).send({message: err.message});
+            else {
+                console.log("Added Questions!");
+                res.status(200).send(result);
+            }
+        }) 
 }
 
 const GetQuizzes = (req,res,next)=>
@@ -31,7 +47,7 @@ const GetQuizzes = (req,res,next)=>
    Quizzes.find((error,data) => {
         if(error)
         {
-            res.send("Could Not Get Camps")
+            res.send("Could Not Get Quizzes")
         }
         else 
          {
@@ -39,6 +55,14 @@ const GetQuizzes = (req,res,next)=>
          }
     })
 }
+
+// const GetQuizOnName = (req,res,next) =>
+// {
+//     Quizzes.find((error,data) =>
+//     {
+
+//     })
+// }
 
 const GetSingleQuiz = (req,res,next)=>
 {
@@ -100,6 +124,7 @@ const DeleteQuiz = (req,res,next) =>
 
 
 exports. AddQuiz = AddQuiz;
+exports. AddQuizQuestions = AddQuizQuestions;
 exports.GetQuizzes = GetQuizzes;
 exports.GetSingleQuiz= GetSingleQuiz;
 exports.DeleteQuiz = DeleteQuiz;

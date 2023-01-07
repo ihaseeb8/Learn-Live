@@ -30,6 +30,7 @@ const TeacherRouter = require('./Routes/teacher.route');
 const StudentRouter = require('./Routes/student.route');
 const AdminRouter = require('./Routes/admin.route');
 const TeacherAssignmentsRouter = require('./Routes/teacher-assignments.route');
+const StudentAssignmentsRouter = require('./Routes/student-assignments.route');
 const CampRouter = require('./Routes/camp.route');
 const QuizzesRouter = require('./Routes/quizzes.route');
 
@@ -40,8 +41,10 @@ const TokenAdmin = require('./Middleware/AdminToken')
 //const NewAssignmentRouter = require('./routes/uploadassignment-route')
 app.use('/teacher' ,express.static('teacher'));
 app.use('/teacher',TeacherRouter);
-app.use('/assignments',express.static('assignments'));
+app.use('/teacher-assignments',express.static('teacher-assignments'));
 app.use('/tchassignments',TeacherAssignmentsRouter)
+app.use('/student-assignments',express.static('student-assignments'));
+app.use('/stdassignments',StudentAssignmentsRouter);
 app.use('/student' ,express.static('student'));
 app.use('/student',StudentRouter);
 app.use('/admin' ,express.static('admin'));

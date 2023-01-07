@@ -3,11 +3,11 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const multer = require('multer');
 const {v4: uuidv4} = require('uuid')
-const TeacherAssignments = require('../Models/teacher-assignments.model')
-const TeacherAssignmentsController  = require('../Controllers/teacher-assignments.controller')
+const StudentAssignments = require('../Models/student-assignments.model')
+const StudentAssignmentsController  = require('../Controllers/student-assignments.controller')
 //const TeacherController = require('../Controllers/teacher.controller')
 
-const DIR = './teacher-assignments/';
+const DIR = './student-assignments/';
 
 const storage = multer.diskStorage({
     destination: (req,file,cb) => 
@@ -42,28 +42,27 @@ var upload =multer({
 
 
 
-router.post('/uploadassigns',  upload.array('uplassign',4),async (req,res,next) =>
+router.post('/submitassigns',  upload.array('uplassign',4),async (req,res,next) =>
 {
    
     let reqFiles = [];
     const url = req.protocol+ '://' +req.get('host');
     for (let i=0;i<req.files.length;i++)
     { 
-        reqFiles.push(url +'/teacher-assignments/'+ req.files[i].filename)
+        reqFiles.push(url +'/student-assignments/'+ req.files[i].filename)
     }
 
-        const tchAss = new TeacherAssignments({   
+        const stdAss = new StudentAssignments({   
             campname: req.body.campname,
           title: req.body.title,
           description: req.body.description,
           tmarks:req.body.tmarks,
           duedate:req.body.duedate,
-           uplassign:reqFiles,
-           teacher: req.body.teacher,  
+           uplassign:reqFiles   
         });
         try{
-            await tchAss.save();
-            res.send(tchAss);
+            await stdAss.save();
+            res.send(stdAss);
         }
         catch(err)
         {
@@ -72,14 +71,12 @@ router.post('/uploadassigns',  upload.array('uplassign',4),async (req,res,next) 
         }
     }); 
 
-    router.get('/gettchassigns',TeacherAssignmentsController.GetAssignments);
+    router.get('/gettchassigns',StudentAssignmentsController.GetAssignments);
 
-    router.get('/getcurrtchass/:id',TeacherAssignmentsController.GetCurrentTeacherAssignments)
+    router.get('/singletchassign/:id', StudentAssignmentsController.GetSingleAssignment);
 
-    router.get('/singletchassign/:id', TeacherAssignmentsController.GetSingleAssignment);
+    router.put('/updatetchassigns/:id' , StudentAssignmentsController.UpdateAssignments);
 
-    router.put('/updatetchassigns/:id' , TeacherAssignmentsController.UpdateAssignments);
-
-    router.delete('/deletetchassigns/:id', TeacherAssignmentsController.DeleteAssignments);
+    router.delete('/deletetchassigns/:id', StudentAssignmentsController.DeleteAssignments);
 
     module.exports = router;

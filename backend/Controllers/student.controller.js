@@ -138,6 +138,13 @@ const UpdateStudent = async(req,res,next) =>
         })
     }
 
+    //Get All Veterans On Search
+// router.post("/getveterans", AuthToken, async (req, res) => {
+//   const savedUser = await Veteran.find({
+//     name: { $regex: req.body.search, $options: "i", $nin: [req.user.name] },
+//   }); 
+//   res.send(savedUser);
+// });
     
 
 exports.AddStudent=AddStudent;

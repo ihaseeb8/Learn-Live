@@ -32,11 +32,28 @@ import {
     const cancelRef = React.useRef()
     const navigate = useNavigate();
 
+
+
     const handleSubmitView = (quiz_viewid) =>
     {
         localStorage.removeItem('quiz_viewid')
          localStorage.setItem('quiz_viewid',quiz_viewid)
             navigate("/teacher/viewquiz");
+    }
+
+
+    const getCurentUser = () =>
+    {
+      let logintoken = localStorage.getItem("logintoken")
+      console.log("Login Token"+logintoken);
+      axios.defaults.headers.common["Authorization"] = `Bearer ${logintoken}`;
+      axios.get("http://localhost:5000/teacher/viewprofile")
+        .then(res=> {
+                console.log(res.data)
+                setUserID(res.data._id);
+                setTeachers(res.data.name);
+        }).catch (err=> {
+            console.log(err) })
     }
 
     const getAllQuizzes = () =>
@@ -56,7 +73,7 @@ import {
     
    useEffect(()=>
    { 
-  
+    //getCurentUser();
     getAllQuizzes();
    },[quizzes])
 

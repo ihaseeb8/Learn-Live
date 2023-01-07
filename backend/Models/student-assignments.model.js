@@ -5,7 +5,7 @@ Schema=mongoose.Schema;
 const {ObjectId} = mongoose.Schema.Types
 require("dotenv").config();
 
-const teacherAssignmentsSchema = new moongose.Schema({
+const studentAssignmentsSchema = new moongose.Schema({
     campname :{
         type: String
     },
@@ -32,18 +32,12 @@ const teacherAssignmentsSchema = new moongose.Schema({
         type: Array
     },
 
-    // teacher: [
-    //     {
-    //         type: mongoose.Schema.Types.ObjectId,
-    //         ref: 'Teacher'
-    //     },
-    // ],
-
-    teacher:{
-      type: String
+    student:{
+        type: Schema.Types.ObjectId,
+        ref: 'Student'
     },
   
 });
 
-const TeacherAssignments = mongoose.model('TeacherAssignments', teacherAssignmentsSchema );
-module.exports= TeacherAssignments;
+const StudentAssignments = mongoose.model('StudentAssignments', studentAssignmentsSchema );
+module.exports= StudentAssignments;

@@ -1,11 +1,12 @@
 const express = require('express');
 const https = require('https');
-const TeacherAssignments = require('../Models/teacher-assignments.model')
+const StudentAssignments = require('../Models/student-assignments.model');
+
 
 const GetAssignments = async(req,res,next)=>
 {
    // res.sendFile(__dirname + ".pdf");
-    TeacherAssignments.find((error,data)=>
+   StudentAssignments.find((error,data)=>
     {
         if(error)
         {
@@ -20,7 +21,7 @@ const GetAssignments = async(req,res,next)=>
 const GetSingleAssignment = async(req,res,next)=>
 {
     var x = req.query.id;
-    TeacherAssignments.findById(x , (error,data) =>
+    StudentAssignments.findById(x , (error,data) =>
     {
         if(error)
         {
@@ -33,29 +34,9 @@ const GetSingleAssignment = async(req,res,next)=>
     })
 };
 
-const GetCurrentTeacherAssignments = async(req,res,next) =>
-{
-    var x = req.query.id; // for getting single id for editing
- // console.log(x);
- 
-
-    TeacherAssignments.findById(x).populate(["campname"]).exec((err,data) =>
-    {
-    if(err)
-     { 
-      res.status(500).send({message: err.message});
-     }
-     else
-     { 
-        console.log(data);
-      //res.status(200).send(data);
-     }
-     })
-}
-
 const UpdateAssignments = async(req,res,next)=>
 {
-    TeacherAssignments.findByIdAndUpdate(req.params.id, {
+    StudentAssignments.findByIdAndUpdate(req.params.id, {
         $set: req.body
           }, (error, data) => {
             if (error) {
@@ -70,7 +51,7 @@ const UpdateAssignments = async(req,res,next)=>
 
 const DeleteAssignments = async(req,res,next)=>
 {
-   TeacherAssignments.findByIdAndDelete(req.params.id,(error,data)=> {
+    StudentAssignments.findByIdAndDelete(req.params.id,(error,data)=> {
         if(error){
             return next(error);
         }
@@ -86,7 +67,6 @@ const DeleteAssignments = async(req,res,next)=>
 
 //exports.AddPost = AddPost;
 exports.GetAssignments=GetAssignments
-exports.GetCurrentTeacherAssignments = GetCurrentTeacherAssignments;
 exports.GetSingleAssignment= GetSingleAssignment;
 exports.UpdateAssignments= UpdateAssignments;
 exports.DeleteAssignments = DeleteAssignments;

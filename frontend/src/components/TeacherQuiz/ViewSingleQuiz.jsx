@@ -61,7 +61,9 @@ import {
       <Text mt={4}>    
       No of Questions : {nofquestions} 
       </Text>
-             {questions.map((question,index) => (  
+
+   
+              {questions.map((question,index) => (  
             
             <>           
       
@@ -113,10 +115,9 @@ import {
                             <option value="D">D</option>
                         </Select>
 
-                    </Box>
-                    
+                    </Box>         
                       </>
-                 ))}   
+                 ))}    
                    <Button  onClick={Back}
       style={{
         position: 'absolute',

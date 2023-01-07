@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, createContext, useContext  } from "react"
 import QuizQuestionComponent from "./QuizQuestionComponent"
 import { Select,Input,Box, FormControl,FormLabel,Button, Heading,Flex, Text } from "@chakra-ui/react"
 import axios from "axios"
@@ -10,9 +10,11 @@ import {
     AlertDescription,
   } from '@chakra-ui/react'
   import { useDisclosure } from '@chakra-ui/react'
+  const UserContext = createContext()
 
 
-function QuizQuesionsInfo(props){
+const QuizQuesionsInfo =(props) =>
+{
 
     //const [ questions, setQuestions] = useState([]);
     const [options, setOptions] = useState([]);
@@ -23,6 +25,7 @@ function QuizQuesionsInfo(props){
     const [campname , setCampName] = useState([]);
     const [ selectedCamp , setSelectedCamp] = useState([]);
     const [quizno , setQuizNo] = useState("");
+    const [quizID , setQuizID] = useState("");
 
     const[questions, setQuestions] = useState(allNewQuestions())
     const navigate = useNavigate();
@@ -106,10 +109,12 @@ function QuizQuesionsInfo(props){
 
     useEffect(()=>
     {
-      getCurentUser();
-      getCurrentCampName(userID);
+      //getCurentUser();
+      //getCurrentCampName(userID);
     })
 
+
+    const StateContext = createContext();
     const makeQuiz=()=>{
         setDetails( oldDetails => {
             return {
@@ -118,34 +123,51 @@ function QuizQuesionsInfo(props){
             }
         })
 
-       
-    }
-
-    const createQuiz = (event) => {
-        event.preventDefault();
-       console.log(questions)
-
-       setDetails( oldDetails => {
-        return {
-            ...oldDetails,
-            isMade: !oldDetails.isMade
-        }
-    })
-
        axios.post("http://localhost:5000/quizzes/addquiz",
        {
-        campname: campname,
-        teacher:name,
+       // campname: selectedCamp,
+        //teacher:name,
         quizno: quizno,
         nofquestions:details.noOfQuestions,
-        questions:questions
        }).then(res =>
         {
+            
+            console.log(res.data);
+            setQuizID(res.data._id);
+            console.log(res.data._id);
+
+           // console.log(quizID)
+            //console.log(quizID)
+            //console.log(res.data._id);
+
             setSubmitStatus(1);
         }).catch(err=>
             {
                 setSubmitStatus(-1)
             })
+
+    }
+
+
+    const createQuiz = (event,quizID) => {
+        event.preventDefault();
+       console.log(questions)
+
+      
+    //localStorage.setItem('quizID',quizID)
+    //console.log( `${localStorage.getItem('quizID')}`);
+   // const [state, setState] = useState({ message: 'Hello World' });
+    localStorage.setItem('quizID',quizID)
+        axios.post(`http://localhost:5000/quizzes/addquizques/${localStorage.getItem('quizID')}`,
+        {
+        questions:questions
+        }).then(res =>
+         {
+             setSubmitStatus(1);
+         }).catch(err=>
+             {
+                 setSubmitStatus(-1)
+             })
 
        
     }

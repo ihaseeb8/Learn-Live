@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate, useParams} from "react-router-dom";
 
 
-const TeacherSingleViewAssignment=()=>
+const TeacherSingleViewSubmitAssignment=()=>
  {
     const [campname , setCampName] = useState("");
     const [title , setTitle] = useState("");
@@ -18,7 +18,7 @@ const TeacherSingleViewAssignment=()=>
     const getSingleUser = () =>
     {
       axios
-        .get('http://localhost:5000/tchassignments/singletchassign/:',{params : {id: localStorage.getItem('assignment_viewid')}})
+        .get('http://localhost:5000/stdassignments/singletchassign/:',{params : {id: localStorage.getItem('ssubmitassignment_viewid')}})
         .then((res) => {
           console.log(res.data);
           setCampName(res.data.campname);
@@ -37,12 +37,7 @@ const TeacherSingleViewAssignment=()=>
           console.log(err);
         });
     }
-    const handleSubmitView = (submitassignment_viewid) =>
-    {
-        localStorage.removeItem('submitassignment_viewid')
-         localStorage.setItem('submitassignment_viewid',submitassignment_viewid)
-            navigate("/teacher/viewsubmittedassignment");
-    }
+
 
     useEffect(()=>
     {
@@ -51,12 +46,12 @@ const TeacherSingleViewAssignment=()=>
 
     const Back = ()=>
     {
-      navigate("/teacher/viewassignments");
+      navigate("/teacher/viewsubmittedassignment");
     }
 
   return (
         <Box width="80%" mt={8}  mx={"auto"}>
-        <Text my={4} align={"center"} fontWeight="bold" fontSize={30}>Assignment</Text>
+        <Text my={4} align={"center"} fontWeight="bold" fontSize={30}>Submitted Assignment</Text>
             {/* <Grid templateColumns="repeat(3, 1fr)" gap={10} overflow="scroll" height="80%" > */}
             
             <Text >
@@ -83,11 +78,7 @@ const TeacherSingleViewAssignment=()=>
                   
                 </Box>
             ))} 
-            <Button  onClick={()=>handleSubmitView(assignments._id)} colorScheme='teal' variant='solid'>
 
-                    View Submitted Assignments
-
-            </Button>
                     <Button  onClick={Back}
       style={{
         position: 'absolute',
@@ -102,4 +93,4 @@ const TeacherSingleViewAssignment=()=>
   );
 }
 
-export default TeacherSingleViewAssignment;
+export default TeacherSingleViewSubmitAssignment;

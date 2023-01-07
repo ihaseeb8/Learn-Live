@@ -9,7 +9,9 @@ import TeacherAccountDetails from '../components/TeacherAccountDetails'
 import QuizQuesionsInfo from '../components/TeacherQuiz/QuizQuestionsInfo'
 import ViewQuizzes from '../components/TeacherQuiz/ViewQuizzes'
 import ViewSingleQuiz from '../components/TeacherQuiz/ViewSingleQuiz'
+import ViewSubmittedAssignments from '../components/ViewSubmittedAssignment'
 import TeacherSingleViewAssignment from '../components/ViewSingleTeacherAssignment'
+import TeacherSingleViewSubmitAssignment from '../components/ViewSingleSubmittedAssignment'
 
 const TeacherDashboard = () => {
     
@@ -44,6 +46,8 @@ const TeacherDashboard = () => {
                       <Route path="viewquiz" element={<ViewSingleQuiz/>}/>
 
                       <Route path="viewassignment" element={<TeacherSingleViewAssignment/>}/>
+                      <Route path="viewsubmittedassignment" element={<ViewSubmittedAssignments/>}/>
+                      <Route path="viewssubmitassignment" element={<TeacherSingleViewSubmitAssignment/>}/>
 
                       
                 </Routes>       

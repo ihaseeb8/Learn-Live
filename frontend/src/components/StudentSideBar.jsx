@@ -82,11 +82,11 @@ export default function StudentSidebar({navSize, changeNavSize}) {
                 />
                 <NavItem navSize={navSize} icon={FiHome} title="Dashboard" description="This is the description for the dashboard." />
                 <NavItem navSize={navSize} icon={FiCalendar} title="Calendar" />
-                <NavItem navSize={navSize} icon={FiUser} title="Account" />
+                <NavItem navSize={navSize} icon={FiUser} title="Account" route="account" />
                 <NavItem navSize={navSize} icon={FiFileText} title="Quizzes" />
-                <NavItem navSize={navSize} icon={FiPaperclip} title="Assignments" />
+                <NavItem navSize={navSize} icon={FiPaperclip} title="Assignments" route="assignments"/>
                 <NavItem navSize={navSize} icon={FiInfo} title="Reports" />
-                <NavItem navSize={navSize} icon={FiSettings} title="Settings" />
+                <NavItem navSize={navSize} icon={FiSettings} title="Settings" route="settings" />
             </Flex>
 
             <Flex

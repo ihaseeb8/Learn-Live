@@ -4,16 +4,17 @@ import axios from "axios";
 import { useEffect } from "react";
 
 function TeacherUploadAssignment() {
-  const [userID, setUserID] = useState("");
+  const [userID , setUserID] = useState("");
   const [campname , setCampName] = useState([]);
   const [selectedCamp , setSelectedCamp] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [marks, setMarks] = useState("");
+  const [tmarks, setTMarks] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [pdf, setPdf] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [teacher , setTeacher] = useState("");
   
   const [selectedFiles, setSelectedFiles] = useState([null]);
   const [selected , setSelected] = useState([null])
@@ -35,6 +36,7 @@ function TeacherUploadAssignment() {
       .then(res=> {
               console.log(res.data)
               setUserID(res.data._id);
+              setTeacher(res.data.name);
       }).catch (err=> {
           console.log(err) })
   }
@@ -61,12 +63,15 @@ function TeacherUploadAssignment() {
     e.preventDefault();
 
     const url = "http://localhost:5000";
-    const formData = new FormData();
-    formData.append("campname" , selectedCamp)
-    formData.append("title", title);
-    formData.append("description", description);
-    formData.append("tmarks", marks);
+     const formData = new FormData();
+     formData.append("campname" , selectedCamp)
+     formData.append("title", title);
+     formData.append("description", description);
+     formData.append("tmarks", tmarks);
+    
+     
 
+    
     // const parsedDueDate = new Date(dueDate);
     //  // Formatting the parsed date and time in the same format as the uploadDate state variable
     //  const formattedDueDate = new Intl.DateTimeFormat('en-US', {
@@ -84,13 +89,17 @@ function TeacherUploadAssignment() {
        for (let i = 0; i < selectedFiles.length; i++) {
         formData.append(`uplassign`,selectedFiles[i]);
        }
+       //localStorage.setItem('userID',userID)
+       formData.append("teacher",userID)
     console.log(selectedFiles);
     console.log(formData);
 
 
     fetch('http://localhost:5000/tchassignments/uploadassigns', {
       method: 'POST',
+      
       body: formData,
+    
     })
       .then((res) => res.json())
       .then((data) => console.log(data))
@@ -157,8 +166,8 @@ function TeacherUploadAssignment() {
             id="marks"
             name="marks"
             type="number"
-            onChange={(e) => setMarks(e.target.value)}
-            value={marks}
+            onChange={(e) => setTMarks(e.target.value)}
+            value={tmarks}
             required
             borderColor="orange.500"
             focusBorderColor="orange.600"

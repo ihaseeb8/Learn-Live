@@ -1,0 +1,183 @@
+import { Grid, Box,Button, Input, Text } from "@chakra-ui/react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate, useParams} from "react-router-dom";
+
+
+const StudentSingleViewAssignment=()=>
+ {
+    const [campname , setCampName] = useState("");
+    const [title , setTitle] = useState("");
+    const [description , setDescription]= useState("");
+    const [tmarks , setTMarks] = useState("");
+    const [duedate , setDate] = useState("");
+    const[uplassign, setUplAssign] = useState([]);
+    const [assignments, setAssignments] = useState([]);
+    const navigate = useNavigate();
+
+    const [selectedFiles, setSelectedFiles] = useState([null]);
+  const [selected , setSelected] = useState([null])
+  var imgURLsArray = []
+  const onSelectFile = (e) => {
+    const selectedImages = [...e.target.files];
+    console.log(selectedImages)
+    selectedImages.map(img=> imgURLsArray.push(URL.createObjectURL(img)))
+     setSelected(imgURLsArray)
+     setSelectedFiles(e.target.files)
+  
+  };
+
+    const getSingleUser = () =>
+    {
+      axios
+        .get('http://localhost:5000/tchassignments/singletchassign/:',{params : {id: localStorage.getItem('assignment_viewid')}})
+        .then((res) => {
+          console.log(res.data);
+          setCampName(res.data.campname);
+          setTitle(res.data.title);
+          
+          setDescription(res.data.description);
+          setTMarks(res.data.tmarks);
+          setDate(res.data.duedate);
+          setUplAssign(res.data.uplassign);
+          console.log(uplassign);
+          
+
+         
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+
+    const SubmitAssignment = (e) => {
+        e.preventDefault();
+    
+        axios
+        .get('http://localhost:5000/tchassignments/singletchassign/:',{params : {id: localStorage.getItem('assignment_viewid')}})
+        .then((res) => {
+          console.log(res.data);
+          setCampName(res.data.campname);
+          setTitle(res.data.title);
+          
+          setDescription(res.data.description);
+          setTMarks(res.data.tmarks);
+          setDate(res.data.duedate);
+          setUplAssign(res.data.uplassign);
+          console.log(uplassign);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+        const formData = new FormData();
+           for (let i = 0; i < selectedFiles.length; i++) {
+            formData.append(`uplassign`,selectedFiles[i]);
+           }
+        console.log(selectedFiles);
+        console.log(formData);
+    
+    
+        fetch('http://localhost:5000/stdassignments/submitassigns', {
+          method: 'POST',
+          
+          body: formData,
+         // campname:campname,
+        })
+          .then((res) => res.json())
+          .then((data) => console.log(data))
+          .catch((err) => console.error(err));
+     
+    
+       
+      };
+
+    useEffect(()=>
+    {
+        getSingleUser();
+    },[uplassign])
+
+    const Back = ()=>
+    {
+      navigate("/student/assignments");
+    }
+
+  return (
+        <Box width="80%" mt={8}  mx={"auto"}>
+        <Text my={4} align={"center"} fontWeight="bold" fontSize={30}>Assignment</Text>
+            {/* <Grid templateColumns="repeat(3, 1fr)" gap={10} overflow="scroll" height="80%" > */}
+            <Text >
+                   Campname: {campname}
+                </Text>
+            <Text >
+                   Title: {title}
+                </Text>
+                <Text> Description: {description}</Text>
+                <Text>Total Marks: {tmarks}</Text>
+                <Text>Due Date: {duedate}</Text>
+            {uplassign.map((assign,index) => (
+                <Box p={5} shadow="md" borderWidth="1px" margin={2} marginBottom={10}>
+                
+                <iframe
+                    src={uplassign[index]}
+                    style={{
+                      height: "200px",
+                      width: "400px",
+                      class: "center",
+                      borderRadous: "50%",
+                    }}
+                  />
+                  
+                
+                </Box>
+            ))} 
+            
+            <Input
+           type="file"
+           multiple
+           accept="application/pdf , image/png "
+           onChange={onSelectFile}
+           name="uplassign"
+            borderColor="orange.500"
+            focusBorderColor="orange.600"
+      
+            />
+            {
+              selected.map((file, index) => {
+                return (
+                  <iframe
+                    src={file}
+                    style={{
+                      height: "200px",
+                      width: "400px",
+                      class: "center",
+                      borderRadous: "50%",
+                    }}
+                  />
+                );
+              })}
+             <Button  onClick={SubmitAssignment}
+      style={{
+        position: 'absolute',
+        right: 200,
+        bottom:30,
+      }}
+      colorScheme='teal' variant='solid'>
+  Submit
+  </Button>
+
+                    <Button  onClick={Back}
+      style={{
+        position: 'absolute',
+        right: 30,
+        bottom:30,
+      }}
+      colorScheme='teal' variant='solid'>
+  Back
+  </Button>
+            {/* </Grid> */}
+        </Box>
+  );
+}
+
+export default StudentSingleViewAssignment;

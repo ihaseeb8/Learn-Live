@@ -15,7 +15,7 @@ const AssignStudents =() =>
 
     const [campname , setCampName]= useState("");
     const [students , setStudents]= useState([]);
-    
+    const [selectedCampus, setSelectedCampus] = useState("");
     const [searches, setSearches] = useState([])
 
     const [submitStatus, setSubmitStatus] = useState(0);
@@ -27,6 +27,23 @@ const AssignStudents =() =>
   } = useDisclosure({ defaultIsOpen: true })
     const navigate = useNavigate();
 
+    const GetCampNames = () =>
+    {
+      axios.get('http://localhost:5000/camp/getcampname')
+      .then(res =>
+        {
+          console.log(res.data);
+          setCampName(res.data);
+          console.log(res.data);
+          //setCamps(res.data);
+          //console.log(camps)
+          
+        }).catch(err =>
+          {
+            console.log(err)
+          })
+    };
+
     const AssignStudentsToCamp=async(e)=>
     {
       e.preventDefault();
@@ -37,8 +54,8 @@ const AssignStudents =() =>
    // setSearches(searches =>
      //  searches.concat(`${localStorage.getItem('teacher_assignid')}`))
    await axios.post(url,{
-      campname:campname,
-       students:students
+      campname:selectedCampus,
+       students:`${localStorage.getItem('student_assignid')}`
     }).then ((res)=>
     {
       setSubmitStatus(1);
@@ -51,8 +68,9 @@ const AssignStudents =() =>
     }
 
      useEffect(() => {
-       console.log(students);
-    }, [students])
+      GetCampNames(); 
+      //console.log(students);
+    }, [])
 
     const StatusAlert = () => {
       if (submitStatus === -1)
@@ -85,14 +103,14 @@ const AssignStudents =() =>
           <Text mt={4}>    
             Here you can view and edit your account details.    
           </Text>
-
-        <FormLabel>Camp</FormLabel>
-        <Select placeholder='Camp Names'
-        onChange={e => setCampName(e.target.value)}>
-      <option value={'PF'}>PF</option>
-      <option value={'OOP'}>OOP</option>
-      <option value={'DS'}>DS</option>
-    </Select>
+          <Select placeholder='Camp Names' value={selectedCampus}
+        onChange={e => setSelectedCampus(e.target.value)}>
+            {Array.isArray(campname) && campname.map((campname) => (  
+            <>   
+            <option value={campname}>{campname}</option>
+            </>
+                 ))} 
+                 </Select>
        
        
     

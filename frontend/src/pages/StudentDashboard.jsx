@@ -2,6 +2,12 @@ import { Box, Container, Flex, Text } from '@chakra-ui/react'
 import React from 'react'
 import { useState } from 'react'
 import StudentSidebar from '../components/StudentSideBar'
+import { Route, Routes } from 'react-router-dom'
+import StudentAccountDetails from '../components/StudentAccountDetails'
+import ViewAssignments from '../components/StudentViewAssignments'
+import StudentSingleViewAssignment from '../components/ViewSingleStudentAssignment'
+
+
 
 const StudentDashboard = () => {
     
@@ -20,6 +26,14 @@ const StudentDashboard = () => {
                 mt={4} ml={6} mr={1} borderRadius={30}
                 boxShadow="0px 4px 12px 0 orange "
             >
+
+<Routes>
+
+<Route path="account" element={<StudentAccountDetails />} />
+<Route path="assignments" element={<ViewAssignments />} />
+<Route path="viewassignment" element={<StudentSingleViewAssignment/>}/>
+
+</Routes>
             </Flex>
         </Flex>
     </Box>

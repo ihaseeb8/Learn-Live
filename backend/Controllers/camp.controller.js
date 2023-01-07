@@ -18,21 +18,6 @@ const AddCamp =  (req,res,next) =>
             }
         }) 
     
-
- 
-        // const camp = new Camp({   
-        //   campname : req.body.campname
-        
-        // });
-        // try{
-        //     camp.save();
-        //     res.send(camp);
-        // }
-        // catch(err)
-        // {
-        //     console.log(err);
-        //     return res.status(422).send({error: err.message});
-        // }
 }
 
 const AddCamp1 = (req,res,next) =>
@@ -62,7 +47,7 @@ const GetCamps = async(req,res,next) =>
 	});
 }
 
-const GetCampusForTeacher = async(req,res,next) =>
+const GetCampForTeacher = async(req,res,next) =>
 {
   const camps = await Camp.find()
   const arr = []
@@ -81,7 +66,26 @@ const GetCampusForTeacher = async(req,res,next) =>
   res.send(arr)
   }
 
-
+  const GetCampForStudent = async(req,res,next) =>
+  {
+    const camps = await Camp.find()
+    const arr = []
+    for(let i=0; i<camps.length; i++)
+    {
+      for(let j=0; j<camps[i].students.length; j++)
+      {
+        //console.log(camps[i].teachers[j].toHexString())
+        if (req.params.id === camps[i].students[j].toHexString())
+        {
+          arr.push(camps[i].campname)
+          //console.log(camps[i].campname)
+        }
+      }
+    }
+    res.send(arr)
+    }
+  
+  
 const GetSingleCamp = (req,res,next) => 
 {
   var x = req.query.id; // for getting single id for editing
@@ -120,4 +124,5 @@ exports.AddCamp1 = AddCamp1;
 exports.GetCamps = GetCamps;
 exports.GetSingleCamp = GetSingleCamp;
 exports.GetCampName = GetCampName;
-exports.GetCampusForTeacher = GetCampusForTeacher;
+exports.GetCampForTeacher = GetCampForTeacher;
+exports.GetCampForStudent= GetCampForStudent

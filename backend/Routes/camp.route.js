@@ -14,6 +14,8 @@ router.get('/getcamp/:id',CampController.GetSingleCamp);
 
 router.get('/getcampname',CampController.GetCampName)
 
-router.get('/getcampteacher/:id',CampController.GetCampusForTeacher);
+router.get('/getcampteacher/:id',CampController.GetCampForTeacher);
+
+router.get('/getcampstudent/:id',CampController.GetCampForStudent);
 
 module.exports = router;

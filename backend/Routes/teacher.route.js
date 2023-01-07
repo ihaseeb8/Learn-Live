@@ -56,7 +56,6 @@ router.post('/addteacher',  upload.single('profileimg'),async (req,res,next) =>
             phoneno: req.body.phoneno,
             password: req.body.password,
             cpassword: req.body.cpassword,
-            campname:req.body.campname,
             
         });
         try{
@@ -77,7 +76,7 @@ router.post('/addteacher',  upload.single('profileimg'),async (req,res,next) =>
             phoneno: req.body.phoneno,
             password: req.body.password,
             cpassword: req.body.cpassword,
-            campname:req.body.campname,
+            
             profileimg: url + "/teacher/" +req.file.filename,
         });
         try{

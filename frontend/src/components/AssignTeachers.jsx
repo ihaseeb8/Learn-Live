@@ -72,8 +72,8 @@ const AssignTeachers =() =>
 
      useEffect(() => {
       GetCampNames();
-       console.log(teachers);
-    }, [teachers])
+       //console.log(teachers);
+    }, [])
 
     const StatusAlert = () => {
       if (submitStatus === -1)

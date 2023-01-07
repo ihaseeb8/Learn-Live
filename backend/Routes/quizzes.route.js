@@ -6,6 +6,8 @@ const QuizzesController = require('../Controllers/quizzes.controller')
 
 router.post('/addquiz',QuizzesController.AddQuiz);
 
+router.post('/addquizques/:id',QuizzesController.AddQuizQuestions);
+
 router.get('/getquizzes', QuizzesController.GetQuizzes);
 
 router.get('/getquiz/:id',QuizzesController.GetSingleQuiz);

@@ -1,5 +1,5 @@
 import React , {useState, useEffect} from 'react'
-import { Box,Button, Avatar,Heading, Text, Link ,FormControl,FormLabel, Input,RadioGroup,Radio,Stack, InputGroup} from '@chakra-ui/react'
+import { Box,Button, Avatar,Heading, Text, Link ,FormControl,FormLabel, Input,RadioGroup,Radio,Stack, InputGroup, Flex} from '@chakra-ui/react'
 import axios from "axios"
 import { Divider } from '@chakra-ui/react'
 import { useNavigate, useParams} from "react-router-dom";
@@ -41,8 +41,6 @@ import { useDisclosure } from '@chakra-ui/react'
             navigate("/admin/assignteacher");
     }
 
-
-
     useEffect(() => {
       axios
         .get("http://localhost:5000/teacher/getteachers")
@@ -53,7 +51,7 @@ import { useDisclosure } from '@chakra-ui/react'
         .catch((err) => {
           console.log(err);
         });
-    }, [teachers]);
+    }, []);
 
     const DeleteTeacher=(teacher_id)=>
     {
@@ -67,91 +65,104 @@ import { useDisclosure } from '@chakra-ui/react'
     })
     }
   
-    const paperStyle = {padding : 20, height: '400vh', width: 900,
-      margin: '80px 0px 50px 240px'}
-    const btStyle = { margin: "30px 0px 12px" };
-    const textStyle = { margin: "3px 0" };
+  
+
+
     return (
-        <Box p={5}>
-      <Heading as="h2" size="lg">
-        Teachers Details
-      </Heading>
-      <Text mt={4}>    
-        Here you can view and edit teacher details.    
-      </Text>
-      
-          {teachers.map((teacher) => (
-            <>
-        <Text mt={5}>
-        Name: {teacher.name}
-        </Text>   
-        <Text mt={5}>
-       Email: {teacher.email}
-        </Text>
-        <Text mt={5}>
-        Gender: {teacher.gender}
-        </Text>
-        <Text mt={5}>
-        Phone No: {teacher.phoneno}
-        </Text>
-        <Text mt={5}>
-        Password: {teacher.password}
-        </Text>          
-              <Avatar
-                src={teacher.profileimg}
-                size="lg"
-                // style={{
-                //   height: "200px",
-                //   width: "400px",
-                //   class: "center",
-                //   borderRadous: "50%"
-                // }}
-              />
-     <>
-    
-      <AlertDialog
-        isOpen={isOpen}
-        leastDestructiveRef={cancelRef}
-        onClose={onClose}
-      >
-        <AlertDialogOverlay>
-          <AlertDialogContent>
-            <AlertDialogHeader fontSize='lg' fontWeight='bold'>
-              Delete 
-            </AlertDialogHeader>
 
-            <AlertDialogBody>
-              Are you sure? You can't undo this action afterwards.
-            </AlertDialogBody>
+      <Box pt={0} px={0} mx='auto' textAlign={'center'} width={'100%'} backgroundColor='gray.100' borderRadius={30}>
+        <Box pt={4} pb={2}  >
+          <Heading mb={4} >
+            View Teachers
+          </Heading>
+          <Text mb={6}>
+            This page displays your account details and allows you to edit them.
+          </Text>
+        </Box>
 
-            <AlertDialogFooter>
-              <Button ref={cancelRef} onClick={onClose}>
-                Cancel
-              </Button>
-              <Button colorScheme='red' onClick={()=>DeleteTeacher(teacher._id)} ml={3}>
-                Delete
-              </Button>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialogOverlay>
-      </AlertDialog>
-    </>       
+        <Box maxW='4xl' mx="auto" >
+          <Flex p={4} pt={0}>
+            <Input placeholder="Teacher's Name" variant={'outlined'} borderColor='orange'></Input>
+            <Button colorScheme={'orange'}>Search</Button>
+          </Flex>
+
+          <Flex border={'1px solid orange'} gap={2} justifyContent='space-around' height='50vh' borderRadius='20px' p={4} flexWrap='wrap' overflow='scroll'>
+
+            {teachers.map((teacher) => (
+              <Flex border={'1px solid orange'} width={'250px'} borderRadius={30} p={2} alignItems='center' justifyContent={'space-around'}>
+
+                <Avatar
+                  src={teacher.profileimg}
+                  size="lg"
+                  ml={0}/>
+
+                <Box ml={0} >
+                  <Text>
+                    {teacher.name}
+                  </Text> 
+                  <Text>
+                    {teacher.email}
+                  </Text> 
+                  <Text>
+                    {teacher.gender}
+                  </Text> 
+                  <Text>
+                    {teacher.password}
+                  </Text>
+                </Box>
+
+                <Flex flexDir={'column'} justifyContent='center'>
+                  <Button  onClick={()=>handleSubmitEdit(teacher._id)} colorScheme='orange' variant='ghost'>
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </Button>
+
+                  <Button  onClick={onOpen} colorScheme='orange' variant='ghost'>
+                    <i class="fa-solid fa-trash"></i>
+                  </Button>
+
+                  <Button onClick={()=>handleSubmitAssign(teacher._id)} colorScheme='orange' variant='ghost'>
+                    <i class="fa-sharp fa-solid fa-person-circle-plus"></i>
+                  </Button>
+                </Flex>
+                
+              </Flex>
+            ))}
 
 
-   <Button  onClick={()=>handleSubmitEdit(teacher._id)} colorScheme='teal' variant='solid'>
-   Edit Teacher
-  </Button>
-  <Button  onClick={onOpen} colorScheme='teal' variant='solid'>
-   Delete Teacher
-  </Button>
-  <Button onClick={()=>handleSubmitAssign(teacher._id)} colorScheme='teal' variant='solid'>
-       Assign Teachers
-      </Button>
-              <Divider orientation='horizontal' />
+              {/* Lookk thisss uPPP //Jaaan */}
+              
+            <AlertDialog
+                    isOpen={isOpen}
+                    leastDestructiveRef={cancelRef}
+                    onClose={onClose}
+                  >
+                    <AlertDialogOverlay>
+                      <AlertDialogContent>
+                        <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+                          Delete 
+                        </AlertDialogHeader>
 
-            </>
-          ))}
-         </Box>
+                        <AlertDialogBody>
+                          Are you sure? You can't undo this action afterwards.
+                        </AlertDialogBody>
+
+                        <AlertDialogFooter>
+                          <Button ref={cancelRef} onClick={onClose}>
+                            Cancel
+                          </Button>
+                          <Button colorScheme='red' onClick={()=>DeleteTeacher(teachers._id)} ml={3}>
+                            Delete
+                          </Button>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialogOverlay>
+          </AlertDialog>
+
+          </Flex>
+        </Box>
+
+      </Box>
+
     );
   };
   

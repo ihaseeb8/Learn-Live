@@ -40,12 +40,12 @@ const AdminAccountDetails = () => {
   return (
     
     
-    <Box p={5} pt={0} px={0} mx='auto' textAlign={'center'} width={'100%'}>
-      <Box pt={4} pb={2} background='orange.500' borderTopRadius={'30px'}>
-        <Heading mb={4} color='white'>
+    <Box pt={0} px={0} mx='auto' textAlign={'center'} width={'100%'} backgroundColor='gray.100' borderRadius={30}>
+      <Box pt={4} pb={2}  >
+        <Heading mb={4} >
           Account Details
         </Heading>
-        <Text mb={6} >
+        <Text mb={6}>
           This page displays your account details and allows you to edit them.
         </Text>
       </Box>

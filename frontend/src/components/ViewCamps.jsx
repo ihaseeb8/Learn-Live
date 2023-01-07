@@ -1,6 +1,6 @@
 import React from "react"
 import { useState, useEffect } from "react"
-import { Box,Grid,Button, Text,FormControl, FormLabel, Input, Select, Textarea, Heading} from "@chakra-ui/react";
+import { Box,Grid,Button, Text,FormControl, FormLabel, Input, Select, Textarea, Heading, Flex} from "@chakra-ui/react";
 import axios from "axios"
 import { useNavigate, useParams} from "react-router-dom";
 import {
@@ -55,8 +55,8 @@ import {
    useEffect(()=>
    { 
   
-    getAllCamps();
-   },[camps])
+   getAllCamps();
+   },[])
 
    const DeleteQuiz=(quiz_deleteid)=>
    {
@@ -82,68 +82,83 @@ import {
 
 
     return (
-        <Box width="80%" mt={8}  mx={"auto"}>
-             
-        <Text my={4} align={"center"} fontWeight="bold" fontSize={30}>All Camps</Text>
-         {camps.map((camp) => (  
+
+      <Box pt={0} px={0} mx='auto' textAlign={'center'} width={'100%'} backgroundColor='gray.100' borderRadius={30}>
+      <Box pt={4} pb={2}  >
+        <Heading mb={4} >
+          View Camps
+        </Heading>
+        <Text mb={6}>
+          This page displays Camp details and allows you to edit and view them.
+        </Text>
+      </Box>
+
+      <Box maxW='4xl' mx="auto" >
+        <Flex p={4} pt={0}>
+          <Input placeholder="Camp's Name" variant={'outlined'} borderColor='orange'></Input>
+          <Button colorScheme={'orange'}>Search</Button>
+        </Flex>
+
+        <Flex border={'1px solid orange'} gap={2} justifyContent='space-around' height='50vh' borderRadius='20px' p={4} flexWrap='wrap' overflow='scroll'>
+
+          {camps.map((camp) => (
+            <Flex border={'1px solid orange'} width={'250px'} borderRadius={30} p={2} alignItems='center' justifyContent={'space-around'}>
+
+              <Box ml={0} border={'1px solid orange'}>
+                <Text >
+                  {camp.campname}
+                </Text> 
+              </Box>
+
+              <Flex flexDir={'column'} justifyContent='center'>
+                <Button  onClick={()=>handleSubmitView(camp._id)} colorScheme='orange' variant='ghost'>
+                  <i class="fa-sharp fa-solid fa-eye"></i>
+                </Button>
+
+                <Button  onClick={onOpen} colorScheme='orange' variant='ghost'>
+                  <i class="fa-solid fa-trash"></i>
+                </Button>
+
+              </Flex>
+              
+            </Flex>
+          ))}
+
+
+            {/* Lookk thisss uPPP //Jaaan */}
             
-            <> 
-           
-            
-                <Box p={5} shadow="md" borderWidth="1px" margin={2} marginBottom={10}>
-                <Text fontSize="xl" fontWeight="bold">
-                 Camp Name: {camp.campname}
-                </Text>  
-                <Button display={"table-column"} type="submit"  
-               onClick={()=>handleSubmitView(camp._id)}
-                colorScheme={"orange"} size="lg" mt={28} p="auto" ml="auto" mr="auto">
-                     View
-             </Button> 
-            <Button display={"table-column"} type="submit" 
-                onClick={onOpen}
-                colorScheme={"orange"} size="lg" mt={28} p="4" ml="28" mr={"auto"}>
-             Delete
-             </Button> 
-             
-                </Box>
+          <AlertDialog
+                  isOpen={isOpen}
+                  leastDestructiveRef={cancelRef}
+                  onClose={onClose}
+                >
+                  <AlertDialogOverlay>
+                    <AlertDialogContent>
+                      <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+                        Delete 
+                      </AlertDialogHeader>
 
-          
+                      <AlertDialogBody>
+                        Are you sure? You can't undo this action afterwards.
+                      </AlertDialogBody>
 
-            <>
-     <AlertDialog
-      isOpen={isOpen}
-      leastDestructiveRef={cancelRef}
-      onClose={onClose}
-    >
-      <AlertDialogOverlay>
-        <AlertDialogContent>
-          <AlertDialogHeader fontSize='lg' fontWeight='bold'>
-            Delete 
-          </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <Button ref={cancelRef} onClick={onClose}>
+                          Cancel
+                        </Button>
+                        <Button colorScheme='red' ml={3}>
+                          Delete
+                        </Button>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialogOverlay>
+        </AlertDialog>
 
-          <AlertDialogBody>
-            Are you sure? You can't undo this action afterwards.
-          </AlertDialogBody>
+        </Flex>
+      </Box>
 
-          <AlertDialogFooter>
-            <Button ref={cancelRef} onClick={onClose}>
-              Cancel
-            </Button>
-            <Button colorScheme='red' ml={3}>
-              Delete
-            </Button>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialogOverlay>
-    </AlertDialog>
-  </> 
+    </Box>
 
-            </>
-                 ))}  
-       
-       
-  
-        </Box>
        
     )
   }

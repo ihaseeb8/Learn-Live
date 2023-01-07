@@ -25,13 +25,13 @@ const AdminDashboard = () => {
     }
 
   return (
-    <Box w="full" h="full">
-        <Flex>
+    <Box w="100%" h="100vh" backgroundColor='#101010' pt={0} pb={4} pr={4}>
+        <Flex width={'100%'} height='100%'>
             <AdminSidebar navSize={navSize} changeNavSize={ (size) => changeNavSize(size) }></AdminSidebar>
             <Flex 
                 w={ navSize=="small" ? "95%" : "85%"} 
                 mt={4} ml={6} mr={1} borderRadius={30}
-                boxShadow="0px 4px 12px 0 orange "
+                backgroundColor={'#FFFFFF'}
             >
                 <Routes>
                     <Route path="account" element={<AdminAccountDetails />} />
@@ -39,8 +39,7 @@ const AdminDashboard = () => {
                     <Route path="addteachers" element={<AddTeachers/>}/>
                     <Route path="addstudents" element={<AddStudents/>}/>
                     <Route path="viewteachers" element={<ViewAllTeachers/>}/>
-                    <Route path="viewstudents" element={<ViewAllStudents/>}/>
-                  
+                    <Route path="viewstudents" element={<ViewAllStudents/>}/>                 
                     <Route path="editteacher"  element={<EditTeacherDetails/>}/>
                     <Route path="editstudent" element={<EditStudentDetails/>}/>
                     <Route path="assignteacher" element={<AssignTeachers/>}/>
@@ -48,9 +47,6 @@ const AdminDashboard = () => {
                     <Route path="addcamp" element={<AddCamp/>}/>
                     <Route path="viewcamps" element={<ViewCamps/>}/>
                     <Route path="viewcamp" element={<ViewSingleCamp/>}/>
-
-                  
-
                 </Routes>
             </Flex>
         </Flex>

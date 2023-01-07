@@ -39,18 +39,30 @@ const GetCurrentTeacherAssignments = async(req,res,next) =>
  // console.log(x);
  
 
-    TeacherAssignments.findById(x).populate(["campname"]).exec((err,data) =>
-    {
-    if(err)
-     { 
-      res.status(500).send({message: err.message});
-     }
-     else
-     { 
-        console.log(data);
-      //res.status(200).send(data);
-     }
-     })
+   const xy =await  TeacherAssignments.find({teacher: x})
+   res.status(200).send(xy);
+   //,(error, data) => {
+//     if (error) {
+//       res.send("Error")
+//       console.log(error)
+//     } else {
+//       res.json(data)
+//       console.log('Post updated successfully !')
+//     }
+//   })
+//    console.log(xy);
+   
+    //{
+    // if(err)
+    //  { 
+    //   res.status(500).send({message: err.message});
+    //  }
+    //  else
+    //  { 
+    //     console.log(data);
+    //   //res.status(200).send(data);
+    //  }
+    //  }
 }
 
 const UpdateAssignments = async(req,res,next)=>

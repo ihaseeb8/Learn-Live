@@ -15,7 +15,6 @@ import {
 
 const QuizQuesionsInfo =(props) =>
 {
-
     //const [ questions, setQuestions] = useState([]);
     const [options, setOptions] = useState([]);
     const [answers, setAnswers]= useState([]);
@@ -30,38 +29,7 @@ const QuizQuesionsInfo =(props) =>
     const[questions, setQuestions] = useState(allNewQuestions())
     const navigate = useNavigate();
 
-    const getCurentUser = () =>
-    {
-      let logintoken = localStorage.getItem("logintoken")
-      console.log("Login Token"+logintoken);
-      axios.defaults.headers.common["Authorization"] = `Bearer ${logintoken}`;
-      axios.get("http://localhost:5000/teacher/viewprofile")
-        .then(res=> {
-                console.log(res.data)
-                setUserID(res.data._id);
-                setName(res.data.name);
-        }).catch (err=> {
-            console.log(err) })
-    }
-  
-  
-    const getCurrentCampName = (userID) =>
-    {
-      console.log(userID)
-      localStorage.setItem('userID',userID)
-      //axios.get('http://localhost:5000/camp/getcampteacher/:',{params : {id:localStorage.getItem('userID')}}).then(res =>
-      axios.get(`http://localhost:5000/camp/getcampteacher/${localStorage.getItem('userID')}`).then(res =>
-      {
-        console.log(res.data)
-        setCampName(res.data);
-        console.log(res.data);
-  
-      }).catch(err =>
-        {
-          console.log(err);
-        })
-    }
- 
+    
 
     function allNewQuestions(){
 
@@ -111,7 +79,8 @@ const QuizQuesionsInfo =(props) =>
     {
       //getCurentUser();
       //getCurrentCampName(userID);
-    })
+
+    },[])
 
 
     const StateContext = createContext();
@@ -123,32 +92,29 @@ const QuizQuesionsInfo =(props) =>
             }
         })
 
-       axios.post("http://localhost:5000/quizzes/addquiz",
-       {
-       // campname: selectedCamp,
-        //teacher:name,
-        quizno: quizno,
-        nofquestions:details.noOfQuestions,
-       }).then(res =>
+        axios.post("http://localhost:5000/quizzes/addquiz",
         {
-            
-            console.log(res.data);
-            setQuizID(res.data._id);
-            console.log(res.data._id);
-            setSubmitStatus(1);
+    //    // campname: selectedCamp,
+    //     //teacher:name,
+         quizno: quizno,
+         nofquestions:details.noOfQuestions,
+        }).then(res =>
+         {
+                console.log(res.data);
+                 setQuizID(res.data._id);
+                 localStorage.setItem("quizID",res.data._id)
         }).catch(err=>
             {
-                setSubmitStatus(-1)
-            })
+             })
 
     }
 
 
-    const createQuiz = (event,quizID) => {
+    const createQuiz = (event) => {
         event.preventDefault();
        console.log(questions)
-
-        localStorage.setItem('quizID',quizID)
+        console.log(quizID);
+        
         axios.post(`http://localhost:5000/quizzes/addquizques/${localStorage.getItem('quizID')}`,
         {
         questions:questions
@@ -201,36 +167,36 @@ const QuizQuesionsInfo =(props) =>
             details.isMade ? 
             <QuizQuesionsInfo noOfQuestions={details.noOfQuestions}/>
             :
-            <Box width="40%" mt={8} mx="auto" textAlign={"center"}>
-                <Text as="h1" my={4} align={"center"} fontWeight="bold" fontSize={30}>Upload Quiz</Text>
-                <Text as="h2" mt={2} fontSize={18}> Please Fill Out Details</Text>
-                <FormLabel htmlFor="title" fontWeight="bold" color="orange.600" >Camp</FormLabel>
-        <Select
-        color="orange.600"
-        placeholder='Camp Names' value={selectedCamp}
-        onChange={e => setSelectedCamp(e.target.value)}>
-            {Array.isArray(campname) && campname.map((campname) => (  
-            <> 
-      <option value={campname}>{campname}</option>
+    //         <Box width="40%" mt={8} mx="auto" textAlign={"center"}>
+    //              <Text as="h1" my={4} align={"center"} fontWeight="bold" fontSize={30}>Upload Quiz</Text>
+    //              <Text as="h2" mt={2} fontSize={18}> Please Fill Out Details</Text>
+    //              <FormLabel htmlFor="title" fontWeight="bold" color="orange.600" >Camp</FormLabel>
+    //      <Select
+    //      color="orange.600"
+    //      placeholder='Camp Names' value={selectedCamp}
+    //      onChange={e => setSelectedCamp(e.target.value)}>
+    //          {Array.isArray(campname) && campname.map((campname) => (  
+    //          <> 
+    //    <option value={campname}>{campname}</option>
   
-    </>
-     ))} 
-                 </Select>
-                <Text as="h4" mt={4}> Quiz No</Text>
-              <Input
-             onChange={e=>setQuizNo(e.target.value)}
-              id='quizno' name='quizno' label='quizno'
-         variant='filled'
-             placeholder= "e.g Quiz 1"
-                 required
-        />  
-                <Flex flexDirection={"column"} my={6} gap={1}>
-                    <Text as="h4" mt={4}> Enter the number of Questions</Text>
-                    <Input type="number" name="noOfQuestions" value={details.noOfQuestions} 
-                     onChange={handleChange2}
-                    />
-                    <Button  onClick={makeQuiz}>Proceed</Button>
-                </Flex>
+    //  </>
+    //   ))} 
+    //               </Select>
+    //              <Text as="h4" mt={4}> Quiz No</Text>
+    //            <Input
+    //           onChange={e=>setQuizNo(e.target.value)}
+    //            id='quizno' name='quizno' label='quizno'
+    //       variant='filled'
+    //           placeholder= "e.g Quiz 1"
+    //               required
+    //      />  
+    //              <Flex flexDirection={"column"} my={6} gap={1}>
+    //                  <Text as="h4" mt={4}> Enter the number of Questions</Text>
+    //                  <Input type="number" name="noOfQuestions" value={details.noOfQuestions} 
+    //                   onChange={handleChange2}
+    //                  />
+    //                  <Button  onClick={makeQuiz}>Proceed</Button>
+    //              </Flex>
                 
              
         
@@ -245,7 +211,7 @@ const QuizQuesionsInfo =(props) =>
                 <StatusAlert />
             
         </Box>
-        </Box>
+       // </Box>
     )
 }
 

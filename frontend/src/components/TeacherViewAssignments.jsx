@@ -46,16 +46,8 @@ import {
       axios.get("http://localhost:5000/teacher/viewprofile")
         .then(res=> {
                // console.log(res.data)
-                //setUserID(res.data._id);
-                //console.log(res.data._id)
+                setUserID(res.data._id);
                 localStorage.setItem('userID',res.data._id)
-        axios.get(`http://localhost:5000/tchassignments/getcurrtchass/${localStorage.getItem('userID')}`)
-        .then(res => 
-          {
-            console.log(res.data)
-            setAssignments(res.data);
-          })      
-        // console.log(userID);
                 setTeachers(res.data.name);
         }).catch (err=> {
             console.log(err) })
@@ -64,9 +56,9 @@ import {
     
     const getAllAssignments= () =>
     {
-      console.log(userID)
-    localStorage.setItem('userID',userID)
-        axios.get("http://localhost:5000/tchassignments/gettchassigns") 
+      //console.log(userID)
+    // localStorage.setItem('userID',userID)
+        axios.get(`http://localhost:5000/tchassignments/getcurrtchass/${localStorage.getItem('userID')}`) 
         .then(res=> {
            console.log(res.data)
           setAssignments(res.data)
@@ -79,8 +71,7 @@ import {
 
     
    useEffect(()=>
-   { 
-  
+   {   
     getAllAssignments();
     getCurentUser();
    },[])
@@ -122,7 +113,7 @@ import {
             
             </>
                  ))} 
-      
+        
         
   
         </Box>

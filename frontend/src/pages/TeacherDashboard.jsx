@@ -7,6 +7,7 @@ import TeacherSidebar from '../components/TeacherSidebar'
 import TeacherViewAssignments from '../components/TeacherViewAssignments'
 import TeacherAccountDetails from '../components/TeacherAccountDetails'
 import QuizQuesionsInfo from '../components/TeacherQuiz/QuizQuestionsInfo'
+import QuizInfo from '../components/TeacherQuiz/QuizInfo'
 import ViewQuizzes from '../components/TeacherQuiz/ViewQuizzes'
 import ViewSingleQuiz from '../components/TeacherQuiz/ViewSingleQuiz'
 import ViewSubmittedAssignments from '../components/ViewSubmittedAssignment'
@@ -39,7 +40,7 @@ const TeacherDashboard = () => {
 
                     <Route path="account" element={<TeacherAccountDetails />} />
 
-                    <Route path="uploadquiz" element={<QuizQuesionsInfo />} />
+                    <Route path="uploadquiz" element={<QuizInfo />} />
 
                       <Route path="viewquizzes" element={<ViewQuizzes/>}/> 
 

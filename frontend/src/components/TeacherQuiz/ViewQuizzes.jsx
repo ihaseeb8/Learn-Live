@@ -103,8 +103,11 @@ import {
             
                 <Box p={5} shadow="md" borderWidth="1px" margin={2} marginBottom={10}>
                 <Text fontSize="xl" fontWeight="bold">
-                  Quiz No: {quiz.teacher}
-                </Text>  
+                  Quiz By: {quiz.teacher}
+                </Text>
+                 <Text fontSize="xl" fontWeight="bold">
+                  Quiz No: {quiz.quizno}
+                </Text>    
                 <Button display={"table-column"} type="submit"  
                onClick={()=>handleSubmitView(quiz._id)}
                 colorScheme={"orange"} size="lg" mt={28} p="auto" ml="auto" mr="auto">

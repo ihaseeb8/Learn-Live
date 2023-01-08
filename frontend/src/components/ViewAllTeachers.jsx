@@ -57,7 +57,7 @@ import { useDisclosure } from '@chakra-ui/react'
     {
     
       localStorage.setItem('teacher_id',teacher_id)
-      axios.delete('http://localhost:5000/teacher/deleteteacher/:',{params : {id: localStorage.getItem('teacher_id')}})
+      axios.delete('http://localhost:5000/teacher/deleteteacher/',{params : {id:localStorage.getItem('teacher_id')}})
       .then((res) => {
         //window.alert("Delete Successfull!")
     }).catch((error) => {
@@ -123,15 +123,23 @@ import { useDisclosure } from '@chakra-ui/react'
                   <Button onClick={()=>handleSubmitAssign(teacher._id)} colorScheme='orange' variant='ghost'>
                     <i class="fa-sharp fa-solid fa-person-circle-plus"></i>
                   </Button>
+
+                  
+                  
+
                 </Flex>
                 
               </Flex>
+
+
+
+              
             ))}
 
 
               {/* Lookk thisss uPPP //Jaaan */}
               
-            <AlertDialog
+              <AlertDialog
                     isOpen={isOpen}
                     leastDestructiveRef={cancelRef}
                     onClose={onClose}
@@ -157,6 +165,9 @@ import { useDisclosure } from '@chakra-ui/react'
                       </AlertDialogContent>
                     </AlertDialogOverlay>
           </AlertDialog>
+
+           
+             
 
           </Flex>
         </Box>

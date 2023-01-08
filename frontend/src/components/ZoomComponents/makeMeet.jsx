@@ -83,26 +83,28 @@ console.log(import.meta.env.VITE_CLIENT_ID)
 
     
 
-    <Box pt={0} px={0} mx='auto' textAlign={'center'} width={'100%'} backgroundColor='gray.100' borderRadius={30} flexDirection='row'>
+    <Box pt={0} px={0} mx='auto' textAlign={'center'} width='100%' backgroundColor='gray.100' borderRadius={30} flexDirection='row'>
 
-     
 
     <Box pt={4} pb={2} mt={4} >
       <Heading mb={4} >
         Schedule Class
       </Heading>
     </Box>
-    <a target="_blank" rel="noreferrer" href={`https://zoom.us/oauth/authorize?response_type=code&client_id=${import.meta.env.VITE_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_ZOOM_REDIRECT_URL}`}>
-      
-                Authorize Zoom
-            </a>
+
+    <Box m={4}>
+      <a target="_blank" rel="noreferrer" href={`https://zoom.us/oauth/authorize?response_type=code&client_id=${import.meta.env.VITE_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_ZOOM_REDIRECT_URL}`}>
+          Authorize Zoom
+      </a>
+    </Box>
+    
 
      {error && <Text color="red.500">{error}</Text>}
      {success && <Text color="green.500">{success}</Text>}
 
     <form onSubmit={ScheduleClass}>
     
-      <Box border={'1px solid orange'} borderRadius='20px' p={4} >
+      <Box border={'1px solid orange'} maxW='2xl' mx='auto' borderRadius='20px' p={4} >
         
           <FormControl mb={2} display={'flex'} alignItems='center'>
             <FormLabel htmlFor="camp" fontWeight="bold" color="orange.500" mr={2}>Camp Name</FormLabel>
@@ -187,7 +189,7 @@ console.log(import.meta.env.VITE_CLIENT_ID)
        
       </Box>
             
-      <Button type='submit' colorScheme='orange' variant='solid'>
+      <Button m={4} type='submit' colorScheme='orange' variant='solid'>
             Upload
       </Button>
 

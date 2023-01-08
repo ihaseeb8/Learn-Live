@@ -119,6 +119,7 @@ const payload = {
 app.post("/connectZoom", async(req,res) => {
   try {
     console.log("HELLLO");
+    console.log(req.body.code)
     var data = qs.stringify({
       code: req.body.code,
       grant_type: 'authorization_code',
@@ -142,6 +143,7 @@ app.post("/connectZoom", async(req,res) => {
         .catch(function (error) {
             return error;
         });
+    console.log(zoomRes.data.access_token)
     const zoomUserRes = await fetch("https://api.zoom.us/v2/users/me", {
       method: "GET",
       headers: {
@@ -164,6 +166,7 @@ app.post("/connectZoom", async(req,res) => {
           "Content-type": "application/json; charset=UTF-8"
       }
     })
+    console.log("IT WORKS!")
     return res.send('Authorization Successfully Done')
   } catch (e) {
     console.log(e)
@@ -174,19 +177,17 @@ app.post("/connectZoom", async(req,res) => {
 app.post("/meeting", async (req,res) => {
   //Get access token through email from database
   try {
-    var data = qs.stringify({
+    var dataZ = JSON.stringify({
       email: req.body.email
     });
-
     var config = {
         method: 'post',
         url: 'http://localhost:5000/zoomMain/getToken',
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
         },
-        data: data
+        data: dataZ
     };
-
     var zoomRes = await axios(config)
         .then(function (response) {
             return response;
@@ -194,7 +195,6 @@ app.post("/meeting", async (req,res) => {
         .catch(function (error) {
             return error;
         });
-
     var data1 = JSON.stringify({
       agenda: req.body.agenda,
       duration: req.body.duration
@@ -217,7 +217,6 @@ app.post("/meeting", async (req,res) => {
         .catch(function (error) {
             return error;
         });
-    console.log(zoomRes1)
     
     var data2 = JSON.stringify({
       zoom_id: zoomRes1.data.id,
@@ -247,7 +246,6 @@ app.post("/meeting", async (req,res) => {
         .catch(function (error) {
             return error;
         });
-    console.log(zoomRes2)
     res.send('Meet created and data saved to DB')
   }
   catch (e) {

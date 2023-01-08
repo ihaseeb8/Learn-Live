@@ -1,11 +1,9 @@
 import React from "react";
 
 export default function Callback() {
-
     let search = window.location.search;
     let params = new URLSearchParams(search);
     let code = params.get('code');
-    console.log(code)
     React.useEffect(() => {
         if (code) {
 

@@ -49,8 +49,10 @@ const DeleteZoomData = (req,res,next) =>
 const findAccessToken = (req,res,next) => 
 {
     const email = req.body.email
+    console.log('THIS IS EMAIl')
+    console.log(email)
     try {
-        zoomMainSchema.findOne({email:email})
+        zoomMainSchema.findOne({email:"i190573@nu.edu.pk"})
         .then(data => {
             console.log(data)
             res.json(data)

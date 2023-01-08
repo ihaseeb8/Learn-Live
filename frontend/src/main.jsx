@@ -7,9 +7,7 @@ import theme from './theme/theme'
 import './theme/style.css'
 //using CHakra Ui
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
     <ChakraProvider theme={theme}>
       <App />
     </ChakraProvider>
-  </React.StrictMode>
 )

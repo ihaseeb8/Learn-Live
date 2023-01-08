@@ -49,7 +49,6 @@ const TeacherDashboard = () => {
                     <Route path="settings" element={<TeacherSettings />}/>
                     <Route path="calendar" element={<TeacherCalendar />} />
                     <Route path="createclass" element={<MakeMeet/>}/>
-                    <Route path="oauth-callback" element = {<CallBack/>}/>
                                      
                 </Routes>       
             </Flex>

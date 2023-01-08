@@ -24,27 +24,26 @@ import {
   const ViewQuizzes = ()=>
   {
 
-    const [assignments , setAssignments] = useState([]);
+    const [quizzes , setQuizzes] = useState([]);
     const [questions , setQuestions] = useState([]);
     const [ teachers , setTeachers] =useState('')
     const { isOpen, onOpen, onClose } = useDisclosure()
     const cancelRef = React.useRef()
     const navigate = useNavigate();
 
-    const handleSubmitView = (assignment_viewid) =>
+    const handleSubmitView = (quiz_viewid) =>
     {
-        localStorage.removeItem('assignment_viewid')
-         localStorage.setItem('assignment_viewid',assignment_viewid)
-            navigate("/student/viewassignment");
+        localStorage.removeItem('quiz_viewid')
+         localStorage.setItem('quiz_viewid',quiz_viewid)
+            navigate("/student/attemptquiz");
     }
-
-    const getAllAssignments= () =>
+    const getAllQuizzes = () =>
     {
 
-        axios.get("http://localhost:5000/tchassignments/gettchassigns") 
+        axios.get("http://localhost:5000/quizzes/getquizzes") 
         .then(res=> {
            console.log(res.data)
-          setAssignments(res.data)
+          setQuizzes(res.data)
           //console.log(quizzes)
     }).catch (err=> {
        console.log(err) })
@@ -56,7 +55,7 @@ import {
    useEffect(()=>
    { 
   
-    getAllAssignments();
+    getAllQuizzes();
    },[])
 
 
@@ -94,7 +93,7 @@ import {
                 },
               }}>
 
-        {assignments.map((assignment) => (  
+            {quizzes.map((quiz) => ( 
 
             <Flex border={'1px solid orange'} width={'250px'} borderRadius={30} p={2} alignItems='center' justifyContent={'space-around'}>
 
@@ -104,15 +103,15 @@ import {
               Teacher Name: {assignment.teacher}
               </Text>  */}
               <Text>
-              Camp: {assignment.campname}
+              Camp: {quiz.campname}
               </Text> 
               <Text>
-              Title: {assignment.title}
+              Quiz No: {quiz.quizno}
               </Text>
             </Box>
             
             <Flex flexDir={'column'} justifyContent='center'>
-                <Button  onClick={()=>handleSubmitView(assignment._id)} colorScheme='orange' variant='ghost'>
+                <Button  onClick={()=>handleSubmitView(quiz._id)} colorScheme='orange' variant='ghost'>
                   <i class="fa-solid fa-eye"></i>
                 </Button>
 

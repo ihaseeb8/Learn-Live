@@ -9,7 +9,7 @@ import StudentSingleViewAssignment from '../components/ViewSingleStudentAssignme
 import StudentSettings from '../components/StudentSettings'
 import StudentCalendar from '../components/StudentCalendar'
 import ViewQuizzes from '../components/StudentViewQuizzes'
-
+import StudentAttemptQuiz from '../components/StudentAttemptQuiz'
 
 
 const StudentDashboard = () => {
@@ -35,6 +35,7 @@ const StudentDashboard = () => {
                     <Route path="account" element={<StudentAccountDetails />} />
                     <Route path="assignments" element={<ViewAssignments />} />
                     <Route path="quizzes" element={<ViewQuizzes />} />
+                    <Route path="attemptquiz" element={<StudentAttemptQuiz/>}/>
                     <Route path="viewassignment" element={<StudentSingleViewAssignment/>}/>
                     <Route path="calendar" element={<StudentCalendar />}/>
                     <Route path="settings" element={<StudentSettings />} />

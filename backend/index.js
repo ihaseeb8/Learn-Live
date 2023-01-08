@@ -151,16 +151,19 @@ app.post("/connectZoom", async(req,res) => {
       },
     });
     const zoomUserData = await zoomUserRes.json();
-    const temp = await fetch("http:/localhost:5000/zoomMain/addData", {
+    const temp = await fetch("http://localhost:5000/zoomMain/addData", {
       // Adding method type
       method: "POST",
       // Adding body or contents to send
       body: JSON.stringify({
         email: zoomUserData.email,
         user_id: zoomUserData.user_id,
-        access_token: zoomRes.data.access_token,
-        refresh_token: zoomRes.data.refresh_token,
-        expires_in: zoomRes.data.expires_in
+        access_token: zoomUserData.access_token,
+        refresh_token: zoomUserData.refresh_token,
+        expires_in: zoomUserData.expires_in
+        // access_token: zoomRes.data.access_token,
+        // refresh_token: zoomRes.data.refresh_token,
+        // expires_in: zoomRes.data.expires_in
       }),
       headers: {
           "Content-type": "application/json; charset=UTF-8"

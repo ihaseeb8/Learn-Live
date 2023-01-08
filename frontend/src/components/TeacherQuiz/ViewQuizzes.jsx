@@ -1,7 +1,7 @@
 import React from "react"
 import { useState, useEffect } from "react"
 import QuizQuestionComponent from "./QuizQuestionComponent"
-import { Box,Grid,Button, Text,FormControl, FormLabel, Input, Select, Textarea, Heading} from "@chakra-ui/react";
+import { Box,Grid,Button, Text,FormControl, FormLabel, Input, Select, Textarea, Heading, Flex} from "@chakra-ui/react";
 import axios from "axios"
 import { useNavigate, useParams} from "react-router-dom";
 import {
@@ -75,7 +75,7 @@ import {
    { 
     //getCurentUser();
     getAllQuizzes();
-   },[quizzes])
+   },[])
 
    const DeleteQuiz=(quiz_deleteid)=>
    {
@@ -93,71 +93,100 @@ import {
 
 
     return (
-        <Box width="80%" mt={8}  mx={"auto"}>
-             
-        <Text my={4} align={"center"} fontWeight="bold" fontSize={30}>All Quizzes</Text>
+
+      <Box pt={0} px={0} mx='auto' textAlign={'center'} width={'100%'} backgroundColor='gray.100' borderRadius={30}>
+      <Box pt={4} pb={2} my={4} >
+        <Heading mb={4} >
+          View Quizzes
+        </Heading>
+      </Box>
+
+      <Flex maxW='2xl' mx="auto" flexDirection={'column'}>
+        <Flex p={4} pt={0}>
+          <Input placeholder="Quiz's Name" variant={'outlined'} borderColor='orange'></Input>
+          <Button colorScheme={'orange'}>Search</Button>
+        </Flex>
+
+        <Flex border={'1px solid orange'} 
+              gap={2} 
+              justifyContent='space-around' 
+              height='50vh' borderRadius='10px' 
+              p={4} flexWrap='wrap' 
+              overflowY='scroll'
+              sx={{
+                '&::-webkit-scrollbar': {
+                  width: '16px',
+                  borderRadius: '8px',
+                  backgroundColor: 'white',
+                },
+                '&::-webkit-scrollbar-thumb': {
+                  backgroundColor: `orange.500`,
+                  borderRadius: '8px',
+                },
+              }}>
+
         {quizzes.map((quiz) => (  
+
+            <Flex border={'1px solid orange'} width={'250px'} borderRadius={30} p={2} alignItems='center' justifyContent={'space-around'}>
+
+            <Box ml={0} >
+              {/* Jaan Implement this ( displays teacher Id instead of name)*/}
+              {/* <Text>
+              Teacher Name: {assignment.teacher}
+              </Text>  */}
+              <Text>
+              Quiz By: {quiz.teacher}
+              </Text> 
+              <Text>
+              Quiz No: {quiz.quizno}
+              </Text>
+            </Box>
             
-            <> 
-            {/* <Grid templateColumns="repeat(3, 1fr)" gap={10} overflow="scroll" height="30%" width="100%" > */}
+            <Flex flexDir={'column'} justifyContent='center'>
+                <Button  onClick={()=>handleSubmitView(quiz._id)} colorScheme='orange' variant='ghost'>
+                  <i class="fa-solid fa-eye"></i>
+                </Button>
+
+                <Button  onClick={onOpen} colorScheme='orange' variant='ghost'>
+                  <i class="fa-solid fa-trash"></i>
+                </Button>
+
+            </Flex>
+        
             
-                <Box p={5} shadow="md" borderWidth="1px" margin={2} marginBottom={10}>
-                <Text fontSize="xl" fontWeight="bold">
-                  Quiz By: {quiz.teacher}
-                </Text>
-                 <Text fontSize="xl" fontWeight="bold">
-                  Quiz No: {quiz.quizno}
-                </Text>    
-                <Button display={"table-column"} type="submit"  
-               onClick={()=>handleSubmitView(quiz._id)}
-                colorScheme={"orange"} size="lg" mt={28} p="auto" ml="auto" mr="auto">
-                     View
-             </Button> 
-            <Button display={"table-column"} type="submit" 
-                onClick={onOpen}
-                colorScheme={"orange"} size="lg" mt={28} p="4" ml="28" mr={"auto"}>
-             Delete
-             </Button> 
-             
-                </Box>
+            </Flex>  ))}
 
-            {/* </Grid> */}
+               <AlertDialog
+                isOpen={isOpen}
+                leastDestructiveRef={cancelRef}
+                onClose={onClose}
+                >
+                  <AlertDialogOverlay>
+                    <AlertDialogContent>
+                      <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+                        Delete 
+                      </AlertDialogHeader>
 
-            <>
-     <AlertDialog
-      isOpen={isOpen}
-      leastDestructiveRef={cancelRef}
-      onClose={onClose}
-    >
-      <AlertDialogOverlay>
-        <AlertDialogContent>
-          <AlertDialogHeader fontSize='lg' fontWeight='bold'>
-            Delete 
-          </AlertDialogHeader>
+                      <AlertDialogBody>
+                        Are you sure? You can't undo this action afterwards.
+                      </AlertDialogBody>
 
-          <AlertDialogBody>
-            Are you sure? You can't undo this action afterwards.
-          </AlertDialogBody>
+                      <AlertDialogFooter>
+                        <Button ref={cancelRef} onClick={onClose}>
+                          Cancel
+                        </Button>
+                        <Button colorScheme='red' onClick={()=>DeleteQuiz(quiz._id)} ml={3}>
+                          Delete
+                        </Button>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialogOverlay>
+                </AlertDialog>
 
-          <AlertDialogFooter>
-            <Button ref={cancelRef} onClick={onClose}>
-              Cancel
-            </Button>
-            <Button colorScheme='red' onClick={()=>DeleteQuiz(quiz._id)} ml={3}>
-              Delete
-            </Button>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialogOverlay>
-    </AlertDialog>
-  </> 
+        </Flex>
+      </Flex>
 
-            </>
-                 ))} 
-       
-       
-  
-        </Box>
+    </Box>
        
     )
   }

@@ -30,9 +30,13 @@ import { IoPawOutline } from 'react-icons/io5'
 import NavItem from './NavItem'
 import axios from "axios"
 import LoginPage from '../pages/LoginPage'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 export default function TeacherSidebar({navSize, changeNavSize}) {
+
+    // To make links active on Sidebar
+    const location = useLocation();
+    const route = location.pathname.split("/").pop();
 
     const [ userID , setUserID] = useState("");
     const [name, setName] = useState("");
@@ -92,13 +96,13 @@ export default function TeacherSidebar({navSize, changeNavSize}) {
                 as="nav">
                 
               
-                <NavItem navSize={navSize} icon={'fa-solid fa-user'} title="Account" route="account" description={"All About"}/>
-                <NavItem navSize={navSize} icon={'fa-sharp fa-solid fa-file-arrow-up'} title="Upload Assignment" route="uploadassignment"/>
-                <NavItem navSize={navSize} icon={'fa-solid fa-folder'} title="View Assignments" route="viewassignments"/>
-                <NavItem navSize={navSize} icon={'fa-solid fa-list-check'} title="Upload Quiz" route="uploadquiz"/>
-                <NavItem navSize={navSize} icon={'fa-solid fa-solid fa-boxes-stacked'} title="View Quizzes" route="viewquizzes"/>
-                <NavItem navSize={navSize} icon={'fa-solid fa-calendar'} title="Calender" route="calender" />
-                <NavItem navSize={navSize} icon={'fa-solid fa-gear'} title="Settings" route="settings" />
+                <NavItem navSize={navSize} icon={'fa-solid fa-user'} title="Account" active={route === "account"} route="account" description={"All About"}/>
+                <NavItem navSize={navSize} icon={'fa-sharp fa-solid fa-file-arrow-up'} title="Upload Assignment" active={route === "uploadassignment"} route="uploadassignment"/>
+                <NavItem navSize={navSize} icon={'fa-solid fa-folder'} title="View Assignments" active={route === "viewassignments"} route="viewassignments"/>
+                <NavItem navSize={navSize} icon={'fa-solid fa-list-check'} title="Upload Quiz" active={route === "uploadquiz"} route="uploadquiz"/>
+                <NavItem navSize={navSize} icon={'fa-solid fa-solid fa-boxes-stacked'} title="View Quizzes" active={route === "viewquizzes"} route="viewquizzes"/>
+                <NavItem navSize={navSize} icon={'fa-solid fa-calendar'} title="Calendar" active={route === "calendar"} route="calendar" />
+                <NavItem navSize={navSize} icon={'fa-solid fa-gear'} title="Settings" active={route === "settings"} route="settings" />
 
             </Flex>
 

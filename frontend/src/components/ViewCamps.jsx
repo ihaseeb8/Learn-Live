@@ -104,7 +104,7 @@ import {
           {camps.map((camp) => (
             <Flex border={'1px solid orange'} width={'250px'} borderRadius={30} p={2} alignItems='center' justifyContent={'space-around'}>
 
-              <Box ml={0} border={'1px solid orange'}>
+              <Box ml={0} >
                 <Text >
                   {camp.campname}
                 </Text> 

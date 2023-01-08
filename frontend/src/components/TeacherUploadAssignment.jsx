@@ -2,6 +2,9 @@ import { Grid,Select, Box, FormControl, FormLabel, Input, Text, FormErrorMessage
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
+//import DatePicker from "react-datepicker"
+//import 'react-datepicker/dist/react-datepicker.css';
+//import { DatePicker } from '@chakra-ui/react';
 
 function TeacherUploadAssignment() {
   const [userID , setUserID] = useState("");
@@ -46,7 +49,7 @@ function TeacherUploadAssignment() {
   {
     console.log(userID)
     localStorage.setItem('userID',userID)
-    //axios.get('http://localhost:5000/camp/getcampteacher/:',{params : {id:localStorage.getItem('userID')}}).then(res =>
+    //axios.get('http://localhost:5000/camp/getcampteacher/:'}).then(res =>
     axios.get(`http://localhost:5000/camp/getcampteacher/${localStorage.getItem('userID')}`).then(res =>
     {
       console.log(res.data)
@@ -135,7 +138,7 @@ function TeacherUploadAssignment() {
       <Box border={'1px solid orange'} borderRadius='20px' p={4} >
         
           <FormControl mb={2} display={'flex'} alignItems='center'>
-            <FormLabel htmlFor="camp" fontWeight="bold" color="orange.500" mr={2}>Full Name</FormLabel>
+            <FormLabel htmlFor="camp" fontWeight="bold" color="orange.500" mr={2}>Camp Name</FormLabel>
 
             <Select
               textAlign={'center'}

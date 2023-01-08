@@ -126,7 +126,7 @@ const UpdateTeacher = async(req,res,next) =>
     const DeleteTeacher = (req,res,next) =>
     {
     var x= req.query.id;
-        Teacher.findByIdAndDelete(x,(error,data)=> {
+        Teacher.findByIdAndRemove(req.params.id,(error,data)=> {
             if(error){
                 return next(error);
             }

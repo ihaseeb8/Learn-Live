@@ -23,8 +23,7 @@ const teacherAssignmentsSchema = new moongose.Schema({
     },
 
     duedate: {
-        type: Date,
-        timestamps: false
+        type: Date
     },
    
 
@@ -43,7 +42,7 @@ const teacherAssignmentsSchema = new moongose.Schema({
       type: String
     },
   
-});
+},{ timestamps: false });
 
 const TeacherAssignments = mongoose.model('TeacherAssignments', teacherAssignmentsSchema );
 module.exports= TeacherAssignments;

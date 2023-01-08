@@ -1,5 +1,5 @@
 import React , {useState, useEffect} from 'react'
-import { Box, Button,Heading, Text, Link } from '@chakra-ui/react'
+import { Box, Button,Heading, Text, Link , Avatar, IconButton, Flex, Input} from '@chakra-ui/react'
 import axios from "axios"
 
 const StudentAccountDetails = () => {
@@ -60,37 +60,128 @@ const StudentAccountDetails = () => {
 
  
   return (
-    <Box p={5}>
-      <Heading as="h2" size="lg">
+    <Box pt={0} px={0} mx='auto' textAlign={'center'} width={'100%'} backgroundColor='gray.100' borderRadius={30}>
+    <Box pt={4} pb={2} mt={4}  >
+      <Heading mb={4} >
         Account Details
       </Heading>
-      <Text mt={4}>    
-        Here you can view and edit your account details.    
-      </Text>
-      <Text mt={5}>
-      User ID: {userID}
-      </Text>
-      <Text mt={5}>
-      Name: {name}
-      </Text>
-      <Text mt={5}>
-      Email: {email}
-      </Text>
-      <Text mt={5}>
-      Gender: {gender}
-      </Text>
-      <Text mt={5}>
-      Phone Number: {phoneno}
-      </Text>
-      {Array.isArray(campname) && campname.map((campname) => (             
-            <> 
-      <Text mt={5}>Camp Name: {campname} </Text>
-    </>
-                 ))}    
-
-
-      {/* <Link  mt={5} to="/edit-account">Edit Account</Link> */}
     </Box>
+
+    <Box p={5} pt={0} maxW="lg" mx="auto" textAlign={'start'} position={'relative'}>
+
+      <Box align="center" mb={4} mx='auto' px='auto' >
+        <Avatar size='2xl' src={`https://avatars.dicebear.com/v2/bottts/${name}.svg?`} />
+        <Heading fontSize="xl" color="orange.500">
+            {name}
+        </Heading>
+
+        {/* Add Implementation for Edit Account */}
+        <IconButton
+          position={'absolute'}
+          top={8}
+          right={8}
+          variant='outline'
+          aria-label="Edit account details"
+          icon= {<i class="fa-sharp fa-solid fa-user-pen"></i>}
+          color='orange'
+          colorScheme={'orange'}
+          size='lg'
+
+        />
+      </Box>
+
+      <Box border={'1px solid orange'} borderRadius='20px' p={4} >
+
+        <Flex mb={2} align='center'>
+          <Text fontWeight="bold" color="orange.500" mr={2} >
+          User ID:
+          </Text>
+          <Input value={userID} 
+                 textAlign={'center'} 
+                 focusBorderColor='orange.700' 
+                 variant={'flushed'} 
+                 borderBottomColor='orange' 
+                 width={'60%'} 
+                 mr={0} ml='auto' />
+        </Flex>
+
+        <Flex mb={2} align='center'>
+          <Text fontWeight="bold" color="orange.500" mr={2} >
+            Email:
+          </Text>
+          <Input value={email} 
+                 textAlign={'center'} 
+                 focusBorderColor='orange.700' 
+                 variant={'flushed'} 
+                 borderBottomColor='orange' 
+                 width={'60%'} 
+                 mr={0} ml='auto' />
+        </Flex>
+
+        <Flex mb={2} align='center'>
+          <Text fontWeight="bold" color="orange.500" mr={2} >
+            Gender:
+          </Text>
+          <Input value={gender} 
+                 textAlign={'center'} 
+                 focusBorderColor='orange.700' 
+                 variant={'flushed'} 
+                 borderBottomColor='orange' 
+                 width={'60%'} 
+                 mr={0} ml='auto' />
+        </Flex>
+
+        <Flex mb={2} align='center'>
+          <Text fontWeight="bold" color="orange.500" mr={2} >
+            Phone No:
+          </Text>
+          <Input value={phoneno} 
+                 textAlign={'center'} 
+                 focusBorderColor='orange.700' 
+                 variant={'flushed'} 
+                 borderBottomColor='orange' 
+                 width={'60%'} 
+                 mr={0} ml='auto' />
+        </Flex>
+
+        <Flex mb={2} mt={4} align='center'>
+          <Text fontWeight="bold" color="orange.500" mr={2} >
+            Camps:
+          </Text>
+
+          <Flex flexDirection={'column'} 
+                overflowY="scroll" 
+                height="100px" 
+                textAlign={'center'} 
+                width={'60%'} 
+                border='1px solid orange'
+                borderRadius='8px'
+                sx={{
+                  '&::-webkit-scrollbar': {
+                    width: '16px',
+                    borderRadius: '8px',
+                    backgroundColor: 'white',
+                  },
+                  '&::-webkit-scrollbar-thumb': {
+                    backgroundColor: `orange.500`,
+                    borderRadius: '8px',
+                  },
+                }}
+                mr={0} ml='auto' >
+
+                {Array.isArray(campname) && campname.map((campname) => (             
+                
+                  <Text> {campname} </Text>
+                  ))}
+
+          </Flex>
+          
+        </Flex>
+
+      </Box>
+
+    </Box>
+  </Box>
   )
 }
 

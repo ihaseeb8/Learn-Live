@@ -23,7 +23,14 @@ import {
 import { IoPawOutline } from 'react-icons/io5'
 import NavItem from './NavItem'
 import axios from "axios"
+import { Link, useLocation } from 'react-router-dom'
+
+
 export default function StudentSidebar({navSize, changeNavSize}) {
+
+    // To make links active on Sidebar
+    const location = useLocation();
+    const route = location.pathname.split("/").pop();
 
     const [ userID , setUserID] = useState("");
     const [name, setName] = useState("");
@@ -53,57 +60,70 @@ export default function StudentSidebar({navSize, changeNavSize}) {
         <Flex
             pos="sticky"
             left="5"
-            h="95vh"
-            marginTop="2.5vh"
-            boxShadow="0px 4px 12px 0 orange "
-            borderRadius={navSize == "small" ? "15px" : "30px"}
+            m={0}
             w={navSize == "small" ? "75px" : "20%"}
-            flexDir="column"
-            justifyContent="space-between"
-        >
+            flexDir="column"     
+            justifyContent={'center'}
+            position='relative'>
+
+            <IconButton
+                background="none"
+                mt={4}        
+                alignSelf='center'
+                position={'absolute'}
+                top={4}
+                color='white'
+                _hover={{background: 'gray.100',  color:'orange' }}
+                icon={<FiMenu />}
+                onClick={() => {
+                    if (navSize == "small")
+                        changeNavSize("large")
+                    else
+                        changeNavSize("small")
+                }} />
+
             <Flex
-                p="5%"
                 flexDir="column"
                 w="100%"
                 alignItems={navSize == "small" ? "center" : "flex-start"}
                 as="nav"
             >
-                <IconButton
-                    background="none"
-                    mt={5}
-                    _hover={{ background: 'none' }}
-                    icon={<FiMenu />}
-                    onClick={() => {
-                        if (navSize == "small")
-                            changeNavSize("large")
-                        else
-                            changeNavSize("small")
-                    }}
-                />
-                <NavItem navSize={navSize} icon={FiHome} title="Dashboard" description="This is the description for the dashboard." />
-                <NavItem navSize={navSize} icon={FiCalendar} title="Calendar" />
-                <NavItem navSize={navSize} icon={FiUser} title="Account" route="account" />
-                <NavItem navSize={navSize} icon={FiFileText} title="Quizzes" />
-                <NavItem navSize={navSize} icon={FiPaperclip} title="Assignments" route="assignments"/>
-                <NavItem navSize={navSize} icon={FiInfo} title="Reports" />
-                <NavItem navSize={navSize} icon={FiSettings} title="Settings" route="settings" />
+               
+                <NavItem navSize={navSize} icon={'fa-solid fa-user'} active={route === "account"} title="Account" route="account" />
+                <NavItem navSize={navSize} icon={'fa-solid fa-list-check'} active={route === "quizzes"}  title="Quizzes" route="quizzes" />
+                <NavItem navSize={navSize} icon={'fa-solid fa-folder'} active={route === "assignments"} title="Assignments" route="assignments"/>
+
+                {/* <NavItem navSize={navSize} icon={FiHome} title="Dashboard" description="This is the description for the dashboard." /> */}
+                <NavItem navSize={navSize} icon={'fa-solid fa-calendar'} active={route === "calendar"} title="Calendar" route="calendar" />
+                
+                {/* <NavItem navSize={navSize} icon={FiInfo} title="Reports" /> */}
+                <NavItem navSize={navSize} icon={'fa-solid fa-gear'} title="Settings" active={route === "settings"} route="settings" />
+
             </Flex>
 
+            <Divider display={navSize == "small" ? "none" : "flex"} variant='dashed' borderColor={'orange.900'} />
+
             <Flex
-                p="5%"
-                flexDir="column"
-                w="100%"
-                alignItems={navSize == "small" ? "center" : "flex-start"}
-                mb={4}
-            >
-                <Divider display={navSize == "small" ? "none" : "flex"} />
-                <Flex mt={4} align="center">
-                    <Avatar size="md" src={profileimg} />
-                    <Flex flexDir="column" ml={4} display={navSize == "small" ? "none" : "flex"}>
-                        <Heading as="h3" size="sm">{name}</Heading>
-                    </Flex>
+                mt={4}
+                p={2} 
+                align="center" 
+                border='1px solid' 
+                borderColor={'white'} 
+                width={'100%'} 
+                alignItems='center' justifyContent={'center'}
+                borderRadius={30}>
+                
+                <Avatar
+                    size="sm"
+                    src={`https://avatars.dicebear.com/v2/bottts/${name}.svg?`}
+                    />
+                    
+                <Flex flexDir="column" ml={4} display={navSize == "small" ? "none" : "flex"}>
+                        <Heading as="h3" size="sm" color={'white'}>{name}</Heading>
                 </Flex>
+
             </Flex>
+
         </Flex>
     )
 }

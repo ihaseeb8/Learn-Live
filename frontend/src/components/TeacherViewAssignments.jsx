@@ -115,7 +115,7 @@ import {
 
         {assignments.map((assignment) => (  
 
-            <Flex border={'1px solid orange'} width={'250px'} borderRadius={30} p={2} alignItems='center' justifyContent={'space-around'}>
+            <Flex border={'1px solid orange'} height='40%' width={'250px'} borderRadius={30} p={2} alignItems='center' justifyContent={'space-around'}>
 
             <Box ml={0} >
               {/* Jaan Implement this ( displays teacher Id instead of name)*/}

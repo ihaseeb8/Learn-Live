@@ -1,4 +1,4 @@
-import { Select,Box, Input, Text, FormControl, FormLabel, Button, Flex} from "@chakra-ui/react"
+import { Select,Box, Input, Text, FormControl, FormLabel, Button, Flex, Heading, Divider} from "@chakra-ui/react"
 import { useEffect } from "react";
 import { useState } from "react"
 import axios from "axios"
@@ -68,7 +68,7 @@ const QuizInfo = () => {
           getCurentUser();
           getCurrentCampName(userID);
     
-        },[])
+        }, [])
 
 
     function makeQuiz(){
@@ -111,37 +111,92 @@ const QuizInfo = () => {
         details.isMade ? 
         <QuizQuesionsInfo noOfQuestions={details.noOfQuestions}/>
         :
-        <Box width="40%" mt={8} mx="auto" textAlign={"center"}>
-            <Text as="h1" my={4} align={"center"} fontWeight="bold" fontSize={30}>Upload Quiz</Text>
-            <Text as="h2" mt={2} fontSize={18}> Please Fill Out Details</Text>
 
-            <FormLabel htmlFor="title" fontWeight="bold" color="orange.600" >Camp</FormLabel>
-          <Select
-          color="orange.600"
-          placeholder='Camp Names' value={selectedCamp}
-          onChange={e => setSelectedCamp(e.target.value)}>
-              {Array.isArray(campname) && campname.map((campname) => (  
-              <> 
-        <option value={campname}>{campname}</option>
-  
-      </>
-       ))} 
-        </Select>
-        <Text as="h4" mt={4}> Quiz No</Text>
-                <Input
-               onChange={e=>setQuizNo(e.target.value)}
-                id='quizno' name='quizno' label='quizno'
-           variant='filled'
-               placeholder= "e.g Quiz 1"
-                   required
-          />  
-            <Flex flexDirection={"column"} my={16} gap={1}>
-                <Text as="h4" mt={4}> Enter the number of Questions</Text>
-                <Input type="number" name="noOfQuestions" value={details.noOfQuestions} onChange={handleChange}/>
-                <Button  onClick={makeQuiz}>Proceed</Button>
-            </Flex>
-            
+        <Box pt={0} px={0} mx='auto' textAlign={'center'} width={'100%'} backgroundColor='gray.100' borderRadius={30}>
+            <Box pt={4} pb={2} mt={4}  >
+                <Heading mb={4} >
+                Upload Quiz
+                </Heading>
+                <Text>
+                Please Fill Out Details 
+                </Text>
+            </Box>
+
+            <form onSubmit={makeQuiz}>
+                <Box p={5} mt={8} maxW="lg" mx="auto" textAlign={'start'} position={'relative'} border='1px solid orange' borderRadius={10}>
+                    
+                    <FormControl mb={2} display={'flex'} alignItems='center'>
+                        <FormLabel htmlFor="Camp" fontWeight="bold" color="orange.500" mr={2} >Camp</FormLabel>
+                        <Select textAlign={'center'}
+                                focusBorderColor='orange.700' 
+                                variant={'flushed'} 
+                                borderBottomColor='orange' 
+                                isRequired
+                                width={'60%'} 
+                                mr={0} ml='auto'
+                                id='Camp'
+                                name='Camp'
+                                value={selectedCamp}
+                                onChange={e => setSelectedCamp(e.target.value)}>
+                                    
+                                    <option value="" disabled>
+                                        Select
+                                    </option>
+
+                                    {Array.isArray(campname) && campname.map((campname) => (  
+                                    <> 
+                                        <option value={campname}>{campname}</option>
+                        
+                                        </>
+                                    ))} 
+                        </Select>
+                    </FormControl>
+
+                    <FormControl mb={2} display={'flex'} alignItems='center'>
+                        <FormLabel htmlFor="Camp" fontWeight="bold" color="orange.500" mr={2} >Quiz No</FormLabel>
+                        <Input 
+                            textAlign={'center'}
+                            focusBorderColor='orange.700' 
+                            variant={'flushed'} 
+                            borderBottomColor='orange' 
+                            isRequired
+                            width={'60%'} 
+                            mr={0} ml='auto'
+                            id='quizno'
+                            name='quizno'
+                            onChange={e=>setQuizNo(e.target.value)}
+                            placeholder= "e.g Quiz 1"
+                        /> 
+
+                    </FormControl>
+
+                    <FormControl mb={2} display={'flex'} alignItems='center'>
+                        <FormLabel htmlFor="noOfQuestions" fontWeight="bold" color="orange.500" mr={2} >No of Questions</FormLabel>
+                        <Input type="number"
+                            textAlign={'center'}
+                            focusBorderColor='orange.700' 
+                            variant={'flushed'} 
+                            borderBottomColor='orange' 
+                            isRequired
+                            width={'60%'} 
+                            mr={0} ml='auto'
+                            id='noOfQuestions'
+                            name='noOfQuestions'
+                            onChange={handleChange}
+                            placeholder= "e.g 2"
+                            
+                        /> 
+
+                    </FormControl>
+
+                </Box>
+
+                <Button mt={4} type='submit' colorScheme='orange' variant='solid'>Proceed</Button>
+
+            </form>
+                
         </Box>
+
     )
 }
 

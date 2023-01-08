@@ -75,14 +75,14 @@ import {
     getAllAssignments();
     getCurentUser();
 
-   },[])
+   })
 
 
 
     return (
 
       <Box pt={0} px={0} mx='auto' textAlign={'center'} width={'100%'} backgroundColor='gray.100' borderRadius={30}>
-      <Box pt={4} pb={2}  >
+      <Box pt={4} pb={2} my={4}>
         <Heading mb={4} >
           View Assigments
         </Heading>

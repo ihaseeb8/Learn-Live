@@ -14,6 +14,7 @@ import ViewSubmittedAssignments from '../components/ViewSubmittedAssignment'
 import TeacherSingleViewAssignment from '../components/ViewSingleTeacherAssignment'
 import TeacherSingleViewSubmitAssignment from '../components/ViewSingleSubmittedAssignment'
 import TeacherSettings from '../components/TeacherSettings'
+import TeacherCalendar from '../components/TeacherCalendar'
 
 const TeacherDashboard = () => {
     
@@ -37,13 +38,14 @@ const TeacherDashboard = () => {
                     <Route path="uploadassignment" element={<TeacherUploadAssignment />} />
                     <Route path="viewassignments" element={<TeacherViewAssignments />} />
                     <Route path="account" element={<TeacherAccountDetails />} />
-                    <Route path="uploadquiz" element={<QuizQuesionsInfo />} />
+                    <Route path="uploadquiz" element={<QuizInfo />} />
                     <Route path="viewquizzes" element={<ViewQuizzes/>}/> 
                     <Route path="viewquiz" element={<ViewSingleQuiz/>}/>
                     <Route path="viewassignment" element={<TeacherSingleViewAssignment/>}/>
                     <Route path="viewsubmittedassignment" element={<ViewSubmittedAssignments/>}/>
                     <Route path="viewssubmitassignment" element={<TeacherSingleViewSubmitAssignment/>}/>
                     <Route path="settings" element={<TeacherSettings />}/>
+                    <Route path="calendar" element={<TeacherCalendar />} />
                                      
                 </Routes>       
             </Flex>

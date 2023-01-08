@@ -121,7 +121,7 @@ function TeacherUploadAssignment() {
 
      
 
-    <Box pt={4} pb={2}  >
+    <Box pt={4} pb={2} mt={4} >
       <Heading mb={4} >
         Upload Assignment
       </Heading>

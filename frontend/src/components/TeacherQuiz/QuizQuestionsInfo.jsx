@@ -16,6 +16,7 @@ import {
 const QuizQuesionsInfo =(props) =>
 {
     //const [ questions, setQuestions] = useState([]);
+   
     const [options, setOptions] = useState([]);
     const [answers, setAnswers]= useState([]);
     const [submitStatus , setSubmitStatus] = useState(0);
@@ -29,6 +30,17 @@ const QuizQuesionsInfo =(props) =>
     const[questions, setQuestions] = useState(allNewQuestions())
     const navigate = useNavigate();
 
+    const Back = ()=>
+    {
+     
+        // setDetails({
+        //     noOfQuestions: 1,
+        //     isMade: false,
+        // });
+
+        // console.log(details.isMade)
+      
+    }
     
 
     function allNewQuestions(){
@@ -74,6 +86,9 @@ const QuizQuesionsInfo =(props) =>
             }
         })
     }
+
+
+   
 
     useEffect(()=>
     {
@@ -142,7 +157,7 @@ const QuizQuesionsInfo =(props) =>
           return (
             <Alert status='success'>
             <AlertIcon />
-           Quiz was created!
+           Quiz was created Successfully!
           </Alert>
           );
       };
@@ -167,51 +182,63 @@ const QuizQuesionsInfo =(props) =>
             details.isMade ? 
             <QuizQuesionsInfo noOfQuestions={details.noOfQuestions}/>
             :
-    //         <Box width="40%" mt={8} mx="auto" textAlign={"center"}>
-    //              <Text as="h1" my={4} align={"center"} fontWeight="bold" fontSize={30}>Upload Quiz</Text>
-    //              <Text as="h2" mt={2} fontSize={18}> Please Fill Out Details</Text>
-    //              <FormLabel htmlFor="title" fontWeight="bold" color="orange.600" >Camp</FormLabel>
-    //      <Select
-    //      color="orange.600"
-    //      placeholder='Camp Names' value={selectedCamp}
-    //      onChange={e => setSelectedCamp(e.target.value)}>
-    //          {Array.isArray(campname) && campname.map((campname) => (  
-    //          <> 
-    //    <option value={campname}>{campname}</option>
-  
-    //  </>
-    //   ))} 
-    //               </Select>
-    //              <Text as="h4" mt={4}> Quiz No</Text>
-    //            <Input
-    //           onChange={e=>setQuizNo(e.target.value)}
-    //            id='quizno' name='quizno' label='quizno'
-    //       variant='filled'
-    //           placeholder= "e.g Quiz 1"
-    //               required
-    //      />  
-    //              <Flex flexDirection={"column"} my={6} gap={1}>
-    //                  <Text as="h4" mt={4}> Enter the number of Questions</Text>
-    //                  <Input type="number" name="noOfQuestions" value={details.noOfQuestions} 
-    //                   onChange={handleChange2}
-    //                  />
-    //                  <Button  onClick={makeQuiz}>Proceed</Button>
-    //              </Flex>
-                
-             
-        
+            <Box pt={0} px={0} mx='auto' textAlign={'center'} width={'100%'} backgroundColor='gray.100' borderRadius={30}>
+                <Box pt={4} pb={2} mt={4}  >
+                    <Heading mb={4} >
+                    Upload Quiz
+                    </Heading>
+                    <Text>
+                    Please Fill Out Details 
+                    </Text>
+                </Box>
 
-        <Box width="100%" height={"90vh"} px={26} mt={8} mx={"auto"}  display="flex" flexDir={"column"} overflowX="hidden">
-            <Text my={4} align={"center"} fontWeight="bold" fontSize={30}>Quiz Questions Details</Text>
-            
-                {questionElements}
-                <Button onClick={createQuiz} display={"table-column"} type="submit" colorScheme={"orange"} mt={4} p="auto" ml="auto" mr="auto"> Create
-                 </Button>
+                <form onSubmit={createQuiz}>
+
+                    <Flex maxW='4xl' mx="auto" flexDirection={'column'}>
+
+
+                        <Flex border={'1px solid orange'} 
+                            gap={2} 
+                            justifyContent='space-around' 
+                            height='50vh' borderRadius='10px' 
+                            p={4} flexWrap='wrap' 
+                            overflowY='scroll'
+                            sx={{
+                                '&::-webkit-scrollbar': {
+                                width: '16px',
+                                borderRadius: '8px',
+                                backgroundColor: 'white',
+                                },
+                                '&::-webkit-scrollbar-thumb': {
+                                backgroundColor: `orange.500`,
+                                borderRadius: '8px',
+                                },
+                            }}>
+
+                        {questionElements}
+
+                        </Flex>
+                    </Flex>
+
+                    <Button mt={4} mx={2} type='submit' colorScheme='orange' variant='solid'> 
+                        Create
+                    </Button>
+
+                    {/* <Button mt={4} mx={2} onClick={Back} type='button'  colorScheme='orange' variant='solid' display={'inline'}> 
+                        Back
+                    </Button> */}
+
+                </form>
+
+                    
                 
-                <StatusAlert />
-            
-        </Box>
-       // </Box>
+                <Box width={'30%'} m={2} mx='auto'>
+                    <StatusAlert />
+                </Box>
+                
+                
+            </Box>
+
     )
 }
 

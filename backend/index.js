@@ -136,14 +136,16 @@ app.post("/connectZoom", async(req,res) => {
         data: data
     };
 
-    var zoomRes = await axios(config)
+    const zoomRes = await axios(config)
         .then(function (response) {
             return response;
         })
         .catch(function (error) {
             return error;
         });
+
     console.log(zoomRes.data.access_token)
+
     const zoomUserRes = await fetch("https://api.zoom.us/v2/users/me", {
       method: "GET",
       headers: {

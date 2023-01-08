@@ -27,19 +27,17 @@ const AddQuiz= (req,res,next)=>
 
 }
 
-const AddQuizQuestions = (req,res,next)=>
-{
+const AddQuizQuestions = (req,res,next) => {
     const {questions} = req.body;
-        console.log(questions);
-        var x = req.query.id;
-        Quizzes.findByIdAndUpdate(req.params.id, {$push: {questions:questions}}).exec((err, result) => {
-       // Quizzes.findOneAndUpdate(req.params.id, {$push: {questions:questions}}).exec((err, result) => {
-            if(err) res.status(500).send({message: err.message});
-            else {
-                console.log("Added Questions!");
-                res.status(200).send(result);
-            }
-        }) 
+    const quizId = req.params.id;
+  
+    Quizzes.findByIdAndUpdate({_id: quizId}, {questions: questions}).exec((err, result) => {
+      if(err) res.status(500).send({message: err.message});
+      else {
+        console.log("Added Questions!");
+        res.status(200).send(result);
+           }
+      })
 }
 
 const GetQuizzes = (req,res,next)=>

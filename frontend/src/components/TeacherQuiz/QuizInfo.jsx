@@ -68,7 +68,7 @@ const QuizInfo = () => {
           getCurentUser();
           getCurrentCampName(userID);
     
-        }, [])
+        })
 
 
     function makeQuiz(){

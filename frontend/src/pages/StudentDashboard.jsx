@@ -10,6 +10,7 @@ import StudentSettings from '../components/StudentSettings'
 import StudentCalendar from '../components/StudentCalendar'
 import ViewQuizzes from '../components/StudentViewQuizzes'
 import StudentAttemptQuiz from '../components/StudentAttemptQuiz'
+import StudentQuizResult from '../components/StudentQuizResult'
 
 
 const StudentDashboard = () => {
@@ -36,6 +37,7 @@ const StudentDashboard = () => {
                     <Route path="assignments" element={<ViewAssignments />} />
                     <Route path="quizzes" element={<ViewQuizzes />} />
                     <Route path="attemptquiz" element={<StudentAttemptQuiz/>}/>
+                    <Route path="quizresult" element={<StudentQuizResult />} />
                     <Route path="viewassignment" element={<StudentSingleViewAssignment/>}/>
                     <Route path="calendar" element={<StudentCalendar />}/>
                     <Route path="settings" element={<StudentSettings />} />

@@ -106,13 +106,13 @@ import {
               Camp: {quiz.campname}
               </Text> 
               <Text>
-              Quiz No: {quiz.quizno}
+              Name: {quiz.quizno}
               </Text>
             </Box>
             
             <Flex flexDir={'column'} justifyContent='center'>
                 <Button  onClick={()=>handleSubmitView(quiz._id)} colorScheme='orange' variant='ghost'>
-                  <i class="fa-solid fa-eye"></i>
+                  <i class="fa-solid fa-arrow-right-long"></i>
                 </Button>
 
             </Flex>

@@ -1,137 +1,22 @@
-import { useState, useEffect } from "react"
-import { Box,Button, Text,FormControl, FormLabel, Input, Select, Textarea, Heading, Flex, Divider} from "@chakra-ui/react";
-import axios from "axios"
-import { useNavigate, useParams, Link} from "react-router-dom";
+import React from 'react'
+import { Box, Heading, Text, Link, Flex, Textarea, FormLabel, Input, Select, Divider, Button} from '@chakra-ui/react'
+import { useLocation, useParams } from 'react-router-dom'
+
+const StudentQuizResult = () => {
+
+    const {questions, nofquestions, teacher, campname, score, selectedOptions} = useLocation().state;
 
 
-import {
-    Alert,
-    AlertIcon,
-    AlertTitle,
-    AlertDescription,
-  } from '@chakra-ui/react'
-  import { useDisclosure } from '@chakra-ui/react'
-
-
-  const StudentAttemptQuiz = ()=>
-  {
-
-    const navigate = useNavigate();
-    const [quizzes , setQuizzes] = useState([]);
-    const [questions , setQuestions] = useState([]);
-    const [teacher , setTeacher] =useState('');
-    const [nofquestions , setNofQuestions] = useState('');
-    const [campname , setCampName] = useState("");
-    
-    // ---------------------------------------------------------------------------------------------
-    const [selectedOptions, setSelectedOptions] = useState([]);
-
-
-    const allNewSelectedOptions = () => {
-      const newOptions = [];
-
-      for (let i = 0; i < nofquestions; i++) {
-        newOptions.push({
-          id: i + 1,
-          selectedOption: '',
-        });
-      }
-        return newOptions;
-    };
-
-
-    function handleChange(questiondId,event){
-      const { name, value } = event.target;
-
-      setSelectedOptions( oldOptions => oldOptions.map(
-          option => option.id == questiondId ? {...option, selectedOption: value} : option
-      ))
-    
-    }
-
-    function submitQuiz(){
-
-      // console.log(selectedOptions)
-
-      let score = 0;
-
-
-      for(let i = 0 ; i < questions.length; i++){
-          if(questions[i].correctOption == selectedOptions[i].selectedOption)
-          {
-              score++
-             
-          }
-      }
-
-    
-
-      //console.log('score : ' , score)
-      
-      navigate('/student/quizresult', {state: {questions, nofquestions, teacher, campname, score, selectedOptions}})
-
-      //console.log(selectedOptions)
-      //setResultMarks(score)
-      //setQuizSubmitted(true)
-      //console.log(resultElements)
-      }
-    
-    // -----------------------------------------------------------------------------------------------------
-
-    const getSingleUser = () =>
-    {
-      axios
-        .get('http://localhost:5000/quizzes/getquiz/:',{params : {id: localStorage.getItem('quiz_viewid')}})
-        .then((res) => {
-          console.log(res.data);
-          setCampName(res.data.campname);
-          setTeacher(res.data.teacher);
-          setNofQuestions(res.data.nofquestions);
-          setQuestions(res.data.questions);
-          //console.log(questions);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-
-
-    useEffect(()=>
-    {
-        getSingleUser();
-        
-    },[])
-
-    useEffect(() =>{
-      setSelectedOptions(allNewSelectedOptions())
-    }, [questions])
-
-    
-
-    const Back = ()=>
-    {
-      navigate("/student/quizzes");
-    }
-
-
-
-    //console.log(questions);
-    //console.log(selectedOptions)
-    
-
-
-    
-
-  //setSelectedOptions(allNewSelectedOptions());
-
-
-    return (
+  return (
 
     <Box pt={0} px={0} mx='auto' textAlign={'center'} width={'100%'} backgroundColor='gray.100' borderRadius={30}>
-      <Box pt={4} pb={2} mt={4} >
+      <Box pt={4} pb={2} mt={4}  >
         <Heading mb={4} >
-          Attempt Quiz
+          Quiz Result 
         </Heading>
+        <Text mb={6}>
+          This page displays your quiz results. 
+        </Text>
       </Box>
 
       <Flex maxW='2xl' mx="auto" justifyContent={'center'} gap={4} p={4} >
@@ -143,6 +28,9 @@ import {
               </Text> 
               <Text>
               Questions : <Text color={'orange.800'} display={'inline'}> {nofquestions} </Text> 
+              </Text>
+              <Text>
+              Score : <Text color={'orange.800'} display={'inline'}> {score} </Text> 
               </Text>
       </Flex>
 
@@ -170,7 +58,6 @@ import {
               }}>
 
         
-
             {questions.map((question,index) => (  
               
            
@@ -180,7 +67,7 @@ import {
                           focusBorderColor='orange.700' 
                           variant={'outline'} 
                           borderColor='orange' 
-                          ml={4} 
+                          ml={4}
                           marginBottom={4} 
                           height={24} 
                           key={index} 
@@ -199,7 +86,12 @@ import {
                                     type="text"
                                     id="optionA" 
                                     name="optionA" 
-                                    value={question.optionA} />
+                                    value={question.optionA} 
+                                    backgroundColor={selectedOptions[index].selectedOption == 'A' ?
+                                                     question.correctOption =='A' ? 'lightgreen' : 'red.400' : ' ' }
+                                                        
+                                                      
+                            />
                         </Box>
 
                         <Box display={"flex"} p={1}>
@@ -212,7 +104,9 @@ import {
                                     type="text" 
                                     id="optionB" 
                                     name="optionB" 
-                                    value={question.optionB} 
+                                    value={question.optionB}
+                                    backgroundColor={selectedOptions[index].selectedOption == 'B' ?
+                                                     question.correctOption =='B' ? 'lightgreen' : 'red.400' : ' ' }
                             />
                         </Box>
 
@@ -227,6 +121,8 @@ import {
                                     id="optionC" 
                                     name="optionC"   
                                     value={question.optionC} 
+                                    backgroundColor={selectedOptions[index].selectedOption == 'C' ?
+                                                     question.correctOption =='C' ? 'lightgreen' : 'red.400' : ' ' }
                             />
                         </Box>
 
@@ -240,30 +136,28 @@ import {
                                     type="text" 
                                     id="optionD" 
                                     name="optionD" 
-                                    value={question.optionD} 
+                                    value={question.optionD}
+                                    backgroundColor={selectedOptions[index].selectedOption == 'D' ?
+                                                     question.correctOption =='D' ? 'lightgreen' : 'red.400' : ' ' } 
                             />
                         </Box>
 
                     </Box>
 
                     <Box display={"flex"} p={4} justifyContent='center' alignItems={'center'} >
-                        <FormLabel pr={2} htmlFor="correctOption">Correct Option </FormLabel>
-                        <Select
+                        <FormLabel pt={2} pr={2} htmlFor="correctOption">Correct Option </FormLabel>
+                        <Input  isReadOnly
+                                textAlign={'center'}
                                 focusBorderColor='orange.700' 
                                 variant={'outline'} 
                                 borderColor='orange'
-                                width="20%"
-                                id="correctOption"
-                                name={'selectedOption'}
-                                defaultValue={''}
-                                onChange={(event) => handleChange(question.id, event)}                     
-                        >
-                            <option value="" disabled>Select</option>
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                            <option value="D">D</option>
-                        </Select>
+                                type="text" 
+                                width="50px"
+                                id="correctOption" 
+                                name="correctOption"
+                                value={question.correctOption} 
+                            />
+
 
                     </Box>
 
@@ -277,21 +171,21 @@ import {
         </Flex>
       </Flex>
 
-      <Button mt={2} onClick={submitQuiz} mx={4} type='button'  colorScheme='orange' variant='solid' >
+      {/* <Button mt={2} onClick={submitQuiz} mx={4} type='button'  colorScheme='orange' variant='solid' >
                           Submit 
       </Button>
 
       <Link to='/student/quizresult' state={{ from: "occupation" }}>
         
-      </Link>
+      </Link> */}
 
-      <Button mt={2} mx={4} onClick={Back} type='button'  colorScheme='orange' variant='solid' >
+      {/* <Button mt={2} mx={4} onClick={Back} type='button'  colorScheme='orange' variant='solid' >
             Back 
-      </Button>
+      </Button> */}
+
 
     </Box>
+  )
+}
 
-    )
-  }
-
-  export default  StudentAttemptQuiz;
+export default StudentQuizResult

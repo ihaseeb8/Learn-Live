@@ -54,7 +54,7 @@ export default function StudentSidebar({navSize, changeNavSize}) {
     useEffect(()=>
     {
         getCuurentUser();
-    })
+    }, [])
 
     return (
         <Flex

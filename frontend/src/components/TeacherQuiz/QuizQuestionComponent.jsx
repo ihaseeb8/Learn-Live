@@ -66,7 +66,7 @@ function QuizQuestionComponent(props){
                         <Box display={"flex"} p={1}>
                             <FormControl>
                                 <FormLabel margin={"auto"} pr={2} htmlFor="optionC">c: </FormLabel>
-                                <Input  value={props.optionB} 
+                                <Input  value={props.optionC} 
                                         onChange={props.onChange}
                                         focusBorderColor='orange.700' 
                                         variant={'outline'} 
@@ -82,7 +82,7 @@ function QuizQuestionComponent(props){
                         <Box display={"flex"} p={1}>
                             <FormControl>
                                 <FormLabel margin={"auto"} pr={2} htmlFor="optionD">d: </FormLabel>
-                                <Input  value={props.optionB} 
+                                <Input  value={props.optionD} 
                                         onChange={props.onChange}
                                         focusBorderColor='orange.700' 
                                         variant={'outline'} 

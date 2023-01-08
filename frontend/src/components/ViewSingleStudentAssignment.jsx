@@ -1,4 +1,4 @@
-import { Grid, Box,Button, Input, Text } from "@chakra-ui/react";
+import { Grid, Box,Button, Input, Text, Heading, Flex, FormControl, FormLabel} from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams} from "react-router-dom";
@@ -103,46 +103,96 @@ const StudentSingleViewAssignment=()=>
     }
 
   return (
-        <Box width="80%" mt={8}  mx={"auto"}>
-        <Text my={4} align={"center"} fontWeight="bold" fontSize={30}>Assignment</Text>
-            {/* <Grid templateColumns="repeat(3, 1fr)" gap={10} overflow="scroll" height="80%" > */}
-            <Text >
-                   Campname: {campname}
-                </Text>
-            <Text >
-                   Title: {title}
-                </Text>
-                <Text> Description: {description}</Text>
-                <Text>Total Marks: {tmarks}</Text>
-                <Text>Due Date: {duedate}</Text>
-            {uplassign.map((assign,index) => (
-                <Box p={5} shadow="md" borderWidth="1px" margin={2} marginBottom={10}>
+
+        <Box pt={0} px={0} mx='auto' textAlign={'center'} width={'100%'} backgroundColor='gray.100' borderRadius={30}>
+          <Box pt={4} pb={2} mt={4} >
+            <Heading mb={2} >
+              Assignment Details
+            </Heading>
+          </Box>
+
+          <Flex maxW='2xl' mx="auto" justifyContent={'center'} gap={4} p={1} > 
+                  <Text>
+                    Camp: <Text color={'orange.800'} display={'inline'}> {campname} </Text> 
+                  </Text> 
+                  <Text>
+                    Marks : <Text color={'orange.800'} display={'inline'}> {tmarks} </Text> 
+                  </Text>
+                  <Text>
+                    Due Date : <Text color={'orange.800'} display={'inline'}> {duedate} </Text> 
+                  </Text>
+          </Flex>
+
+          <Flex maxW='2xl' mx="auto" justifyContent={'center'} pb={2} > 
+                  <Text>
+                    Description: <Text color={'orange.800'} display={'inline'}> {description} </Text> 
+                  </Text> 
+          </Flex>
+
+          <Flex wrap="wrap" 
+                overflowY="scroll"
+                width='80%'
+                mx='auto' 
+                height="sm" 
+                border='1px solid orange'
+                borderRadius='10px'
+                gap={4} 
+                justifyContent={'space-around'} 
+                p={4}
+                sx={{
+                  '&::-webkit-scrollbar': {
+                    width: '16px',
+                    borderRadius: '8px',
+                    backgroundColor: 'white',
+                  },
+                  '&::-webkit-scrollbar-thumb': {
+                    backgroundColor: `orange.500`,
+                    borderRadius: '8px',
+                  },
+                }}>
                 
-                <iframe
-                    src={uplassign[index]}
-                    style={{
-                      height: "200px",
-                      width: "400px",
-                      class: "center",
-                      borderRadous: "50%",
-                    }}
-                  />
+                  {uplassign.map((assign,index) => (
+    
+                      <iframe
+                          src={uplassign[index]}
+                          style={{
+                            height: "90%",
+                            padding: '10px',
+                            width: "100%",
+                            border: '1px dashed orange',
+                            class: "center",
+                            mx: 'auto',
+                            borderRadius: "10px",
+                          }}
+                        />
+
+                  ))} 
+        
+          </Flex>
+
                   
-                
-                </Box>
-            ))} 
-            
-            <Input
-           type="file"
-           multiple
-           accept="application/pdf , image/png "
-           onChange={onSelectFile}
-           name="uplassign"
-            borderColor="orange.500"
-            focusBorderColor="orange.600"
-      
-            />
-            {
+          <form onSubmit={SubmitAssignment}>
+
+            <FormControl display='flex' maxW='2xl' mx="auto"  alignItems='center' my={4}>
+              <FormLabel fontWeight="bold" color="orange.500" mr={2}>Submission Files</FormLabel>
+              <Input
+                focusBorderColor='orange.700' 
+                variant={'flushed'} 
+                borderBottomColor='orange'
+                type="file"
+                multiple
+                accept="application/pdf , image/png "
+                onChange={onSelectFile}
+                name="uplassign"
+                isRequired
+                width={'50%'} 
+                mr={0} ml='auto'
+                />
+
+            </FormControl>
+
+              {/* Users Files Preview */}
+              {/* {
               selected.map((file, index) => {
                 return (
                   <iframe
@@ -155,28 +205,19 @@ const StudentSingleViewAssignment=()=>
                     }}
                   />
                 );
-              })}
-             <Button  onClick={SubmitAssignment}
-      style={{
-        position: 'absolute',
-        right: 200,
-        bottom:30,
-      }}
-      colorScheme='teal' variant='solid'>
-  Submit
-  </Button>
+              })} */}
+            
+            <Button mx={4} type='submit' colorScheme='orange' variant='solid'>
+                Submit
+            </Button>
 
-                    <Button  onClick={Back}
-      style={{
-        position: 'absolute',
-        right: 30,
-        bottom:30,
-      }}
-      colorScheme='teal' variant='solid'>
-  Back
-  </Button>
-            {/* </Grid> */}
-        </Box>
+            <Button mx={4} onClick={Back} type='button' colorScheme='orange' variant='outline'>
+                Back
+            </Button>
+          
+          </form>
+
+      </Box>
   );
 }
 

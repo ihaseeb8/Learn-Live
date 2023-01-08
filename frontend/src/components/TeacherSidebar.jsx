@@ -65,13 +65,13 @@ export default function TeacherSidebar({navSize, changeNavSize}) {
 
     return (
         <Flex
-        pos="sticky"
-        left="5"
-        m={0}
-        w={navSize == "small" ? "75px" : "20%"}
-        flexDir="column"     
-        justifyContent={'center'}
-        position='relative'>
+            pos="sticky"
+            left="5"
+            m={0}
+            w={navSize == "small" ? "75px" : "20%"}
+            flexDir="column"     
+            justifyContent={'center'}
+            position='relative'>
 
             <IconButton
                 background="none"

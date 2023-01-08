@@ -21,7 +21,7 @@ import {
 
 
 
-  const ViewAssignments = ()=>
+  const ViewQuizzes = ()=>
   {
 
     const [assignments , setAssignments] = useState([]);
@@ -66,13 +66,13 @@ import {
       <Box pt={0} px={0} mx='auto' textAlign={'center'} width={'100%'} backgroundColor='gray.100' borderRadius={30}>
       <Box pt={4} pb={2} my={4}>
         <Heading mb={4} >
-          View Assigments
+          View Quizzes
         </Heading>
       </Box>
 
       <Flex maxW='2xl' mx="auto" flexDirection={'column'}>
-        <Flex p={4} pt={0}>
-          <Input placeholder="Assigment's Name" variant={'outlined'} borderColor='orange'></Input>
+        <Flex p={4} pt={0} gap={2}>
+          <Input placeholder="Quiz Name" variant={'outlined'} borderColor='orange'></Input>
           <Button colorScheme={'orange'}>Search</Button>
         </Flex>
 
@@ -129,4 +129,4 @@ import {
     )
   }
 
-  export default ViewAssignments;
+  export default ViewQuizzes;

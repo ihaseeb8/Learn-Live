@@ -57,6 +57,7 @@ router.post('/uploadassigns',  upload.array('uplassign',4),async (req,res,next) 
           title: req.body.title,
           description: req.body.description,
           tmarks:req.body.tmarks,
+          uploadeddate:req.body.uploadeddate,
           duedate:req.body.duedate,
            uplassign:reqFiles,
            teacher: req.body.teacher,  

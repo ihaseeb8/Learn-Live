@@ -10,6 +10,7 @@ const TeacherSingleViewAssignment=()=>
     const [title , setTitle] = useState("");
     const [description , setDescription]= useState("");
     const [tmarks , setTMarks] = useState("");
+    const [uploadeddate , setUploadedDate] = useState("");
     const [duedate , setDate] = useState("");
     const[uplassign, setUplAssign] = useState([]);
     const [assignments, setAssignments] = useState([]);
@@ -26,6 +27,7 @@ const TeacherSingleViewAssignment=()=>
           
           setDescription(res.data.description);
           setTMarks(res.data.tmarks);
+          setUploadedDate(res.data.uploadeddate);
           setDate(res.data.duedate);
           setUplAssign(res.data.uplassign);
           console.log(uplassign);
@@ -67,7 +69,9 @@ const TeacherSingleViewAssignment=()=>
                 </Text>
                 <Text> Description: {description}</Text>
                 <Text>Total Marks: {tmarks}</Text>
+                <Text>Uploaded Date: {uploadeddate}</Text>
                 <Text>Due Date: {duedate}</Text>
+                
             {uplassign.map((assign,index) => (
                 <Box p={5} shadow="md" borderWidth="1px" margin={2} marginBottom={10}>
                 

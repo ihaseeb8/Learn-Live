@@ -2,9 +2,11 @@ import { Grid,Select, Box, FormControl, FormLabel, Input, Text, FormErrorMessage
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 //import DatePicker from "react-datepicker"
 //import 'react-datepicker/dist/react-datepicker.css';
-//import { DatePicker } from '@chakra-ui/react';
+//import  DatePicker  from '@chakra-ui/react';
 
 function TeacherUploadAssignment() {
   const [userID , setUserID] = useState("");
@@ -13,7 +15,9 @@ function TeacherUploadAssignment() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [tmarks, setTMarks] = useState("");
-  const [dueDate, setDueDate] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
+  const [dueDate, setDueDate] = useState(new Date());
+  const [ uploadeddate, setUploadedDate] = useState(new Date())
   const [pdf, setPdf] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -85,7 +89,7 @@ function TeacherUploadAssignment() {
     //   minute: '2-digit',
     //   second: '2-digit'
     //   }).format(parsedDueDate);
-  
+      formData.append("uploadeddate", uploadeddate)
       formData.append("duedate", dueDate);
 
 
@@ -216,9 +220,36 @@ function TeacherUploadAssignment() {
             mr={0} ml='auto'
             />
         </FormControl>
-
+        <FormControl mb={2} display={'flex'} alignItems='center'>
+          <FormLabel htmlFor="dueDate" fontWeight="bold" color="orange.500" mr={2}>Uploaded Date</FormLabel>
+          <Input
+          id="uploadeddate"
+          name='uploadeddate'
+          label="Date"
+          type="date"
+          textAlign={'center'}
+          focusBorderColor='orange.700' 
+          variant={'flushed'} 
+          borderBottomColor='orange'
+          onChange = {e=>setUploadedDate(e.target.value)}
+          isRequired
+          width={'60%'} 
+          mr={0} ml='auto'
+          />
+        </FormControl>
         <FormControl mb={2} display={'flex'} alignItems='center'>
           <FormLabel htmlFor="dueDate" fontWeight="bold" color="orange.500" mr={2}>Due Date</FormLabel>
+          {/* <DatePicker 
+          textAlign={'center'}
+          focusBorderColor='orange.700' 
+          variant={'flushed'} 
+          borderBottomColor='orange'
+          selected={dueDate}
+          onChange={setDueDate}
+          isRequired
+          width={'60%'} 
+          mr={0} ml='auto'
+           /> */}
           <Input
           id="dueDate"
           name='dueDate'

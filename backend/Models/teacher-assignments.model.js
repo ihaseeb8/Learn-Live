@@ -22,6 +22,10 @@ const teacherAssignmentsSchema = new moongose.Schema({
         type: Number
     },
 
+    uploadeddate:{
+        type: Date
+    },
+
     duedate: {
         type: Date
     },

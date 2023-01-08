@@ -55,9 +55,11 @@ import { useDisclosure } from '@chakra-ui/react'
 
     const DeleteTeacher=(teacher_id)=>
     {
-    
       localStorage.setItem('teacher_id',teacher_id)
-      axios.delete('http://localhost:5000/teacher/deleteteacher/',{params : {id:localStorage.getItem('teacher_id')}})
+      console.log(`id: ${localStorage.getItem('teacher_id')}`)
+      //localStorage.setItem('teacher_id',teacher_id)
+     // axios.delete(`http://localhost:5000/teacher/deleteteacher/${localStorage.removeItem('teacher_id')}`)
+      axios.delete('http://localhost:5000/teacher/deleteteacher/:',{params : {id:localStorage.removeItem('teacher_id')}})
       .then((res) => {
         //window.alert("Delete Successfull!")
     }).catch((error) => {
@@ -116,7 +118,7 @@ import { useDisclosure } from '@chakra-ui/react'
                     <i class="fa-solid fa-pen-to-square"></i>
                   </Button>
 
-                  <Button  onClick={onOpen} colorScheme='orange' variant='ghost'>
+                  <Button  onClick={()=>onOpen(teacher._id)} colorScheme='orange' variant='ghost'>
                     <i class="fa-solid fa-trash"></i>
                   </Button>
 
@@ -158,7 +160,7 @@ import { useDisclosure } from '@chakra-ui/react'
                           <Button ref={cancelRef} onClick={onClose}>
                             Cancel
                           </Button>
-                          <Button colorScheme='red' onClick={()=>DeleteTeacher(teachers._id)} ml={3}>
+                          <Button colorScheme='red' onClick={DeleteTeacher} ml={3}>
                             Delete
                           </Button>
                         </AlertDialogFooter>

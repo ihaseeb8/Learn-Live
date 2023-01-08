@@ -15,6 +15,8 @@ import TeacherSingleViewAssignment from '../components/ViewSingleTeacherAssignme
 import TeacherSingleViewSubmitAssignment from '../components/ViewSingleSubmittedAssignment'
 import TeacherSettings from '../components/TeacherSettings'
 import TeacherCalendar from '../components/TeacherCalendar'
+import MakeMeet from '../components/ZoomComponents/makeMeet'
+import CallBack from '../components/ZoomComponents/CallBack'
 
 const TeacherDashboard = () => {
     
@@ -46,6 +48,8 @@ const TeacherDashboard = () => {
                     <Route path="viewssubmitassignment" element={<TeacherSingleViewSubmitAssignment/>}/>
                     <Route path="settings" element={<TeacherSettings />}/>
                     <Route path="calendar" element={<TeacherCalendar />} />
+                    <Route path="createclass" element={<MakeMeet/>}/>
+                    <Route path="oauth-callback" element = {<CallBack/>}/>
                                      
                 </Routes>       
             </Flex>

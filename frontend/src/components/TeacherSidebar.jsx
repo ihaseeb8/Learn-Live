@@ -103,6 +103,7 @@ export default function TeacherSidebar({navSize, changeNavSize}) {
                 <NavItem navSize={navSize} icon={'fa-solid fa-solid fa-boxes-stacked'} title="View Quizzes" active={route === "viewquizzes"} route="viewquizzes"/>
                 <NavItem navSize={navSize} icon={'fa-solid fa-calendar'} title="Calendar" active={route === "calendar"} route="calendar" />
                 <NavItem navSize={navSize} icon={'fa-solid fa-gear'} title="Settings" active={route === "settings"} route="settings" />
+                <NavItem navSize={navSize} icon={'fa-solid fa-gear'} title="Schedule Class" active={route === "createclass"} route="createclass" />
 
             </Flex>
 

@@ -58,7 +58,8 @@ import {
     {
       //console.log(userID)
     // localStorage.setItem('userID',userID)
-        axios.get(`http://localhost:5000/tchassignments/getcurrtchass/${localStorage.getItem('userID')}`) 
+    axios.get('http://localhost:5000/tchassignments/gettchassigns')
+        //axios.get(`http://localhost:5000/tchassignments/getcurrtchass/${localStorage.getItem('userID')}`) 
         .then(res=> {
            console.log(res.data)
           setAssignments(res.data)

@@ -2,7 +2,24 @@
 
 # Project Overview
 
-LearnLive is an online platform, with all the operations of having an online coding class, with live access to teachers for student’s code on their screen, chat for parents and teachers for uninterrupted and transparent communication, and LMS for sharing materials and developing lesson plans. It is an industry-funded project by WEEPRO CODERS. 
+LearnLive is a MERN stack-based online learning management system that enhances the coding education experience. It integrates a live code IDE, Zoom, and Discord for real-time communication between students, teachers, and parents. With built-in data analytics for performance tracking and an LMS for material sharing and lesson planning, LearnLive streamlines online coding classes and fosters seamless collaboration.This project was done in partnership with WEEPRO CODERS.
+
+# Main Features
+
+## Role Based Views
+![RBAC](https://media.licdn.com/dms/image/v2/D4D2DAQG-0lhiMFwCcw/profile-treasury-image-shrink_800_800/profile-treasury-image-shrink_800_800/0/1687944553268?e=1734462000&v=beta&t=hbCIlDS7t3TpMWSY-IF2IBdPRE4BFiGPTmYV3meOnac)
+
+## Integrated Zoom Meetings
+![Zoom Integration](https://media.licdn.com/dms/image/v2/D4D2DAQE1srN4cYlqbA/profile-treasury-image-shrink_800_800/profile-treasury-image-shrink_800_800/0/1687944515619?e=1734462000&v=beta&t=GqzZfiJ7GT1lsjlJGZI6xavYAbzw8U3RqCesCs8qa4U)
+
+## Auto Quiz Grading
+![Quiz Grading](https://media.licdn.com/dms/image/v2/D4D2DAQEHlIeAPt_Ihw/profile-treasury-image-shrink_800_800/profile-treasury-image-shrink_800_800/0/1687944258712?e=1734462000&v=beta&t=GpjNvtpSZi6BGJ7PGXDDOPj31Qm3HM3NqWNDTMFEvTw)
+
+## Real Time Collaborative Coding
+![Code IDE](https://media.licdn.com/dms/image/v2/D4D2DAQHXvqDPgIKk4g/profile-treasury-image-shrink_800_800/profile-treasury-image-shrink_800_800/0/1687943853177?e=1734465600&v=beta&t=9yBnNo4rmgXTnxgDPjGOrFDnwMpUm_6Y58dWVbkOjo8)
+
+## Discord Integration
+![Widget Bot](https://media.licdn.com/dms/image/v2/D4D2DAQE_zVkkR2xkIA/profile-treasury-image-shrink_800_800/profile-treasury-image-shrink_800_800/0/1687943776101?e=1734462000&v=beta&t=vZuEx3MpUApQ7HwA87Jkdm3buiOvsMDwDyHBgxEpkso)
 
 # How to run this project
 
@@ -25,6 +42,7 @@ Terminal 2:
 
 # Project features currently
 
+
 1. Ability to submit quizzes and assignments
 
 2. Multiple profiles
@@ -33,19 +51,16 @@ Terminal 2:
 
 4. Admin Panel
 
-5. Zoom Integration
+5. Make video calls using Zoom
 
 6. Control Panel
 
 7. Calendar
 
-# Github Commands
-git pull origin master
+8. Upload and take quizzes
 
-git checkout -b frontend-work // branch name
+10. Collaborative Coding
 
-git add .
+11. Certificate Generation
 
-git commit -m "Added log in and sign up page" // commit message
-
-git push origin frontend-work
+12. Chat and forums using Discord 
